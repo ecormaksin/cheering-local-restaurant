@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_J72akIW6Eeq6L_J7rHhq9g" name="cheering-local-restaurant">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_0cybgIW6Eeq6L_J7rHhq9g" annotatedElement="_g7iCYIW6Eeq6L_J7rHhq9g">
+    <body>店名、住所、電話番号、FAX番号、メールアドレス、定休日、外部リンク（公式ホームページ、SNS）、お店からのメッセージ、持ち帰り／配達、何日先までの注文を受け付けるか</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_V36ugIW7Eeq6L_J7rHhq9g" annotatedElement="_g7iCYIW6Eeq6L_J7rHhq9g _HAj4sIW7Eeq6L_J7rHhq9g">
+    <body>品名、価格、掲載期間</body>
+  </ownedComment>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_KLxs8IW6Eeq6L_J7rHhq9g">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_XQgHgIW6Eeq6L_J7rHhq9g" name="飲食店管理者"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_dOyD0IW6Eeq6L_J7rHhq9g" name="利用登録する"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_g7iCYIW6Eeq6L_J7rHhq9g" name="店舗情報を登録する"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_mVo6oIW6Eeq6L_J7rHhq9g"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_pJErkIW6Eeq6L_J7rHhq9g"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_HAj4sIW7Eeq6L_J7rHhq9g" name="メニューを登録する"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_PNjvUIW7Eeq6L_J7rHhq9g"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_0-XTkIYzEeq6L_J7rHhq9g" name="注文を受け付ける"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_4R7WEIYzEeq6L_J7rHhq9g" name="注文を完了する"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_HSz7UIY0Eeq6L_J7rHhq9g" name="注文をキャンセルする"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_cRmpcIY0Eeq6L_J7rHhq9g" memberEnd="_cRtXIIY0Eeq6L_J7rHhq9g _cRvMUIY0Eeq6L_J7rHhq9g">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cRrh8IY0Eeq6L_J7rHhq9g" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_cRrh8YY0Eeq6L_J7rHhq9g" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cRtXIIY0Eeq6L_J7rHhq9g" type="_XQgHgIW6Eeq6L_J7rHhq9g" association="_cRmpcIY0Eeq6L_J7rHhq9g"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_cRvMUIY0Eeq6L_J7rHhq9g" name="注文を受け付ける" type="_0-XTkIYzEeq6L_J7rHhq9g" association="_cRmpcIY0Eeq6L_J7rHhq9g"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_fPglAIY0Eeq6L_J7rHhq9g" memberEnd="_fPjBQYY0Eeq6L_J7rHhq9g _fPjoUIY0Eeq6L_J7rHhq9g">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_fPiaMIY0Eeq6L_J7rHhq9g" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_fPjBQIY0Eeq6L_J7rHhq9g" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_fPjBQYY0Eeq6L_J7rHhq9g" name="飲食店管理者" type="_XQgHgIW6Eeq6L_J7rHhq9g" association="_fPglAIY0Eeq6L_J7rHhq9g"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_fPjoUIY0Eeq6L_J7rHhq9g" name="注文を完了する" type="_4R7WEIYzEeq6L_J7rHhq9g" association="_fPglAIY0Eeq6L_J7rHhq9g"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_jC9BcIY0Eeq6L_J7rHhq9g" memberEnd="_jC-PkIY0Eeq6L_J7rHhq9g _jC-PkYY0Eeq6L_J7rHhq9g">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_jC9ogIY0Eeq6L_J7rHhq9g" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_jC9ogYY0Eeq6L_J7rHhq9g" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_jC-PkIY0Eeq6L_J7rHhq9g" name="注文をキャンセルする" type="_XQgHgIW6Eeq6L_J7rHhq9g" association="_jC9BcIY0Eeq6L_J7rHhq9g"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_jC-PkYY0Eeq6L_J7rHhq9g" type="_HSz7UIY0Eeq6L_J7rHhq9g" association="_jC9BcIY0Eeq6L_J7rHhq9g"/>
+  </packagedElement>
+</uml:Model>
