@@ -28,11 +28,16 @@
     <body>第1フェーズでは持ち帰りのみに対応する。
 （配達は個数や距離の条件が店舗によって変わるため。）</body>
   </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_JTtOMIe3EeqIIbs0U0wLQg" annotatedElement="_rmMZ4IddEeqIIbs0U0wLQg">
+    <body>- メールアドレス（ログインID）
+- 店名
+- パスワード</body>
+  </ownedComment>
   <packageImport xmi:type="uml:PackageImport" xmi:id="_KLxs8IW6Eeq6L_J7rHhq9g">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
   <packagedElement xmi:type="uml:Actor" xmi:id="_XQgHgIW6Eeq6L_J7rHhq9g" name="飲食店管理者"/>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_dOyD0IW6Eeq6L_J7rHhq9g" name="利用登録する"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_dOyD0IW6Eeq6L_J7rHhq9g" name="登録を認証する"/>
   <packagedElement xmi:type="uml:UseCase" xmi:id="_g7iCYIW6Eeq6L_J7rHhq9g" name="店舗情報を登録する">
     <ownedComment xmi:type="uml:Comment" xmi:id="_0cybgIW6Eeq6L_J7rHhq9g" annotatedElement="_g7iCYIW6Eeq6L_J7rHhq9g _wl4vwIeZEeqIIbs0U0wLQg">
       <body>- 店名
@@ -132,7 +137,7 @@
     <ownedEnd xmi:type="uml:Property" xmi:id="_3UEfQob6EeqIIbs0U0wLQg" name="メニューを登録する" type="_HAj4sIW7Eeq6L_J7rHhq9g" association="_3UDRIIb6EeqIIbs0U0wLQg"/>
     <ownedEnd xmi:type="uml:Property" xmi:id="_3UEfQ4b6EeqIIbs0U0wLQg" type="_yx7JwIb6EeqIIbs0U0wLQg" association="_3UDRIIb6EeqIIbs0U0wLQg"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_rmMZ4IddEeqIIbs0U0wLQg" name="利用申請する"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_rmMZ4IddEeqIIbs0U0wLQg" name="仮登録する"/>
   <packagedElement xmi:type="uml:Association" xmi:id="_J6fe0IdeEeqIIbs0U0wLQg" memberEnd="_J6gs8IdeEeqIIbs0U0wLQg _J6hUAIdeEeqIIbs0U0wLQg">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_J6gF4IdeEeqIIbs0U0wLQg" source="org.eclipse.papyrus">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_J6gF4YdeEeqIIbs0U0wLQg" key="nature" value="UML_Nature"/>

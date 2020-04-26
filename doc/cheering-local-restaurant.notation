@@ -43,6 +43,11 @@
       <element xmi:type="uml:UseCase" href="cheering-local-restaurant.uml#_rmMZ4IddEeqIIbs0U0wLQg"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rmNoAYddEeqIIbs0U0wLQg" x="220" y="20"/>
     </children>
+    <children xmi:type="notation:Shape" xmi:id="_JTxfoIe3EeqIIbs0U0wLQg" type="Comment_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_JTxfooe3EeqIIbs0U0wLQg" type="Comment_BodyLabel"/>
+      <element xmi:type="uml:Comment" href="cheering-local-restaurant.uml#_JTtOMIe3EeqIIbs0U0wLQg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JTxfoYe3EeqIIbs0U0wLQg" x="460" y="20"/>
+    </children>
     <styles xmi:type="notation:StringValueStyle" xmi:id="_U-fooYW6Eeq6L_J7rHhq9g" name="diagram_compatibility_version" stringValue="1.4.0"/>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_U-foooW6Eeq6L_J7rHhq9g"/>
     <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_U-foo4W6Eeq6L_J7rHhq9g" diagramKindId="org.eclipse.papyrus.uml.diagram.useCase">
@@ -76,6 +81,13 @@
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_J6jJModeEeqIIbs0U0wLQg" points="[80, 60, -643984, -643984]$[220, 50, -643984, -643984]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_J6uIUIdeEeqIIbs0U0wLQg" id="(1.0,0.4)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_J6uvYIdeEeqIIbs0U0wLQg" id="(0.0,0.5)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_TI7m4Ie3EeqIIbs0U0wLQg" type="Comment_AnnotatedElementEdge" source="_JTxfoIe3EeqIIbs0U0wLQg" target="_rmNoAIddEeqIIbs0U0wLQg">
+      <styles xmi:type="notation:FontStyle" xmi:id="_TI7m4Ye3EeqIIbs0U0wLQg"/>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_TI7m4oe3EeqIIbs0U0wLQg" points="[460, 60, -643984, -643984]$[360, 50, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_TNA1oIe3EeqIIbs0U0wLQg" id="(0.0,0.31746031746031744)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_TNA1oYe3EeqIIbs0U0wLQg" id="(1.0,0.5)"/>
     </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_WOfTYIbXEeqIIbs0U0wLQg" type="UseCase" name="02_飲食店情報登録" measurementUnit="Pixel">
