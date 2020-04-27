@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+	<title th:text="#{label.restaurant.temp.regist} + '−' + (${@environment.getProperty('LOCAL_NAME') == null}? '地元':${@environment.getProperty('LOCAL_NAME')}) + #{label.system.title}">飲食店仮登録 - 地元の飲食店 テイクアウト注文支援サービス</title>
+</head>
+<body>
+<div layout:fragment="content" class="col-sm-12">
+	<form th:action="@{/restaurants/temp_regist}" th:object="${restaurantTempRegistForm}" class="form-horizontal" method="post">
+		<fieldset>
+			<legend th:text="#{label.restaurant.temp.regist}">飲食店仮登録</legend>
+			<div class="offset-sm-1">
+				<div class="form-group form-row">
+					<label for="name" class="col-sm-1 col-form-label" th:text="#{label.restaurant.name}">店名</label>
+					<div class="col-sm-10">
+						<input type="text" id="name" name="name" 
+							th:field="*{name}" 
+							class="form-control" th:classappend="${#fields.hasErrors('name')}? 'is-invalid'" 
+							value="〇〇食堂"/>
+						<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback">error!</span>
+					</div>
+				</div>
+				<div class="form-group form-row">
+					<label for="mailAddress" class="col-sm-1 col-form-label" th:text="#{label.mailaddress}">メールアドレス</label>
+					<div class="col-sm-10">
+						<input type="text" id="mailAddress" name="mailAddress" 
+							th:field="*{mailAddress}" 
+							class="form-control" th:classappend="${#fields.hasErrors('mailAddress')}? 'is-invalid'" 
+							value="restaurant-admin@example.com"/>
+						<span th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}" class="invalid-feedback">error!</span>
+					</div>
+				</div>
+				<div class="form-group form-row">
+					<label for="password" class="col-sm-1 col-form-label" th:text="#{label.password}">パスワード</label>
+					<div class="col-sm-10">
+						<input type="password" id="password" name="password" 
+							th:field="*{password}" 
+							class="form-control" th:classappend="${#fields.hasErrors('password')}? 'is-invalid'"/>
+						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback">error!</span>
+					</div>
+				</div>
+				<div class="form-group form-row">
+					<label for="matchingPassword" class="col-sm-1 col-form-label" th:text="#{label.matchingPassword}">パスワード</label>
+					<div class="col-sm-10">
+						<input type="password" id="matchingPassword" name="matchingPassword" 
+							th:field="*{matchingPassword}"/>
+					</div>
+				</div>
+				<div class="form-group form-row">
+					<div class="offset-sm-1 col-sm-10">
+						<input type="submit" class="btn btn-primary" th:value="#{label.temp.regist}" value="仮登録"/>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+</body>
+</html>
