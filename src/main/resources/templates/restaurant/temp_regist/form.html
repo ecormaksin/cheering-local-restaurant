@@ -6,14 +6,14 @@
 	<title th:text="#{label.restaurant.temp.regist} + '−' + (${@environment.getProperty('LOCAL_NAME') == null}? '地元':${@environment.getProperty('LOCAL_NAME')}) + #{label.system.title}">飲食店仮登録 - 地元の飲食店 テイクアウト注文支援サービス</title>
 </head>
 <body>
-<div layout:fragment="content" class="col-sm-12">
-	<form th:action="@{/restaurants/temp_regist}" th:object="${restaurantTempRegistForm}" class="form-horizontal" method="post">
+<div layout:fragment="content" class="row justify-content-center offset-lg-1">
+	<form th:action="@{/restaurants/temp_regist}" th:object="${restaurantTempRegistForm}" class="form-horizontal col-8 col-lg-12" method="post">
 		<fieldset>
 			<legend th:text="#{label.restaurant.temp.regist}">飲食店仮登録</legend>
-			<div class="offset-sm-1">
+			<div class="offset-lg-1">
 				<div class="form-group form-row">
-					<label for="name" class="col-sm-1 col-form-label" th:text="#{label.restaurant.name}">店名</label>
-					<div class="col-sm-10">
+					<label for="name" class="col-lg-3 col-form-label" th:text="#{label.restaurant.name}">店名</label>
+					<div class="col-lg-5">
 						<input type="text" id="name" name="name" 
 							th:field="*{name}" 
 							class="form-control" th:classappend="${#fields.hasErrors('name')}? 'is-invalid'" 
@@ -22,18 +22,19 @@
 					</div>
 				</div>
 				<div class="form-group form-row">
-					<label for="mailAddress" class="col-sm-1 col-form-label" th:text="#{label.mailaddress}">メールアドレス</label>
-					<div class="col-sm-10">
+					<label for="mailAddress" class="col-lg-3 col-form-label" th:text="#{label.mailaddress}">メールアドレス</label>
+					<div class="col-lg-5">
 						<input type="text" id="mailAddress" name="mailAddress" 
 							th:field="*{mailAddress}" 
 							class="form-control" th:classappend="${#fields.hasErrors('mailAddress')}? 'is-invalid'" 
 							value="restaurant-admin@example.com"/>
 						<span th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}" class="invalid-feedback">error!</span>
+						<div><small th:text="#{guidance.restaurant.mailaddress}">※このメールアドレスにお客さんからの注文情報が届きます。</small></div>
 					</div>
 				</div>
 				<div class="form-group form-row">
-					<label for="password" class="col-sm-1 col-form-label" th:text="#{label.password}">パスワード</label>
-					<div class="col-sm-10">
+					<label for="password" class="col-lg-3 col-form-label" th:text="#{label.password}">パスワード</label>
+					<div class="col-lg-3">
 						<input type="password" id="password" name="password" 
 							th:field="*{password}" 
 							class="form-control" th:classappend="${#fields.hasErrors('password')}? 'is-invalid'"/>
@@ -41,15 +42,26 @@
 					</div>
 				</div>
 				<div class="form-group form-row">
-					<label for="matchingPassword" class="col-sm-1 col-form-label" th:text="#{label.matchingPassword}">パスワード</label>
-					<div class="col-sm-10">
+					<label for="matchingPassword" class="col-lg-3 col-form-label" th:text="#{label.matchingPassword}">パスワード</label>
+					<div class="col-lg-3">
 						<input type="password" id="matchingPassword" name="matchingPassword" 
-							th:field="*{matchingPassword}"/>
+							th:field="*{matchingPassword}" 
+							class="form-control"/>
 					</div>
 				</div>
 				<div class="form-group form-row">
-					<div class="offset-sm-1 col-sm-10">
-						<input type="submit" class="btn btn-primary" th:value="#{label.temp.regist}" value="仮登録"/>
+					<label class="col-12 col-form-label" th:text="#{label.terms_of_service}">利用規約</label>
+					<div class="col-12">
+						<div class="overflow-auto bg-light" thex:textbr="#{guidance.terms_of_service}" style="max-height: 400px;">利用規約の内容</div>
+					</div>
+				</div>
+				<hr/>
+				<div class="form-group form-row">
+					<div class="col-12" th:text="#{guidance.temp.regist}">仮登録ガイダンス</div>
+				</div>
+				<div class="form-group form-row">
+					<div class="offset-lg-3 col-lg-3">
+						<input type="submit" class="btn btn-primary" th:value="#{label.temp.regist}" value="仮登録" disabled="disabled"/>
 					</div>
 				</div>
 			</div>

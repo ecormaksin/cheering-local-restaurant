@@ -4,13 +4,15 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8"/>
+	<meta name=”viewport” content=”width=device-width,initial-scale=1.0″>
 	<title>Layout</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
 		th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
 </head>
 <body>
-<div class="container">
-	<h1 th:text="${@environment.getProperty('LOCAL_NAME')}?:'地元'+#{label.system.title}">地元の飲食店 テイクアウト注文支援サービス</h1>
+<div class="container-lg">
+	<h1 thex:textbr="(${@environment.getProperty('LOCAL_NAME') == null}? '地元':${@environment.getProperty('LOCAL_NAME')}) + #{label.system.title}">地元の飲食店 テイクアウト注文支援サービス</h1>
+	<hr/>
 	<div layout:fragment="content">
 		Fake content
 	</div>
