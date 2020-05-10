@@ -8,11 +8,13 @@
 	<title>Layout</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
 		th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" type="text/css"
+		href="../../static/css/style.css"
+		th:href="@{/css/style.css}"/>
 </head>
 <body>
 <div class="container-lg">
-	<h1 thex:textbr="(${@environment.getProperty('LOCAL_NAME') == null}? '地元':${@environment.getProperty('LOCAL_NAME')}) + #{label.system.title}">地元の飲食店 テイクアウト注文支援サービス</h1>
-	<hr/>
+	<h1 class="bg-system-title border px-5 py-1" thex:textbr="(${@environment.getProperty('LOCAL_NAME') == null}? '地元':${@environment.getProperty('LOCAL_NAME')}) + #{label.system.title}">地元の飲食店 テイクアウト注文支援サービス</h1>
 	<div layout:fragment="content">
 		Fake content
 	</div>

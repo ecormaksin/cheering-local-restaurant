@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.presentation.controller.utils;
+package com.cheeringlocalrestaurant.presentation.view;
 
 import java.util.HashSet;
 import java.util.Set;

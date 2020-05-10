@@ -20,7 +20,7 @@ public class RestaurantTempRegistController {
 	
 	@GetMapping
 	String showForm(Model model) {
-		model.addAttribute("restaurantTempRegistForm", setupForm());
+//		model.addAttribute("restaurantTempRegistForm", setupForm());
 		return "restaurant/temp_regist/form";
 	}
 }

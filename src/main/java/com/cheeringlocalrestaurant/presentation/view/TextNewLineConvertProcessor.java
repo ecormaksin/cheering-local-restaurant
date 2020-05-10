@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.presentation.controller.utils;
+package com.cheeringlocalrestaurant.presentation.view;
 
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
