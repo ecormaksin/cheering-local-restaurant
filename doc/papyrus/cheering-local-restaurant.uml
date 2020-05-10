@@ -33,6 +33,12 @@
 - 店名
 - パスワード</body>
   </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_zR5VEIrxEeqhl4qcWvTZUw" annotatedElement="_rmMZ4IddEeqIIbs0U0wLQg">
+    <body>仮登録時に認証メールを送信する</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_6IL3cIrxEeqhl4qcWvTZUw" annotatedElement="_dOyD0IW6Eeq6L_J7rHhq9g">
+    <body>認証メールのリンクをクリックすることで、アカウントが有効になる。</body>
+  </ownedComment>
   <packageImport xmi:type="uml:PackageImport" xmi:id="_KLxs8IW6Eeq6L_J7rHhq9g">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
@@ -48,7 +54,6 @@
 - 住所（都道府県、市区町村までは固定表示）
 - 電話番号
 - FAX番号
-- メールアドレス
 - 外部リンク（公式ホームページ、SNS）
 - 店の写真（外観、内観、メニュー表、名物など）
 - 注文時点から最低何分後に受け取り可能とするか
