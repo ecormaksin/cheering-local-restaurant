@@ -2,12 +2,10 @@ package com.cheeringlocalrestaurant.presentation.controller.restaurant;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import com.cheeringlocalrestaurant.presentation.controller.validation.PasswordMatches;
-import com.cheeringlocalrestaurant.presentation.controller.validation.PasswordPair;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,25 +14,18 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@PasswordMatches
-public class RestaurantTempRegistForm implements Serializable,PasswordPair {
+public class RestaurantTempRegistForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotNull
-	@NotEmpty
+	@NotBlank
+	@Size(min = 1, max = 50)
 	private String name;
 	
-	@NotNull
-	@NotEmpty
+	@NotBlank
 	@Email
 	private String mailAddress;
 
-	@NotNull
-	@NotEmpty
-	private String password;
-
-	@NotNull
-	@NotEmpty
-	private String matchingPassword;
+	@AssertTrue
+	private boolean agreedTermOfUse;
 }
