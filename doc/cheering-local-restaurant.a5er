@@ -1,0 +1,1737 @@
+﻿# A5:ER FORMAT:13
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  https://a5m2.mmatsubara.com
+
+[Manager]
+ProjectName=地元の飲食店 テイクアウト注文支援サービス
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+Domain=ID=NUMBER(11,0)
+DomainInfo="ID","NUMBER(11,0)","ドメイン特定の知識のない、レコードのID"
+Domain=IPアドレス=VARCHAR2(15)
+DomainInfo="IPアドレス","VARCHAR2(15)",""
+Domain=フラグ=VARCHAR2(1)
+DomainInfo="フラグ","VARCHAR2(1)",""
+Domain=表示順=NUMBER(3,0)
+DomainInfo="表示順","NUMBER(3,0)",""
+Domain=開始日=DATE
+DomainInfo="開始日","DATE",""
+Domain=終了日=DATE
+DomainInfo="終了日","DATE",""
+Domain=登録日時=TIMESTAMP
+DomainInfo="登録日時","TIMESTAMP",""
+Domain=ユーザーID=NUMBER(7,0)
+DomainInfo="ユーザーID","NUMBER(7,0)",""
+Domain=メールアドレス=VARCHAR2(255 CHAR)
+DomainInfo="メールアドレス","VARCHAR2(255 CHAR)",""
+Domain=ユーザーロール=VARCHAR2(100 CHAR)
+DomainInfo="ユーザーロール","VARCHAR2(100 CHAR)","Spring Securityの認可処理でも使うので、「ROLE_」を先頭に付加する。ROLE_ADMIN: システム管理者、ROLE_RESTAURANT_ADMIN: 飲食店管理者"
+Domain=アクセストークン=VARCHAR2(36)
+DomainInfo="アクセストークン","VARCHAR2(36)","UUID"
+Domain=アクセストークン有効期限=TIMESTAMP
+DomainInfo="アクセストークン有効期限","TIMESTAMP",""
+Domain=パスワード=VARCHAR2(255 CHAR)
+DomainInfo="パスワード","VARCHAR2(255 CHAR)",""
+Domain=飲食ジャンルID=NUMBER(5,0)
+DomainInfo="飲食ジャンルID","NUMBER(5,0)",""
+Domain=飲食ジャンル名=VARCHAR2(100 CHAR)
+DomainInfo="飲食ジャンル名","VARCHAR2(100 CHAR)",""
+Domain=飲食ジャンル階層=NUMBER(1,0)
+DomainInfo="飲食ジャンル階層","NUMBER(1,0)",""
+Domain=飲食店ID=NUMBER(7,0)
+DomainInfo="飲食店ID","NUMBER(7,0)",""
+Domain=飲食店名=VARCHAR2(50 CHAR)
+DomainInfo="飲食店名","VARCHAR2(50 CHAR)",""
+Domain=飲食店メッセージ=VARCHAR2(200 CHAR)
+DomainInfo="飲食店メッセージ","VARCHAR2(200 CHAR)",""
+Domain=日付=DATE
+DomainInfo="日付","DATE","時刻部分は無視する（00:00:00)"
+Domain=月の週番号=NUMBER(1,0)
+DomainInfo="月の週番号","NUMBER(1,0)","第〇日曜日の〇の部分に相当する数値"
+Domain=日付の日部分=NUMBER(2,0)
+DomainInfo="日付の日部分","NUMBER(2,0)","月末は99"
+Domain=曜日=NUMBER(1,0)
+DomainInfo="曜日","NUMBER(1,0)","java.time.DayOfWeekに対応する数値"
+Domain=時刻=DATE
+DomainInfo="時刻","DATE","HH24MI形式の時刻部分のみ使用"
+Domain=分=NUMBER(2,0)
+DomainInfo="分","NUMBER(2,0)","◯分を表す"
+Domain=電話FAX番号=VARCHAR2(16)
+DomainInfo="電話FAX番号","VARCHAR2(16)",""
+Domain=全国地方公共団体コード=VARCHAR2(5)
+DomainInfo="全国地方公共団体コード","VARCHAR2(5)",""
+Domain=旧郵便番号=VARCHAR2(5)
+DomainInfo="旧郵便番号","VARCHAR2(5)",""
+Domain=郵便番号=VARCHAR2(7)
+DomainInfo="郵便番号","VARCHAR2(7)",""
+Domain=都道府県名カナ=VARCHAR2(10 CHAR)
+DomainInfo="都道府県名カナ","VARCHAR2(10 CHAR)",""
+Domain=市区町村名カナ=VARCHAR2(30 CHAR)
+DomainInfo="市区町村名カナ","VARCHAR2(30 CHAR)",""
+Domain=町域名カナ=VARCHAR2(100 CHAR)
+DomainInfo="町域名カナ","VARCHAR2(100 CHAR)",""
+Domain=都道府県名=VARCHAR2(5 CHAR)
+DomainInfo="都道府県名","VARCHAR2(5 CHAR)",""
+Domain=市区町村名=VARCHAR2(30 CHAR)
+DomainInfo="市区町村名","VARCHAR2(30 CHAR)",""
+Domain=町域名=VARCHAR2(100 CHAR)
+DomainInfo="町域名","VARCHAR2(100 CHAR)",""
+Domain=町域以降=VARCHAR2(100 CHAR)
+DomainInfo="町域以降","VARCHAR2(100 CHAR)",""
+Domain=URL=VARCHAR2(2048)
+DomainInfo="URL","VARCHAR2(2048)",""
+Domain=検索キーワード=VARCHAR2(20)
+DomainInfo="検索キーワード","VARCHAR2(20)",""
+Domain=メニューID=NUMBER(10,0)
+DomainInfo="メニューID","NUMBER(10,0)",""
+Domain=メニュー名=VARCHAR2(30 CHAR)
+DomainInfo="メニュー名","VARCHAR2(30 CHAR)",""
+Domain=価格=NUMBER(4,0)
+DomainInfo="価格","NUMBER(4,0)",""
+Domain=メニュー説明=VARCHAR2(100 CHAR)
+DomainInfo="メニュー説明","VARCHAR2(100 CHAR)",""
+Domain=顧客名=VARCHAR2(20 CHAR)
+DomainInfo="顧客名","VARCHAR2(20 CHAR)",""
+Domain=受取希望日時=DATE
+DomainInfo="受取希望日時","DATE",""
+Domain=注文数量=NUMBER(3,0)
+DomainInfo="注文数量","NUMBER(3,0)",""
+Domain=注文回答時メッセージ=VARCHAR2(200 CHAR)
+DomainInfo="注文回答時メッセージ","VARCHAR2(200 CHAR)",""
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=10
+PaperSize=A4Landscape
+HeaderLeft=%ProjectName% %PageName%
+HeaderCenter=
+HeaderRight=%Date%
+FooterLeft=
+FooterCenter=
+FooterRight=%PageNo% / %PageCount%
+ShowPageoutRelation=1
+RDBMSTypeName=Oracle Database
+CreateFk=1
+FkOnDeleteOption=on delete cascade
+CreateFK_ParentCard1Only=1
+FKParentIndex=1
+GenerateCommentStatement_Separator=	
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+CreateOrder=Dependent
+ShowTag=1
+ShowCommonAttributes=0
+
+[Entity]
+PName=RESTAURANTS
+LName=飲食店
+Comment=飲食店エンティティのルート
+TableOption=
+Page=MAIN
+Left=1300
+Top=150
+Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510145842
+Position="MAIN",1300,150
+ZOrder=7
+
+[Entity]
+PName=USERS
+LName=ユーザー
+Comment=システム上のユーザーを管理するエンティティ
+TableOption=
+Page=MAIN
+Left=200
+Top=150
+Field="ユーザーID","USER_ID","*ユーザーID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="メールアドレス","MAIL_ADDRESS","*メールアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="ユーザーロール","USER_ROLE","*ユーザーロール","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,MAIL_ADDRESS,USER_ROLE
+EffectMode=None
+Tag=ユーザー
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200512220040
+Position="MAIN",200,150
+ZOrder=8
+
+[Entity]
+PName=RESTAURANT_ACCOUNTS
+LName=飲食店アカウント
+Comment=飲食店のアカウントを管理する
+TableOption=
+Page=MAIN
+Left=800
+Top=150
+Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ユーザーID","USER_ID","*ユーザーID","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Index==1,USER_ID
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510150006
+Position="MAIN",800,150
+ZOrder=9
+
+[Relation]
+Entity1=RESTAURANTS
+Entity2=RESTAURANT_ACCOUNTS
+RelationType1=2
+RelationType2=1
+Fields1=RESTAURANT_ID
+Fields2=RESTAURANT_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3082,7727,9103,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200502162925
+LineMode=0
+Bar1=308
+Bar2=773
+Bar3=910
+TermPos1=R
+TermPos2=R
+ZOrder=10
+
+[Relation]
+Entity1=USERS
+Entity2=RESTAURANT_ACCOUNTS
+RelationType1=2
+RelationType2=1
+Fields1=USER_ID
+Fields2=USER_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1431,3811,2497,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200502163105
+LineMode=0
+Bar1=143
+Bar2=381
+Bar3=250
+TermPos1=R
+TermPos2=R
+ZOrder=11
+
+[Entity]
+PName=FOOD_GENRES
+LName=飲食ジャンル
+Comment=
+TableOption=
+Page=MAIN
+Left=1250
+Top=1500
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食ジャンルID","FOOT_GENRE_ID","*飲食ジャンルID","NOT NULL",,"","",$FFFFFFFF,""
+Field="開始日","START_DATE","*開始日","NOT NULL",,"\q1900-01-01 00:00:00\q","",$FFFFFFFF,""
+Field="終了日","END_DATE","*終了日","NOT NULL",,"\q9999-12-31 23:59:59\q","",$FFFFFFFF,""
+Field="飲食ジャンル名","FOOD_GENRE_NAME","*飲食ジャンル名","NOT NULL",,"","",$FFFFFFFF,""
+Field="ジャンル階層","GENRE_LEVEL","*飲食ジャンル階層","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","DISPLAY_ORDER","*表示順","NOT NULL",,"1","",$FFFFFFFF,""
+Field="上位飲食ジャンルID","SUPERIOR_FOOT_GENRE_ID","*飲食ジャンルID","NOT NULL",,"","最上位は0",$FFFFFFFF,""
+Index==2,SUPERIOR_FOOT_GENRE_ID ,START_DATE ,GENRE_LEVEL ,DISPLAY_ORDER 
+Index==2,FOOT_GENRE_ID ,START_DATE 
+Index==0,FOOT_GENRE_ID
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200512214822
+Position="MAIN",1250,1500
+ZOrder=12
+
+[Entity]
+PName=RESTAURANT_HISTORIES
+LName=飲食店履歴
+Comment=飲食店情報変更履歴のルートエンティティ
+TableOption=
+Page=MAIN
+Left=1350
+Top=1150
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="開始日","START_DATE","*開始日","NOT NULL",,"\q1900-01-01 00:00:00\q","",$FFFFFFFF,""
+Field="終了日","END_DATE","*終了日","NOT NULL",,"\q9999-12-31 23:59:59\q","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_ID,START_DATE
+Index==0,RESTAURANT_ID
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510150044
+Position="MAIN",1350,1150
+ZOrder=13
+
+[Entity]
+PName=RESTAURANT_NAMES
+LName=飲食店名
+Comment=飲食店名を保持する
+TableOption=
+Page=MAIN
+Left=2200
+Top=1150
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店名","RESTAURANT_NAME","*飲食店名","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165145
+Position="MAIN",2200,1150
+ZOrder=37
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_NAMES
+RelationType1=2
+RelationType2=2
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,607,9113,775,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200505204901
+LineMode=0
+Bar1=61
+Bar2=911
+Bar3=78
+TermPos1=R
+TermPos2=R
+ZOrder=14
+
+[Relation]
+Entity1=RESTAURANTS
+Entity2=RESTAURANT_HISTORIES
+RelationType1=2
+RelationType2=4
+Fields1=RESTAURANT_ID
+Fields2=RESTAURANT_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,8024,7418,1347,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200502224021
+LineMode=0
+Bar1=802
+Bar2=742
+Bar3=135
+TermPos1=R
+TermPos2=R
+ZOrder=15
+
+[Entity]
+PName=RESTAURANT_GENRES
+LName=飲食店ジャンル
+Comment=飲食店のジャンルを保持する
+TableOption=
+Page=MAIN
+Left=2200
+Top=1350
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食ジャンルID","FOOT_GENRE_ID","*飲食ジャンルID","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,FOOT_GENRE_ID
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165200
+Position="MAIN",2200,1350
+ZOrder=16
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_GENRES
+RelationType1=2
+RelationType2=2
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2084,9073,2582,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200505213731
+LineMode=0
+Bar1=208
+Bar2=907
+Bar3=258
+TermPos1=R
+TermPos2=R
+ZOrder=17
+
+[Entity]
+PName=RESTAURANT_MESSAGES
+LName=飲食店メッセージ
+Comment=飲食店からのメッセージを保持する
+TableOption=
+Page=MAIN
+Left=2200
+Top=1550
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店からのメッセージ","MESSAGE_FROM_RESTAURANT","*飲食店メッセージ","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165214
+Position="MAIN",2200,1550
+ZOrder=18
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_MESSAGES
+RelationType1=2
+RelationType2=1
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3561,8550,2582,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200505184637
+LineMode=0
+Bar1=356
+Bar2=855
+Bar3=258
+TermPos1=R
+TermPos2=R
+ZOrder=19
+
+[Relation]
+Entity1=FOOD_GENRES
+Entity2=RESTAURANT_GENRES
+RelationType1=2
+RelationType2=3
+Fields1=FOOT_GENRE_ID
+Fields2=FOOT_GENRE_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2236,6714,6866,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200502230222
+LineMode=0
+Bar1=224
+Bar2=671
+Bar3=687
+TermPos1=R
+TermPos2=R
+ZOrder=20
+
+[Entity]
+PName=RESTAURANT_OPEN_HOURS
+LName=飲食店営業時間
+Comment=飲食店の営業時間を保持する
+TableOption=
+Page=MAIN
+Left=2200
+Top=1800
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="開始時刻","START_TIME","*時刻","NOT NULL",,"","",$FFFFFFFF,""
+Field="終了時刻","END_TIME","*時刻","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_HISTORY_ID,START_TIME
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165235
+Position="MAIN",2200,1800
+ZOrder=21
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_OPEN_HOURS
+RelationType1=2
+RelationType2=4
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5038,8068,2907,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200505213919
+LineMode=0
+Bar1=504
+Bar2=807
+Bar3=291
+TermPos1=R
+TermPos2=R
+ZOrder=22
+
+[Entity]
+PName=RESTAURANT_CLOSE_DAYS_WKLY
+LName=飲食店定休日_週次
+Comment=飲食店の定休日（週次の曜日）を保持する（WKLY: WEEKLY）
+TableOption=
+Page=MAIN
+Left=2200
+Top=2100
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="曜日","DAY_OF_WEEK","*曜日","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_HISTORY_ID,DAY_OF_WEEK
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165254
+Position="MAIN",2200,2100
+ZOrder=23
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_CLOSE_DAYS_WKLY
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",2,6629,7666,3659,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200505213929
+LineMode=2
+Bar1=663
+Bar2=767
+Bar3=366
+TermPos1=R
+TermPos2=R
+ZOrder=24
+
+[Entity]
+PName=RESTAURANT_CLOSE_DAYS_MO_DOW
+LName=飲食店定休日_月次曜日
+Comment=飲食店の定休日（月次の曜日）を保持する（MO: MONTHLY、DOW: DAYS_OF_WEEK）
+TableOption=
+Page=MAIN
+Left=2200
+Top=2350
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="月の週番号","WEEK_OF_MONTH","*月の週番号","NOT NULL",,"","",$FFFFFFFF,""
+Field="曜日","DAY_OF_WEEK","*曜日","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_HISTORY_ID,WEEK_OF_MONTH,DAY_OF_WEEK
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165344
+Position="MAIN",2200,2350
+ZOrder=25
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_CLOSE_DAYS_MO_DOW
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",2,7993,7184,3723,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200505214012
+LineMode=2
+Bar1=799
+Bar2=718
+Bar3=372
+TermPos1=R
+TermPos2=R
+ZOrder=26
+
+[Entity]
+PName=RESTAURANT_CLOSΕ_DAYS_MO_DOM
+LName=飲食店定休日_月次日
+Comment=飲食店の定休日（月次の日）を保持する（MO: MONTHLY、DM: DAYS_OFMONTH）
+TableOption=
+Page=MAIN
+Left=2200
+Top=2650
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="日","DAY_OF_MONTH","*日付の日部分","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_HISTORY_ID,DAY_OF_MONTH
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165359
+Position="MAIN",2200,2650
+ZOrder=27
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_CLOSΕ_DAYS_MO_DOM
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",2,8902,6581,3723,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200505214020
+LineMode=2
+Bar1=890
+Bar2=658
+Bar3=372
+TermPos1=R
+TermPos2=R
+ZOrder=28
+
+[Entity]
+PName=RESTAURANT_TEMP_OPEN_DAYS
+LName=飲食店臨時営業日
+Comment=飲食店の臨時営業日を保持する
+TableOption=
+Page=MAIN
+Left=1750
+Top=600
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="営業日","OPEN_DAY","*日付","NOT NULL",,"","",$FFFFFFFF,""
+Field="開始時刻","START_TIME","*時刻","NOT NULL",,"","",$FFFFFFFF,""
+Field="終了時刻","END_TIME","*時刻","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_ID ,OPEN_DAY ,START_TIME 
+Index==0,RESTAURANT_ID 
+Index==0,OPEN_DAY 
+Index==0,START_TIME ,END_TIME 
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200509122306
+Position="MAIN",1750,600
+ZOrder=29
+
+[Relation]
+Entity1=RESTAURANTS
+Entity2=RESTAURANT_TEMP_OPEN_DAYS
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_ID
+Fields2=RESTAURANT_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5192,8796,1226,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200503130735
+LineMode=0
+Bar1=519
+Bar2=880
+Bar3=123
+TermPos1=R
+TermPos2=R
+ZOrder=30
+
+[Entity]
+PName=RESTAURANT_TEMP_CLOSE_DAYS
+LName=飲食店臨時休業日
+Comment=飲食店の臨時休業日を保持する
+TableOption=
+Page=MAIN
+Left=1750
+Top=900
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="休業日","CLOSE_DAY","*日付","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_ID ,CLOSE_DAY 
+Index==0,RESTAURANT_ID 
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200506113530
+Position="MAIN",1750,900
+ZOrder=31
+
+[Relation]
+Entity1=RESTAURANTS
+Entity2=RESTAURANT_TEMP_CLOSE_DAYS
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_ID
+Fields2=RESTAURANT_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,7379,7979,4775,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=738
+Bar2=798
+Bar3=478
+TermPos1=R
+TermPos2=R
+ZOrder=0
+
+[Entity]
+PName=ZIP_CODES
+LName=郵便番号
+Comment=郵便局が提供している郵便番号データ\nhttp://www.post.japanpost.jp/zipcode/dl/readm.htm
+TableOption=
+Page=MAIN
+Left=100
+Top=1100
+Field="全国地方公共団体コード","JAPANESE_LOCAL_GOVERMENT_CODE","*全国地方公共団体コード",,,"","JIS X0401、X0402",$FFFFFFFF,""
+Field="旧郵便番号","OLD_ZIP_CODE","*旧郵便番号",,,"","",$FFFFFFFF,""
+Field="郵便番号","ZIP_CODE","*郵便番号",,,"","",$FFFFFFFF,""
+Field="都道府県名カナ","PREFECTURE_NAME_KANA","*都道府県名カナ",,,"","半角カタカナ（コード順に掲載）",$FFFFFFFF,""
+Field="市区町村名カナ","CITY_NAME_KANA","*市区町村名カナ",,,"","半角カタカナ（コード順に掲載）",$FFFFFFFF,""
+Field="町域名カナ","TOWN_NAME_KANA","*町域名カナ",,,"","半角カタカナ（五十音順に掲載）",$FFFFFFFF,""
+Field="都道府県名","PREFECTURE_NAME","*都道府県名",,,"","漢字（コード順に掲載）",$FFFFFFFF,""
+Field="市区町村名","CITY_NAME","*市区町村名",,,"","漢字（コード順に掲載）",$FFFFFFFF,""
+Field="町域名","TOWN_NAME","*町域名",,,"","漢字（五十音順に掲載）",$FFFFFFFF,""
+Field="複数番号付与町域フラグ","TOWN_DEVIDED_FLAG","*フラグ",,,"","一町域が二以上の郵便番号で表される場合の表示（「1」は該当、「0」は該当せず）",$FFFFFFFF,""
+Field="小字毎番号付与フラグ","ISSUED_PER_KOAZA_FLAG","*フラグ",,,"","小字毎に番地が起番されている町域の表示（「1」は該当、「0」は該当せず）",$FFFFFFFF,""
+Field="丁目保有町域フラグ","CHOME_TOWN_FLAG","*フラグ",,,"","丁目を有する町域の場合の表示（「1」は該当、「0」は該当せず）",$FFFFFFFF,""
+Field="複数町域保有フラグ","HAS_MULTIPLE_TOWN_FLAG","*フラグ",,,"","一つの郵便番号で二以上の町域を表す場合の表示（「1」は該当、「0」は該当せず）",$FFFFFFFF,""
+Field="更新の表示","UPDATE_DISPLAY_FLAG","*フラグ",,,"","「0」は変更なし、「1」は変更あり、「2」廃止（廃止データのみ使用）",$FFFFFFFF,""
+Field="変更理由","CHANGE_REASON_FLAG","*フラグ",,,"","「0」は変更なし、「1」市政・区政・町政・分区・政令指定都市施行、「2」住居表示の実施、「3」区画整理、「4」郵便区調整等、「5」訂正、「6」廃止（廃止データのみ使用）",$FFFFFFFF,""
+Index==2,JAPANESE_LOCAL_GOVERMENT_CODE ,OLD_ZIP_CODE ,ZIP_CODE ,PREFECTURE_NAME_KANA ,CITY_NAME_KANA ,TOWN_NAME_KANA ,PREFECTURE_NAME ,CITY_NAME ,TOWN_NAME ,TOWN_DEVIDED_FLAG ,ISSUED_PER_KOAZA_FLAG ,CHOME_TOWN_FLAG ,HAS_MULTIPLE_TOWN_FLAG ,UPDATE_DISPLAY_FLAG ,CHANGE_REASON_FLAG 
+Index==0,JAPANESE_LOCAL_GOVERMENT_CODE 
+Index==0,ZIP_CODE 
+Index==0,PREFECTURE_NAME 
+Index==0,PREFECTURE_NAME ,CITY_NAME 
+EffectMode=None
+Tag=住所
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200506112345
+Position="MAIN",100,1100
+ZOrder=32
+
+[View]
+PName=PREFECTURES
+LName=都道府県
+Tag=住所
+Comment=
+ViewOption=
+Query=SELECT DISTINCT\n  SUBSTR(JAPANESE_LOCAL_GOVERMENT_CODE, 1, 2) AS PREFECTURE_CODE -- 都道府県コード\n  , PREFECTURE_NAME -- 都道府県名\nFROM\n  ZIP_CODES\nWHERE\n  UPDATE_DISPLAY_FLAG IN (\q0\q, \q1\q)
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",600,1100
+ZOrder=33
+Page=MAIN
+Left=600
+Top=1100
+
+[View]
+PName=CITIES
+LName=市区町村
+Tag=住所
+Comment=
+ViewOption=
+Query=SELECT DISTINCT\n  SUBSTR(JAPANESE_LOCAL_GOVERMENT_CODE, 1, 2) AS PREFECTURE_CODE -- 都道府県コード\n  , JAPANESE_LOCAL_GOVERMENT_CODE -- 地方公共団体コード\n  , PREFECTURE_NAME -- 都道府県名\n  , CITY_NAME -- 市区町村名\nFROM\n  ZIP_CODES\nWHERE\n  UPDATE_DISPLAY_FLAG IN (\q0\q, \q1\q)
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",600,1300
+ZOrder=34
+Page=MAIN
+Left=600
+Top=1300
+
+[Entity]
+PName=RESTAURANT_ADDRESSES
+LName=飲食店住所
+Comment=
+TableOption=
+Page=MAIN
+Left=3000
+Top=1100
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="郵便番号","ZIP_CODE","*郵便番号","NOT NULL",,"","",$FFFFFFFF,""
+Field="都道府県名","PREFECTURE_NAME","*都道府県名","NOT NULL",,"","",$FFFFFFFF,""
+Field="市区町村名","CITY_NAME","*市区町村名","NOT NULL",,"","",$FFFFFFFF,""
+Field="町域名","TOWN_NAME","*町域名","NOT NULL",,"","",$FFFFFFFF,""
+Field="町域以降","AFTER_TOWN_NAME","*町域以降","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,PREFECTURE_NAME,CITY_NAME
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200512213801
+Position="MAIN",3000,1100
+ZOrder=35
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_ADDRESSES
+RelationType1=2
+RelationType2=2
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3111,9506,1380,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200510165635
+LineMode=0
+Bar1=311
+Bar2=951
+Bar3=138
+TermPos1=R
+TermPos2=R
+ZOrder=36
+
+[Entity]
+PName=RESTAURANT_TELNOES
+LName=飲食店電話番号
+Comment=
+TableOption=
+Page=MAIN
+Left=3000
+Top=1600
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","DISPLAY_ORDER","*表示順","NOT NULL",,"1","",$FFFFFFFF,""
+Field="電話番号","TEL_NO","*電話FAX番号","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_HISTORY_ID,DISPLAY_ORDER
+Index==2,RESTAURANT_HISTORY_ID,TEL_NO
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165710
+Position="MAIN",3000,1600
+ZOrder=38
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_TELNOES
+RelationType1=2
+RelationType2=4
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4494,9242,2884,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200510165813
+LineMode=0
+Bar1=449
+Bar2=924
+Bar3=288
+TermPos1=R
+TermPos2=R
+ZOrder=6
+
+[Entity]
+PName=RESTAURANT_FAXNOES
+LName=飲食店FAX番号
+Comment=
+TableOption=
+Page=MAIN
+Left=3000
+Top=1900
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","DISPLAY_ORDER","*表示順","NOT NULL",,"1","",$FFFFFFFF,""
+Field="FAX番号","FAX_NO","*電話FAX番号","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_HISTORY_ID,DISPLAY_ORDER
+Index==2,RESTAURANT_HISTORY_ID,FAX_NO
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165726
+Position="MAIN",3000,1900
+ZOrder=39
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_FAXNOES
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5568,8996,2884,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=557
+Bar2=900
+Bar3=288
+TermPos1=R
+TermPos2=R
+ZOrder=5
+
+[Entity]
+PName=RESTAURANT_EXTERNAL_LINKS
+LName=飲食店外部リンク
+Comment=公式ホームページやSNSのリンクを保持する
+TableOption=
+Page=MAIN
+Left=3000
+Top=2200
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","DISPLAY_ORDER","*表示順","NOT NULL",,"1","",$FFFFFFFF,""
+Field="URL","URL","*URL","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_HISTORY_ID,DISPLAY_ORDER
+Index==2,RESTAURANT_HISTORY_ID,URL
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165803
+Position="MAIN",3000,2200
+ZOrder=40
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_EXTERNAL_LINKS
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,6642,8750,2884,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200505214054
+LineMode=0
+Bar1=664
+Bar2=875
+Bar3=288
+TermPos1=R
+TermPos2=R
+ZOrder=41
+
+[Entity]
+PName=RESTAURANT_PHOTOS
+LName=飲食店写真
+Comment=店舗や看板メニューの写真のファイル名を保持する
+TableOption=
+Page=MAIN
+Left=3000
+Top=2500
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","DISPLAY_ORDER","*表示順","NOT NULL",,"1","",$FFFFFFFF,""
+Field="ファイル名","FILE_NAME","*ファイル名","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_HISTORY_ID,DISPLAY_ORDER
+Index==2,RESTAURANT_HISTORY_ID,FILE_NAME
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510165836
+Position="MAIN",3000,2500
+ZOrder=42
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_PHOTOS
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,7715,8485,2884,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200505214238
+LineMode=0
+Bar1=772
+Bar2=848
+Bar3=288
+TermPos1=R
+TermPos2=R
+ZOrder=43
+
+[Entity]
+PName=RESTAURANT_ORDER_AVAILABILITY
+LName=飲食店注文可能
+Comment=ネットでの注文を受け付ける場合に、このテーブルへ該当飲食店のID（飲食店履歴ID）を保持する
+TableOption=
+Page=MAIN
+Left=3550
+Top=1150
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510170121
+Position="MAIN",3550,1150
+ZOrder=44
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_ORDER_AVAILABILITY
+RelationType1=2
+RelationType2=1
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2732,9743,2884,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200510170132
+LineMode=0
+Bar1=273
+Bar2=974
+Bar3=288
+TermPos1=R
+TermPos2=R
+ZOrder=4
+
+[Entity]
+PName=RESTAURANT_ORDER_SETTINGS
+LName=飲食店注文設定
+Comment=注文時の設定を保持する
+TableOption=
+Page=MAIN
+Left=3550
+Top=1400
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="最短受取可能時間","EARLIEST_READY_MINUTES","*分","NOT NULL",,"","注文入力時点で最短◯分後以降で受取可能とする。（受取可能時間の目安）",$FFFFFFFF,""
+Field="注文可能未来日","ORDER_AVAILABLE_FUTURE_DAYS","*日付の日部分","NOT NULL",,"","◯日先の注文まで受け付けるか",$FFFFFFFF,""
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510170148
+Position="MAIN",3550,1400
+ZOrder=45
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_ORDER_SETTINGS
+RelationType1=2
+RelationType2=1
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3703,9648,2884,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200505220017
+LineMode=0
+Bar1=370
+Bar2=965
+Bar3=288
+TermPos1=R
+TermPos2=R
+ZOrder=3
+
+[Entity]
+PName=RESTAURANT_SEARCH_KEYWORDS
+LName=飲食店検索キーワード
+Comment=検索用のキーワードを保持する
+TableOption=
+Page=MAIN
+Left=3550
+Top=1700
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店履歴ID","RESTAURANT_HISTORY_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","DISPLAY_ORDER","*表示順","NOT NULL",,"1","",$FFFFFFFF,""
+Field="検索キーワード","SEARCH_KEY_WORD","*検索キーワード","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_HISTORY_ID,DISPLAY_ORDER
+Index==2,RESTAURANT_HISTORY_ID,SEARCH_KEY_WORD
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510170233
+Position="MAIN",3550,1700
+ZOrder=46
+
+[Relation]
+Entity1=RESTAURANT_HISTORIES
+Entity2=RESTAURANT_SEARCH_KEYWORDS
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_HISTORY_ID
+Fields2=RESTAURANT_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4852,9498,2884,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200506092404
+LineMode=0
+Bar1=485
+Bar2=950
+Bar3=288
+TermPos1=R
+TermPos2=R
+ZOrder=2
+
+[Entity]
+PName=メニュー
+LName=メニュー
+Comment=メニューエンティティのルート
+TableOption=
+Page=MAIN
+Left=2250
+Top=400
+Field="メニューID","MENU_ID","*メニューID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,RESTAURANT_ID
+EffectMode=None
+Tag=メニュー
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510150118
+Position="MAIN",2250,400
+ZOrder=47
+
+[Relation]
+Entity1=RESTAURANTS
+Entity2=メニュー
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_ID
+Fields2=RESTAURANT_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1658,8367,3547,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200506100054
+LineMode=0
+Bar1=166
+Bar2=837
+Bar3=355
+TermPos1=R
+TermPos2=R
+ZOrder=48
+
+[Entity]
+PName=MENU_HISTORIES
+LName=メニュー履歴
+Comment=
+TableOption=
+Page=MAIN
+Left=2600
+Top=400
+Field="メニュー履歴ID","MENU_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="メニューID","MENU_ID","*メニューID","NOT NULL",,"","",$FFFFFFFF,""
+Field="掲載開始日","APPEAR_START_DATE","*開始日","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,MENU_ID ,APPEAR_START_DATE 
+EffectMode=None
+Tag=メニュー
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510170707
+Position="MAIN",2600,400
+ZOrder=49
+
+[Relation]
+Entity1=メニュー
+Entity2=MENU_HISTORIES
+RelationType1=2
+RelationType2=4
+Fields1=MENU_ID
+Fields2=MENU_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5046,4733,6597,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200510164922
+LineMode=0
+Bar1=505
+Bar2=473
+Bar3=660
+TermPos1=R
+TermPos2=R
+ZOrder=50
+
+[Entity]
+PName=MENU_APPEAR_END_DAYS
+LName=メニュー掲載終了日
+Comment=ユーザーに入力してもらう項目のため、履歴テーブルから外出しする
+TableOption=
+Page=MAIN
+Left=2600
+Top=800
+Field="メニュー履歴ID","MENU_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=メニュー
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510170718
+Position="MAIN",2600,800
+ZOrder=51
+
+[Relation]
+Entity1=MENU_HISTORIES
+Entity2=MENU_APPEAR_END_DAYS
+RelationType1=2
+RelationType2=1
+Fields1=MENU_HISTORY_ID
+Fields2=MENU_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1477,5053,4638,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200510170729
+LineMode=0
+Bar1=148
+Bar2=505
+Bar3=464
+TermPos1=R
+TermPos2=R
+ZOrder=52
+
+[Entity]
+PName=MENU_NAMES
+LName=メニュー名
+Comment=
+TableOption=
+Page=MAIN
+Left=3250
+Top=100
+Field="メニュー履歴ID","MENU_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="メニュー名","MENU_NAME","*メニュー名","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=メニュー
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510170826
+Position="MAIN",3250,100
+ZOrder=53
+
+[Relation]
+Entity1=MENU_HISTORIES
+Entity2=MENU_NAMES
+RelationType1=2
+RelationType2=2
+Fields1=MENU_HISTORY_ID
+Fields2=MENU_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1452,8184,1810,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200506102009
+LineMode=0
+Bar1=145
+Bar2=818
+Bar3=181
+TermPos1=R
+TermPos2=R
+ZOrder=54
+
+[Entity]
+PName=MENU_PRICES
+LName=メニュー価格
+Comment=
+TableOption=
+Page=MAIN
+Left=3250
+Top=300
+Field="メニュー履歴ID","MENU_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="税込価格","TAX_INCLUDED_PRICE","*価格","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=メニュー
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510170852
+Position="MAIN",3250,300
+ZOrder=55
+
+[Relation]
+Entity1=MENU_HISTORIES
+Entity2=MENU_PRICES
+RelationType1=2
+RelationType2=2
+Fields1=MENU_HISTORY_ID
+Fields2=MENU_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3477,6852,6674,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200506102648
+LineMode=0
+Bar1=348
+Bar2=685
+Bar3=667
+TermPos1=R
+TermPos2=R
+ZOrder=56
+
+[Entity]
+PName=MENU_MEMOS
+LName=メニュー説明
+Comment=
+TableOption=
+Page=MAIN
+Left=3250
+Top=550
+Field="メニュー履歴ID","MENU_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="メニュー説明","MEMO","*メニュー説明","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=メニュー
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510170907
+Position="MAIN",3250,550
+ZOrder=57
+
+[Relation]
+Entity1=MENU_HISTORIES
+Entity2=MENU_MEMOS
+RelationType1=2
+RelationType2=1
+Fields1=MENU_HISTORY_ID
+Fields2=MENU_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5602,6321,2692,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200506103215
+LineMode=0
+Bar1=560
+Bar2=632
+Bar3=269
+TermPos1=R
+TermPos2=R
+ZOrder=58
+
+[Entity]
+PName=MENU_PHOTOS
+LName=メニュー写真
+Comment=
+TableOption=
+Page=MAIN
+Left=3250
+Top=750
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="メニュー履歴ID","MENU_HISTORY_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","DISPLAY_ORDER","*表示順","NOT NULL",,"1","",$FFFFFFFF,""
+Field="ファイル名","FILE_NAME","*ファイル名","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,MENU_HISTORY_ID,DISPLAY_ORDER
+Index==2,MENU_HISTORY_ID,FILE_NAME
+EffectMode=None
+Tag=メニュー
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510170951
+Position="MAIN",3250,750
+ZOrder=59
+
+[Relation]
+Entity1=MENU_HISTORIES
+Entity2=MENU_PHOTOS
+RelationType1=2
+RelationType2=3
+Fields1=MENU_HISTORY_ID
+Fields2=MENU_HISTORY_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,8102,5461,1810,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200510171008
+LineMode=0
+Bar1=810
+Bar2=546
+Bar3=181
+TermPos1=R
+TermPos2=R
+ZOrder=60
+
+[View]
+PName=ADDRESSES
+LName=住所
+Tag=住所
+Comment=
+ViewOption=
+Query=SELECT\n  ROW_NUMBER() OVER ( \n    ORDER BY\n      ZIP_CODE\n      , PREFECTURE_NAME\n      , CITY_NAME\n      , TOWN_NAME\n  ) AS ID\n  , ZIP_CODE                                      -- 郵便番号\n  , PREFECTURE_NAME                               -- 都道府県名\n  , CITY_NAME                                     -- 市区町村名\n  , TOWN_NAME                                     -- 町域名\nFROM\n  ( \n    SELECT\n      ZIP_CODE\n      , PREFECTURE_NAME\n      , CITY_NAME\n      , TOWN_NAME \n    FROM\n      ( \n        SELECT\n          ZIP_CODE\n          , PREFECTURE_NAME\n          , CITY_NAME\n          , CASE \n            WHEN NVL(TOWN_NAME, \q\q) = \q以下に掲載がない場合\q \n              THEN \q\q \n            ELSE TOWN_NAME \n            END AS TOWN_NAME\n        FROM\n          ( \n            SELECT\n              ZIP_CODE\n              , PREFECTURE_NAME\n              , CITY_NAME\n              , CASE \n                WHEN INSTR(TOWN_NAME, \q（\q) > 0 \n                AND ( \n                  INSTR(TOWN_NAME, \q）\q) = 0 \n                  OR INSTR(TOWN_NAME, \q（\q) < INSTR(TOWN_NAME, \q）\q)\n                ) \n                  THEN SUBSTR(TOWN_NAME, 1, INSTR(TOWN_NAME, \q（\q) - 1) \n                WHEN INSTR(TOWN_NAME, \q）\q) > 0 \n                OR INSTR(TOWN_NAME, \q、\q) > 0 \n                  THEN NULL \n                ELSE TOWN_NAME \n                END AS TOWN_NAME \n            FROM\n              ZIP_CODES \n            WHERE\n              UPDATE_DISPLAY_FLAG IN (\q0\q, \q1\q)\n          ) SQ_A \n        WHERE\n          TOWN_NAME IS NOT NULL\n      ) SQ_B \n    GROUP BY\n      ZIP_CODE\n      , PREFECTURE_NAME\n      , CITY_NAME\n      , TOWN_NAME\n  ) SQ_C\n
+LNameByComment=1
+Color=$000000
+BkColor=$FFFFFF
+Position="MAIN",600,1600
+ZOrder=61
+Page=MAIN
+Left=600
+Top=1600
+
+[Entity]
+PName=ORDERS
+LName=注文
+Comment=利用者注文のルートエンティティ
+TableOption=
+Page=Main
+Left=100
+Top=2000
+Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="顧客名","CUSTOMER_NAME","*顧客名","NOT NULL",,"","",$FFFFFFFF,""
+Field="メールアドレス","MAIL_ADDRESS","*メールアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="電話番号","TEL_NO","*電話FAX番号","NOT NULL",,"","",$FFFFFFFF,""
+Field="受取希望日時","DESIRED_RECEIPT_DATETIME","*受取希望日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_ID ,CUSTOMER_NAME ,MAIL_ADDRESS ,TEL_NO ,DESIRED_RECEIPT_DATETIME ,REMOTE_IP_ADDRESS 
+Index==0,RESTAURANT_ID 
+EffectMode=None
+Tag=注文
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510152645
+Position="Main",100,2000
+ZOrder=62
+
+[Relation]
+Entity1=RESTAURANTS
+Entity2=ORDERS
+RelationType1=2
+RelationType2=3
+Fields1=RESTAURANT_ID
+Fields2=RESTAURANT_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,578,9422,2300,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200510151739
+LineMode=0
+Bar1=58
+Bar2=942
+Bar3=230
+TermPos1=R
+TermPos2=R
+ZOrder=1
+
+[Entity]
+PName=ORDER_DETAILS
+LName=注文明細
+Comment=
+TableOption=
+Page=Main
+Left=700
+Top=2550
+Field="注文明細ID","ORDER_DETAIL_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="注文ID","ORDER_ID","*ID","NOT NULL",,"","",$FFFFFFFF,""
+Field="メニューID","MENU_ID","*メニューID","NOT NULL",,"","",$FFFFFFFF,""
+Field="メニュー名","MENU_NAME","*メニュー名","NOT NULL",,"","",$FFFFFFFF,""
+Field="税込価格","TAX_INCLUDED_PRICE","*価格","NOT NULL",,"","",$FFFFFFFF,""
+Field="数量","QUANTITY","*注文数量","NOT NULL",,"","",$FFFFFFFF,""
+Index==0,ORDER_ID 
+EffectMode=None
+Tag=注文
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510163540
+Position="Main",700,2550
+ZOrder=63
+
+[Relation]
+Entity1=ORDERS
+Entity2=ORDER_DETAILS
+RelationType1=2
+RelationType2=4
+Fields1=ORDER_ID
+Fields2=ORDER_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,9044,4902,2502,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200510161959
+LineMode=0
+Bar1=904
+Bar2=490
+Bar3=250
+TermPos1=R
+TermPos2=R
+ZOrder=64
+
+[Entity]
+PName=ORDERS_REPLIED
+LName=注文回答済み
+Comment=利用客へ返信済みの注文を保持する
+TableOption=
+Page=Main
+Left=700
+Top=2000
+Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=注文
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510163525
+Position="Main",700,2000
+ZOrder=65
+
+[Entity]
+PName=ORDER_REPLY_MESSAGES
+LName=注文回答メッセージ
+Comment=利用客への返信時メッセージを保持する
+TableOption=
+Page=Main
+Left=700
+Top=2350
+Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="メッセージ","MESSAGE","*注文回答時メッセージ","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=注文
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510163517
+Position="Main",700,2350
+ZOrder=66
+
+[Relation]
+Entity1=ORDERS
+Entity2=ORDERS_REPLIED
+RelationType1=2
+RelationType2=1
+Fields1=ORDER_ID
+Fields2=ORDER_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2117,6746,3145,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200510163607
+LineMode=0
+Bar1=212
+Bar2=675
+Bar3=314
+TermPos1=R
+TermPos2=R
+ZOrder=67
+
+[Relation]
+Entity1=ORDERS_REPLIED
+Entity2=ORDER_REPLY_MESSAGES
+RelationType1=2
+RelationType2=1
+Fields1=ORDER_ID
+Fields2=ORDER_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4744,4140,2054,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200510163708
+LineMode=0
+Bar1=474
+Bar2=414
+Bar3=205
+TermPos1=R
+TermPos2=R
+ZOrder=68
+
+[Entity]
+PName=ORDERS_PROVIDED
+LName=注文提供済み
+Comment=利用客へ提供済みの注文を保持する
+TableOption=
+Page=Main
+Left=1200
+Top=2000
+Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=注文
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510164209
+Position="Main",1200,2000
+ZOrder=69
+
+[Relation]
+Entity1=ORDERS_REPLIED
+Entity2=ORDERS_PROVIDED
+RelationType1=2
+RelationType2=1
+Fields1=ORDER_ID
+Fields2=ORDER_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5436,4989,2936,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200510164014
+LineMode=0
+Bar1=544
+Bar2=499
+Bar3=294
+TermPos1=R
+TermPos2=R
+ZOrder=70
+
+[Entity]
+PName=ORDERS_CANCELED
+LName=注文キャンセル済み
+Comment=キャンセルした注文を保持する
+TableOption=
+Page=Main
+Left=1200
+Top=2250
+Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=注文
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200510164121
+Position="Main",1200,2250
+ZOrder=71
+
+[Relation]
+Entity1=ORDERS_REPLIED
+Entity2=ORDERS_CANCELED
+RelationType1=2
+RelationType2=1
+Fields1=ORDER_ID
+Fields2=ORDER_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,8280,5104,3043,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200510164159
+LineMode=0
+Bar1=828
+Bar2=510
+Bar3=304
+TermPos1=R
+TermPos2=R
+ZOrder=72
+
+[Entity]
+PName=RESTAURANT_LOGIN_REQUESTS
+LName=飲食店ログイン要求
+Comment=飲食店ログイン要求イベントを保持する
+TableOption=
+Page=Main
+Left=800
+Top=500
+Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="メールアドレス","MAIL_ADDRESS","*メールアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="アクセストークン","ACCESS_TOKEN","*アクセストークン","NOT NULL",,"","",$FFFFFFFF,""
+Field="アクセストークン有効期限","TOKEN_EXPIRATION_DATETIME","*アクセストークン有効期限","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,ACCESS_TOKEN
+Index==0,MAIL_ADDRESS
+EffectMode=None
+Tag=飲食店
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200512221119
+Position="Main",800,500
+ZOrder=73
+
+[Relation]
+Entity1=USERS
+Entity2=RESTAURANT_LOGIN_REQUESTS
+RelationType1=2
+RelationType2=3
+Fields1=MAIL_ADDRESS
+Fields2=MAIL_ADDRESS
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5788,7756,3857,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200512221252
+LineMode=0
+Bar1=579
+Bar2=776
+Bar3=386
+TermPos1=R
+TermPos2=R
+ZOrder=74
