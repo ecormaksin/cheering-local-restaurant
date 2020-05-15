@@ -18,6 +18,8 @@ public class RestaurantTempRegistFormTest {
     @Autowired
     private Validator validator;
 
+    private String nameNotBlankWithSizeMessage= "{0}'s size must be between 1 and 50. And string containing only blanks is not allowed.";
+
     private RestaurantTempRegistForm form = new RestaurantTempRegistForm();
     private BindingResult bindingResult = new BindException(form, "restaurantTempRegistForm");
 
@@ -40,7 +42,7 @@ public class RestaurantTempRegistFormTest {
         validator.validate(form, bindingResult);
         FieldError fieldError = bindingResult.getFieldError();
         assertEquals("name", fieldError.getField());
-        assertEquals("must not be blank", fieldError.getDefaultMessage());
+        assertEquals(nameNotBlankWithSizeMessage, fieldError.getDefaultMessage());
     }
 
     @Test
@@ -49,7 +51,7 @@ public class RestaurantTempRegistFormTest {
         validator.validate(form, bindingResult);
         FieldError fieldError = bindingResult.getFieldError();
         assertEquals("name", fieldError.getField());
-        assertEquals("size must be between 1 and 50", fieldError.getDefaultMessage());
+        assertEquals(nameNotBlankWithSizeMessage, fieldError.getDefaultMessage());
     }
 
     @Test
@@ -58,6 +60,6 @@ public class RestaurantTempRegistFormTest {
         validator.validate(form, bindingResult);
         FieldError fieldError = bindingResult.getFieldError();
         assertEquals("name", fieldError.getField());
-        assertEquals("must not be blank", fieldError.getDefaultMessage());
+        assertEquals(nameNotBlankWithSizeMessage, fieldError.getDefaultMessage());
     }
 }
