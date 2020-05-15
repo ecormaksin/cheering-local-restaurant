@@ -2,10 +2,7 @@ package com.cheeringlocalrestaurant.presentation.controller.restaurant;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
