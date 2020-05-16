@@ -1,7 +1,5 @@
 package com.cheeringlocalrestaurant.presentation.controller.restaurant;
 
-import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantName;
-import com.cheeringlocalrestaurant.util.PropertiesReader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,22 +18,14 @@ public class RestaurantTempRegistFormTest {
 
     private Validator validator;
 
-    private String nameNotAllBlankMessage = "{0}'s size must be between {min} and {max}. Only blanks are not allowed.";
+    private String nameNotAllBlankMessage = "{0}'s size must be between 1 and 50. Only blanks are not allowed.";
 
     private RestaurantTempRegistForm form = new RestaurantTempRegistForm();
-
-    private PropertiesReader propertiesReader;
 
     @BeforeEach
     public void setUp() throws Exception {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
-
-        propertiesReader = PropertiesReader.getInstance("ValidationMessages");
-
-        nameNotAllBlankMessage = propertiesReader.getString("validation.NotAllBlank.message");
-        nameNotAllBlankMessage = nameNotAllBlankMessage.replaceAll("\\{min\\}", String.valueOf(RestaurantName.MIN_SIZE));
-        nameNotAllBlankMessage = nameNotAllBlankMessage.replaceAll("\\{max\\}", String.valueOf(RestaurantName.MAX_SIZE));
 
         form.setName("いろは食堂");
         form.setMailAddress("iroha@example.com");
