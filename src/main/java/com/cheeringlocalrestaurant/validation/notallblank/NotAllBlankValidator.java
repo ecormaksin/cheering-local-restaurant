@@ -15,7 +15,7 @@ public class NotAllBlankValidator implements ConstraintValidator<NotAllBlank, St
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value == null) return false;
-        final String replaced = value.replaceAll("[ 　]", "");
+        final String replaced = value.replaceAll("[ 　\t]", "");
         final int length = replaced.length();
         if (length < constraintAnnotation.min() || constraintAnnotation.max() < length) return false;
         return true;

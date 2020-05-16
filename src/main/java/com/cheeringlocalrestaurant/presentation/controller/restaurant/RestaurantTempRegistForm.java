@@ -17,7 +17,7 @@ public class RestaurantTempRegistForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotAllBlank(min = RestaurantName.MIN_SIZE, max = RestaurantName.MAX_SIZE)
+	@NotAllBlank(max = RestaurantName.MAX_SIZE)
 	private String name;
 	
 	@NotBlank
