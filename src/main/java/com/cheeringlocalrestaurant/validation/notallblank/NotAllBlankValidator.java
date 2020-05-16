@@ -1,14 +1,14 @@
-package com.cheeringlocalrestaurant.validation.notblank_withsize;
+package com.cheeringlocalrestaurant.validation.notallblank;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class NotBlankWithSizeValidator implements ConstraintValidator<NotBlankWithSize, String> {
+public class NotAllBlankValidator implements ConstraintValidator<NotAllBlank, String> {
 
-    private NotBlankWithSize constraintAnnotation;
+    private NotAllBlank constraintAnnotation;
 
     @Override
-    public void initialize(NotBlankWithSize constraintAnnotation) {
+    public void initialize(NotAllBlank constraintAnnotation) {
         this.constraintAnnotation = constraintAnnotation;
     }
 

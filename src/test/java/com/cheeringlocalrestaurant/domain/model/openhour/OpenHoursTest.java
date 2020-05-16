@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.cheeringlocalrestaurant.domain.model.openhour.OpenHours;
-
 class OpenHoursTest {
 
 	@Test

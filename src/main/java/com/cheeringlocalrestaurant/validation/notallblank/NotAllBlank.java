@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.validation.notblank_withsize;
+package com.cheeringlocalrestaurant.validation.notallblank;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -15,11 +15,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Target({ FIELD, ANNOTATION_TYPE, PARAMETER })
 @Retention(RUNTIME)
-@Repeatable(NotBlankWithSize.List.class)
-@Constraint(validatedBy = {NotBlankWithSizeValidator.class})
-public @interface NotBlankWithSize {
+@Repeatable(NotAllBlank.List.class)
+@Constraint(validatedBy = {NotAllBlankValidator.class})
+public @interface NotAllBlank {
 
-    String message() default "{validation.NotBlankWithSize.message}";
+    String message() default "{validation.NotAllBlank.message}";
 
     Class<?>[] groups() default { };
 
@@ -33,6 +33,6 @@ public @interface NotBlankWithSize {
     @Retention(RUNTIME)
     @Documented
     @interface List {
-        NotBlankWithSize[] value();
+        NotAllBlank[] value();
     }
 }
