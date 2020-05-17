@@ -15,25 +15,23 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RestaurantTempRegistFormTest {
+public class RestaurantTempRegisterFormTest {
 
     private Validator validator;
 
     private String nameNotAllBlankMessage = "{0}'s size must be between 1 and 50. Only blanks are not allowed.";
 
-    private RestaurantTempRegistForm form = new RestaurantTempRegistForm();
+    private RestaurantTempRegisterForm form = new RestaurantTempRegisterForm();
 
     @BeforeEach
     public void setUp() throws Exception {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
 
-        form.setName("いろは食堂");
-        form.setMailAddress("iroha@example.com");
-        form.setAgreedTermOfUse(true);
+        RestaurantTempRegisterFormCreator.setOkPattern(form);
     }
 
-    private Set<ConstraintViolation<RestaurantTempRegistForm>> validate() {
+    private Set<ConstraintViolation<RestaurantTempRegisterForm>> validate() {
         return validator.validate(form);
     }
 
@@ -42,16 +40,16 @@ public class RestaurantTempRegistFormTest {
     }
 
     private void validateSingleItem(final String expectedMessage) {
-        Set<ConstraintViolation<RestaurantTempRegistForm>> violations = validate();
+        Set<ConstraintViolation<RestaurantTempRegisterForm>> violations = validate();
         assertTrue(violations.size() == 1);
-        List<ConstraintViolation<RestaurantTempRegistForm>> violationList = new ArrayList<>(violations);
-        ConstraintViolation<RestaurantTempRegistForm> violation = violationList.get(0);
+        List<ConstraintViolation<RestaurantTempRegisterForm>> violationList = new ArrayList<>(violations);
+        ConstraintViolation<RestaurantTempRegisterForm> violation = violationList.get(0);
         assertEquals(expectedMessage, violation.getMessage());
     }
 
     @Test
     void _正常ケース() throws Exception {
-        Set<ConstraintViolation<RestaurantTempRegistForm>> violations = validator.validate(form);
+        Set<ConstraintViolation<RestaurantTempRegisterForm>> violations = validator.validate(form);
         assertTrue(violations.isEmpty());
     }
 
@@ -96,7 +94,7 @@ public class RestaurantTempRegistFormTest {
         form.setName("");
         form.setMailAddress("");
         form.setAgreedTermOfUse(false);
-        Set<ConstraintViolation<RestaurantTempRegistForm>> violations = validate();
+        Set<ConstraintViolation<RestaurantTempRegisterForm>> violations = validate();
         assertTrue(violations.size() == 3);
     }
 }

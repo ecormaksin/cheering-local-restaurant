@@ -7,7 +7,8 @@
 </head>
 <body>
 <div layout:fragment="content" class="row justify-content-center offset-lg-1">
-	<form th:action="@{/restaurants/temp_regist}" th:object="${restaurantTempRegistForm}" class="form-horizontal col-8 col-lg-12" method="post">
+	<form th:action="@{/restaurants/temp_register}" th:object="${restaurantTempRegisterForm}" class="form-horizontal col-8 col-lg-12" method="post">
+		<input type="hidden" id="tranToken" name="tranToken" th:field="*{tranToken}" />
 		<fieldset>
 			<legend th:text="#{label.restaurant.temp.regist}">飲食店仮登録</legend>
 			<div class="offset-lg-1">
@@ -33,23 +34,6 @@
 					</div>
 				</div>
 				<div class="form-group form-row">
-					<label for="password" class="col-lg-3 col-form-label" th:text="#{label.password}">パスワード</label>
-					<div class="col-lg-3">
-						<input type="password" id="password" name="password" 
-							th:field="*{password}" 
-							class="form-control" th:classappend="${#fields.hasErrors('password')}? 'is-invalid'"/>
-						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback">error!</span>
-					</div>
-				</div>
-				<div class="form-group form-row">
-					<label for="matchingPassword" class="col-lg-3 col-form-label" th:text="#{label.matchingPassword}">パスワード</label>
-					<div class="col-lg-3">
-						<input type="password" id="matchingPassword" name="matchingPassword" 
-							th:field="*{matchingPassword}" 
-							class="form-control"/>
-					</div>
-				</div>
-				<div class="form-group form-row">
 					<label class="col-12 col-form-label" th:text="#{label.terms_of_service}">利用規約</label>
 					<div>
 						<div class="overflow-auto bg-light border" thex:textbr="#{guidance.terms_of_service}" style="max-height: 400px;">利用規約の内容</div>
@@ -61,7 +45,7 @@
 				</div>
 				<div class="form-group form-row">
 					<div >
-						<input type="checkbox" name="agreed" id="agreed"/>
+						<input type="checkbox" name="agreed" id="agreed" th:field="*{agreedTermOfUse}"/>
 						<label for="agreed" class="col-form-label">利用規約に同意しました。</label>
 					</div>
 				</div>
