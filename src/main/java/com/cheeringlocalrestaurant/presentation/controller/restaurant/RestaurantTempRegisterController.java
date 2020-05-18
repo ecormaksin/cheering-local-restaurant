@@ -14,10 +14,21 @@ import lombok.RequiredArgsConstructor;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("restaurant/temp_register")
+@RequestMapping(RestaurantTempRegisterController.PATH_BASE)
 @RequiredArgsConstructor
 @SessionAttributes(types = RestaurantTempRegisterForm.class)
 public class RestaurantTempRegisterController {
+
+	static final String PATH_BASE = "restaurant/temp_register";
+
+	static final String VIEW_FORM = PATH_BASE + "/form";
+
+	static final String PATH_REL_REGISTER = "/register";
+	static final String PATH_REGISTER = "/" + PATH_BASE + PATH_REL_REGISTER;
+
+	static final String PATH_REL_COMPLETED = "/completed";
+	static final String VIEW_COMPLETED = PATH_BASE + PATH_REL_COMPLETED;
+	static final String PATH_COMPLETED = "/" + VIEW_COMPLETED;
 
 	private final RestaurantTempRegisterUseCase restaurantTempRegisterUseCase;
 	private final MessageSource messagesource;
@@ -25,21 +36,21 @@ public class RestaurantTempRegisterController {
 	@GetMapping("/")
 	String showForm(Model model) {
 		model.addAttribute("restaurantTempRegisterForm", new RestaurantTempRegisterForm());
-		return "restaurant/temp_register/form";
+		return VIEW_FORM;
 	}
 
-	@PostMapping("/register")
+	@PostMapping(PATH_REL_REGISTER)
 	String register(@Validated RestaurantTempRegisterForm form, BindingResult result, Model model) {
 		if(result.hasErrors()) {
-			return "restaurant/temp_register/form";
+			return VIEW_FORM;
 		}
 		try {
 			restaurantTempRegisterUseCase.execute(null);
 		} catch(RestaurantMailAddressAlreadyRegisteredException e) {
 			model.addAttribute("errorMessage",
 					messagesource.getMessage("message.restaurant.mailAddressAlreadyRegistered", null, Locale.getDefault()));
-			return "restaurant/temp_register/form";
+			return VIEW_FORM;
 		}
-		return "redirect:/restaurant/temp_register/completed";
+		return "redirect:" + PATH_COMPLETED;
 	}
 }

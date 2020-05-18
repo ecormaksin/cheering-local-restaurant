@@ -36,9 +36,9 @@ public class RestaurantTempRegisterControllerTest {
 
     @Test
     void _店舗仮登録のルートへアクセスした時はフォームへ遷移する() throws Exception {
-        this.mockMvc.perform(get("/restaurant/temp_register/"))
+        this.mockMvc.perform(get("/" +  RestaurantTempRegisterController.PATH_BASE + "/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("restaurant/temp_register/form"));
+                .andExpect(view().name(RestaurantTempRegisterController.VIEW_FORM));
     }
 
     @Test
@@ -46,21 +46,21 @@ public class RestaurantTempRegisterControllerTest {
         given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any())).willReturn(new RestaurantId());
 
         RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
-        this.mockMvc.perform(post("/restaurant/temp_register/register")
+        this.mockMvc.perform(post(RestaurantTempRegisterController.PATH_REGISTER)
                     .param("name", form.getName())
                     .param("mailAddress", form.getMailAddress())
                     .param("agreed", form.getAgreedTermOfUse().toString())
                     .param("tranToken", form.getTranToken().toString()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/restaurant/temp_register/completed"));
+                .andExpect(redirectedUrl(RestaurantTempRegisterController.PATH_COMPLETED));
     }
 
     @Test
     void _入力エラーの場合はフォームへ戻る() throws Exception {
-        this.mockMvc.perform(post("/restaurant/temp_register/register"))
+        this.mockMvc.perform(post(RestaurantTempRegisterController.PATH_REGISTER))
                 .andExpect(status().isOk())
                 .andExpect(model().hasErrors())
-                .andExpect(view().name("restaurant/temp_register/form"));
+                .andExpect(view().name(RestaurantTempRegisterController.VIEW_FORM));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class RestaurantTempRegisterControllerTest {
         doReturn(errorMessage).when(messagesource).getMessage("message.restaurant.mailAddressAlreadyRegistered", null, Locale.getDefault());
 
         RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
-        this.mockMvc.perform(post("/restaurant/temp_register/register")
+        this.mockMvc.perform(post(RestaurantTempRegisterController.PATH_REGISTER)
                 .param("name", form.getName())
                 .param("mailAddress", form.getMailAddress())
                 .param("agreed", form.getAgreedTermOfUse().toString())
@@ -79,6 +79,6 @@ public class RestaurantTempRegisterControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().hasNoErrors())
                 .andExpect(model().attribute("errorMessage", errorMessage))
-                .andExpect(view().name("restaurant/temp_register/form"));
+                .andExpect(view().name(RestaurantTempRegisterController.VIEW_FORM));
     }
 }
