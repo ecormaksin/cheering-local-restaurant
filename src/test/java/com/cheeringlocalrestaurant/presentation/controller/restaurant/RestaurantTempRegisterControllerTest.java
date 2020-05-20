@@ -45,14 +45,30 @@ public class RestaurantTempRegisterControllerTest {
     void _登録後は完了ページへ遷移する() throws Exception {
         given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any())).willReturn(new RestaurantId());
 
-        RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
+        final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
         this.mockMvc.perform(post(RestaurantTempRegisterController.PATH_REGISTER)
                     .param("name", form.getName())
                     .param("mailAddress", form.getMailAddress())
                     .param("agreed", form.getAgreedTermOfUse().toString())
                     .param("tranToken", form.getTranToken().toString()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(RestaurantTempRegisterController.PATH_COMPLETED));
+                .andExpect(redirectedUrlPattern(RestaurantTempRegisterController.PATH_COMPLETED + "*"));
+    }
+
+    @Test
+    void _完了ページ遷移時はメッセージが表示される() throws Exception {
+        final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
+        final String key = "completedMessage";
+        final String mailAddress = form.getMailAddress();
+        final String completedMessage = String.format("%sへログイン用アドレスを記載したメールを送信しました。ご確認ください。", mailAddress);
+
+        doReturn(completedMessage).when(messagesource)
+                .getMessage("message.restaurant.mailAddressAlreadyRegistered", new Object[]{mailAddress}, Locale.getDefault());
+
+        this.mockMvc.perform(get(RestaurantTempRegisterController.PATH_COMPLETED).flashAttr(key, completedMessage))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute(key, completedMessage))
+                .andExpect(view().name(RestaurantTempRegisterController.VIEW_COMPLETED));
     }
 
     @Test

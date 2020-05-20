@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+	<title th:text="#{label.restaurant.temp.registered} + '−' + (${#strings.isEmpty(@environment.getProperty('LOCAL_NAME'))}? '地元':${@environment.getProperty('LOCAL_NAME')}) + #{label.system.title}">飲食店仮登録完了 - 地元の飲食店 テイクアウト注文支援サービス</title>
+</head>
+<body>
+<div layout:fragment="content" class="row justify-content-center offset-lg-1">
+	<div class="content">
+		<div class="form-group form-row">
+			<div class="col-sm">
+				<h2 th:text="#{label.restaurant.temp.registered}">飲食店仮登録完了</h2>
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-sm" th:text="${completedMessage}">仮登録完了メッセージ</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -3,15 +3,18 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
-	<title th:text="#{label.restaurant.temp.regist} + '−' + (${@environment.getProperty('LOCAL_NAME') == null}? '地元':${@environment.getProperty('LOCAL_NAME')}) + #{label.system.title}">飲食店仮登録 - 地元の飲食店 テイクアウト注文支援サービス</title>
+	<title th:text="#{label.restaurant.temp.register} + '−' + (${#strings.isEmpty(@environment.getProperty('LOCAL_NAME'))}? '地元':${@environment.getProperty('LOCAL_NAME')}) + #{label.system.title}">飲食店仮登録 - 地元の飲食店 テイクアウト注文支援サービス</title>
 </head>
 <body>
 <div layout:fragment="content" class="row justify-content-center offset-lg-1">
-	<form th:action="@{/restaurants/temp_register}" th:object="${restaurantTempRegisterForm}" class="form-horizontal col-8 col-lg-12" method="post">
+	<form th:action="@{/restaurant/temp_register/register}" th:object="${restaurantTempRegisterForm}" class="form-horizontal col-8 col-lg-12" method="post">
 		<input type="hidden" id="tranToken" name="tranToken" th:field="*{tranToken}" />
 		<fieldset>
-			<legend th:text="#{label.restaurant.temp.regist}">飲食店仮登録</legend>
+			<legend th:text="#{label.restaurant.temp.register}">飲食店仮登録</legend>
 			<div class="offset-lg-1">
+				<div th:if="${not #strings.isEmpty(errorMessage)}">
+					<span th:text="${errorMessage}" class="invalid-feedback">error!</span>
+				</div>
 				<div class="form-group form-row">
 					<label for="name" class="col-lg-3 col-form-label" th:text="#{label.restaurant.name}">店名</label>
 					<div class="col-lg-5">
@@ -51,12 +54,20 @@
 				</div>
 				<div class="form-group form-row">
 					<div>
-						<input type="submit" class="btn btn-primary" th:value="#{label.temp.regist}" value="仮登録" disabled="disabled"/>
+						<input type="submit" name="register" id="register" class="btn btn-primary" th:value="#{label.temp.register}" value="仮登録" disabled="disabled"/>
 					</div>
 				</div>
 			</div>
 		</fieldset>
 	</form>
 </div>
+<!--
+<script type="text/javascript" layout:fragment="scripts">
+	$(function (){
+		$('#agreed').click(function() {
+			$('#register').prop('disabled', !$('#agreed').prop('checked'));
+		});
+	});
+</script>-->
 </body>
 </html>

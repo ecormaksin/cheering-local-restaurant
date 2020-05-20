@@ -10,13 +10,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Locale;
 
 @Controller
 @RequestMapping(RestaurantTempRegisterController.PATH_BASE)
 @RequiredArgsConstructor
-@SessionAttributes(types = RestaurantTempRegisterForm.class)
 public class RestaurantTempRegisterController {
 
 	static final String PATH_BASE = "restaurant/temp_register";
@@ -40,7 +40,7 @@ public class RestaurantTempRegisterController {
 	}
 
 	@PostMapping(PATH_REL_REGISTER)
-	String register(@Validated RestaurantTempRegisterForm form, BindingResult result, Model model) {
+	String register(@Validated RestaurantTempRegisterForm form, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 		if(result.hasErrors()) {
 			return VIEW_FORM;
 		}
@@ -51,6 +51,14 @@ public class RestaurantTempRegisterController {
 					messagesource.getMessage("message.restaurant.mailAddressAlreadyRegistered", null, Locale.getDefault()));
 			return VIEW_FORM;
 		}
+		redirectAttributes.addAttribute("completedMessage",
+				messagesource.getMessage("message.restaurant.registerCompleted", new Object[]{form.getMailAddress()}, Locale.getDefault()));
 		return "redirect:" + PATH_COMPLETED;
+	}
+
+	@GetMapping(PATH_REL_COMPLETED)
+	String completed(@RequestParam("completedMessage") String completedMessage, Model model) {
+		model.addAttribute("completedMessage", completedMessage);
+		return VIEW_COMPLETED;
 	}
 }
