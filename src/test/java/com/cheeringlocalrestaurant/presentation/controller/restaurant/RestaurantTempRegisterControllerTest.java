@@ -58,16 +58,11 @@ public class RestaurantTempRegisterControllerTest {
     @Test
     void _完了ページ遷移時はメッセージが表示される() throws Exception {
         final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
-        final String key = "completedMessage";
-        final String mailAddress = form.getMailAddress();
-        final String completedMessage = String.format("%sへログイン用アドレスを記載したメールを送信しました。ご確認ください。", mailAddress);
+        final String key = "restaurantTempRegisterForm";
 
-        doReturn(completedMessage).when(messagesource)
-                .getMessage("message.restaurant.mailAddressAlreadyRegistered", new Object[]{mailAddress}, Locale.getDefault());
-
-        this.mockMvc.perform(get(RestaurantTempRegisterController.PATH_COMPLETED).flashAttr(key, completedMessage))
+        this.mockMvc.perform(get(RestaurantTempRegisterController.PATH_COMPLETED).flashAttr(key, form))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute(key, completedMessage))
+                .andExpect(model().attribute(key, form))
                 .andExpect(view().name(RestaurantTempRegisterController.VIEW_COMPLETED));
     }
 

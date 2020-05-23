@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="htmlhead(title)">
+	<meta charset="UTF-8"/>
+	<meta name=”viewport” content=”width=device-width,initial-scale=1.0″>
+	<title th:text="${title} + '-' + (${#strings.isEmpty(@environment.getProperty('LOCAL_NAME'))}? '地元':${@environment.getProperty('LOCAL_NAME')}) + #{label.system.title}">Layout</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+		th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../static/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+</body>
+</html>

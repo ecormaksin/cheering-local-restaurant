@@ -51,14 +51,12 @@ public class RestaurantTempRegisterController {
 					messagesource.getMessage("message.restaurant.mailAddressAlreadyRegistered", null, Locale.getDefault()));
 			return VIEW_FORM;
 		}
-		redirectAttributes.addAttribute("completedMessage",
-				messagesource.getMessage("message.restaurant.registerCompleted", new Object[]{form.getMailAddress()}, Locale.getDefault()));
+		redirectAttributes.addFlashAttribute(form);
 		return "redirect:" + PATH_COMPLETED;
 	}
 
 	@GetMapping(PATH_REL_COMPLETED)
-	String completed(@RequestParam("completedMessage") String completedMessage, Model model) {
-		model.addAttribute("completedMessage", completedMessage);
+	String completed(RestaurantTempRegisterForm form) {
 		return VIEW_COMPLETED;
 	}
 }
