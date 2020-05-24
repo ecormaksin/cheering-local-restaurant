@@ -7,7 +7,6 @@
 <h2  layout:fragment="header2" th:replace="fragments/header2 :: header2(#{label.restaurant.temp.register})"></h2>
 <div layout:fragment="content">
 	<form th:action="@{/restaurant/temp_register/register}" th:object="${restaurantTempRegisterForm}" method="post">
-		<input type="hidden" id="tranToken" name="tranToken" th:field="*{tranToken}" />
 		<fieldset>
 			<legend th:text="#{label.restaurant.temp.register.items}"></legend>
 			<div class="container">

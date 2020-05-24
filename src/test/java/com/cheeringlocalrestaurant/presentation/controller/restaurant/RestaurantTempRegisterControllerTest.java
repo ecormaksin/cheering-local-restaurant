@@ -49,8 +49,7 @@ public class RestaurantTempRegisterControllerTest {
         this.mockMvc.perform(post(RestaurantTempRegisterController.PATH_REGISTER)
                     .param("name", form.getName())
                     .param("mailAddress", form.getMailAddress())
-                    .param("agreed", form.getAgreedTermOfUse().toString())
-                    .param("tranToken", form.getTranToken().toString()))
+                    .param("agreed", form.getAgreedTermOfUse().toString()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlPattern(RestaurantTempRegisterController.PATH_COMPLETED + "*"));
     }
@@ -85,8 +84,7 @@ public class RestaurantTempRegisterControllerTest {
         this.mockMvc.perform(post(RestaurantTempRegisterController.PATH_REGISTER)
                 .param("name", form.getName())
                 .param("mailAddress", form.getMailAddress())
-                .param("agreed", form.getAgreedTermOfUse().toString())
-                .param("tranToken", form.getTranToken().toString()))
+                .param("agreed", form.getAgreedTermOfUse().toString()))
                 .andExpect(status().isOk())
                 .andExpect(model().hasNoErrors())
                 .andExpect(model().attribute("errorMessage", errorMessage))

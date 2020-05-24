@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="cheering-local-restaurant">
+		<class>com.cheeringlocalrestaurant.infra.db.entity.FoodGenre</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.Menu</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.MenuAppearEndDay</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.MenuHistory</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.MenuMemo</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.MenuName</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.MenuPhoto</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.MenuPrice</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.Order</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.OrdersCanceled</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.OrdersProvided</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.OrdersReplied</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.OrderDetail</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.OrderReplyMessage</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.Resto</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoAccount</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoAddress</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoCloseDaysMoDow</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoCloseDaysWkly</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoClosεDaysMoDom</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoExternalLink</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoFaxnoe</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoGenre</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoHistory</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoLoginRequest</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoMessage</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoName</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoOpenHour</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoOrderAvailability</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoOrderSetting</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoPhoto</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoSearchKeyword</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoTelnoe</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoTempCloseDay</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.RestoTempOpenDay</class>
+		<class>com.cheeringlocalrestaurant.infra.db.entity.User</class>
+	</persistence-unit>
+</persistence>

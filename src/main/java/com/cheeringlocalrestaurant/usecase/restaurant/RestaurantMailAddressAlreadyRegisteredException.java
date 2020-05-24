@@ -2,7 +2,9 @@ package com.cheeringlocalrestaurant.usecase.restaurant;
 
 public class RestaurantMailAddressAlreadyRegisteredException extends RuntimeException {
 
-    public RestaurantMailAddressAlreadyRegisteredException() {
+	private static final long serialVersionUID = 1L;
+
+	public RestaurantMailAddressAlreadyRegisteredException() {
         super();
     }
 

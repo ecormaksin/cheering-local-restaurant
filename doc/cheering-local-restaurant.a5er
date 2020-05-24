@@ -37,8 +37,8 @@ Domain=アクセストークン有効期限=TIMESTAMP
 DomainInfo="アクセストークン有効期限","TIMESTAMP",""
 Domain=パスワード=VARCHAR2(255 CHAR)
 DomainInfo="パスワード","VARCHAR2(255 CHAR)",""
-Domain=飲食ジャンルID=NUMBER(5,0)
-DomainInfo="飲食ジャンルID","NUMBER(5,0)",""
+Domain=飲食ジャンルID=NUMBER(6,0)
+DomainInfo="飲食ジャンルID","NUMBER(6,0)",""
 Domain=飲食ジャンル名=VARCHAR2(100 CHAR)
 DomainInfo="飲食ジャンル名","VARCHAR2(100 CHAR)",""
 Domain=飲食ジャンル階層=NUMBER(1,0)
@@ -95,6 +95,8 @@ Domain=価格=NUMBER(4,0)
 DomainInfo="価格","NUMBER(4,0)",""
 Domain=メニュー説明=VARCHAR2(100 CHAR)
 DomainInfo="メニュー説明","VARCHAR2(100 CHAR)",""
+Domain=ファイル名=VARCHAR2(255)
+DomainInfo="ファイル名","VARCHAR2(255)",""
 Domain=顧客名=VARCHAR2(20 CHAR)
 DomainInfo="顧客名","VARCHAR2(20 CHAR)",""
 Domain=受取希望日時=DATE
@@ -120,8 +122,7 @@ FooterCenter=
 FooterRight=%PageNo% / %PageCount%
 ShowPageoutRelation=1
 RDBMSTypeName=Oracle Database
-CreateFk=1
-FkOnDeleteOption=on delete cascade
+BackupRestoreTempTable=0
 CreateFK_ParentCard1Only=1
 FKParentIndex=1
 GenerateCommentStatement_Separator=	
@@ -135,7 +136,7 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Entity]
-PName=RESTAURANTS
+PName=RESTOS
 LName=飲食店
 Comment=飲食店エンティティのルート
 TableOption=
@@ -149,7 +150,7 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510145842
+ModifiedDateTime=20200524085333
 Position="MAIN",1300,150
 ZOrder=7
 
@@ -176,7 +177,7 @@ Position="MAIN",200,150
 ZOrder=8
 
 [Entity]
-PName=RESTAURANT_ACCOUNTS
+PName=RESTO_ACCOUNTS
 LName=飲食店アカウント
 Comment=飲食店のアカウントを管理する
 TableOption=
@@ -192,13 +193,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510150006
+ModifiedDateTime=20200524085340
 Position="MAIN",800,150
 ZOrder=9
 
 [Relation]
-Entity1=RESTAURANTS
-Entity2=RESTAURANT_ACCOUNTS
+Entity1=RESTOS
+Entity2=RESTO_ACCOUNTS
 RelationType1=2
 RelationType2=1
 Fields1=RESTAURANT_ID
@@ -220,7 +221,7 @@ ZOrder=10
 
 [Relation]
 Entity1=USERS
-Entity2=RESTAURANT_ACCOUNTS
+Entity2=RESTO_ACCOUNTS
 RelationType1=2
 RelationType2=1
 Fields1=USER_ID
@@ -246,7 +247,7 @@ LName=飲食ジャンル
 Comment=
 TableOption=
 Page=MAIN
-Left=1250
+Left=1350
 Top=1500
 Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="飲食ジャンルID","FOOT_GENRE_ID","*飲食ジャンルID","NOT NULL",,"","",$FFFFFFFF,""
@@ -256,18 +257,19 @@ Field="飲食ジャンル名","FOOD_GENRE_NAME","*飲食ジャンル名","NOT NU
 Field="ジャンル階層","GENRE_LEVEL","*飲食ジャンル階層","NOT NULL",,"","",$FFFFFFFF,""
 Field="表示順","DISPLAY_ORDER","*表示順","NOT NULL",,"1","",$FFFFFFFF,""
 Field="上位飲食ジャンルID","SUPERIOR_FOOT_GENRE_ID","*飲食ジャンルID","NOT NULL",,"","最上位は0",$FFFFFFFF,""
-Index==2,SUPERIOR_FOOT_GENRE_ID ,START_DATE ,GENRE_LEVEL ,DISPLAY_ORDER 
-Index==2,FOOT_GENRE_ID ,START_DATE 
+Index==2,SUPERIOR_FOOT_GENRE_ID,START_DATE,GENRE_LEVEL,DISPLAY_ORDER
+Index==2,FOOT_GENRE_ID,START_DATE
 Index==0,FOOT_GENRE_ID
 EffectMode=None
+Tag=飲食ジャンル
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200512214822
-Position="MAIN",1250,1500
+ModifiedDateTime=20200524152856
+Position="MAIN",1350,1500
 ZOrder=12
 
 [Entity]
-PName=RESTAURANT_HISTORIES
+PName=RESTO_HISTORIES
 LName=飲食店履歴
 Comment=飲食店情報変更履歴のルートエンティティ
 TableOption=
@@ -286,12 +288,12 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510150044
+ModifiedDateTime=20200524085430
 Position="MAIN",1350,1150
 ZOrder=13
 
 [Entity]
-PName=RESTAURANT_NAMES
+PName=RESTO_NAMES
 LName=飲食店名
 Comment=飲食店名を保持する
 TableOption=
@@ -304,13 +306,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165145
+ModifiedDateTime=20200524085449
 Position="MAIN",2200,1150
-ZOrder=37
+ZOrder=36
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_NAMES
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_NAMES
 RelationType1=2
 RelationType2=2
 Fields1=RESTAURANT_HISTORY_ID
@@ -331,8 +333,8 @@ TermPos2=R
 ZOrder=14
 
 [Relation]
-Entity1=RESTAURANTS
-Entity2=RESTAURANT_HISTORIES
+Entity1=RESTOS
+Entity2=RESTO_HISTORIES
 RelationType1=2
 RelationType2=4
 Fields1=RESTAURANT_ID
@@ -353,7 +355,7 @@ TermPos2=R
 ZOrder=15
 
 [Entity]
-PName=RESTAURANT_GENRES
+PName=RESTO_GENRES
 LName=飲食店ジャンル
 Comment=飲食店のジャンルを保持する
 TableOption=
@@ -367,13 +369,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165200
+ModifiedDateTime=20200524085424
 Position="MAIN",2200,1350
 ZOrder=16
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_GENRES
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_GENRES
 RelationType1=2
 RelationType2=2
 Fields1=RESTAURANT_HISTORY_ID
@@ -394,7 +396,7 @@ TermPos2=R
 ZOrder=17
 
 [Entity]
-PName=RESTAURANT_MESSAGES
+PName=RESTO_MESSAGES
 LName=飲食店メッセージ
 Comment=飲食店からのメッセージを保持する
 TableOption=
@@ -407,13 +409,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165214
+ModifiedDateTime=20200524085440
 Position="MAIN",2200,1550
 ZOrder=18
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_MESSAGES
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_MESSAGES
 RelationType1=2
 RelationType2=1
 Fields1=RESTAURANT_HISTORY_ID
@@ -433,30 +435,8 @@ TermPos1=R
 TermPos2=R
 ZOrder=19
 
-[Relation]
-Entity1=FOOD_GENRES
-Entity2=RESTAURANT_GENRES
-RelationType1=2
-RelationType2=3
-Fields1=FOOT_GENRE_ID
-Fields2=FOOT_GENRE_ID
-Cardinarity1=
-Cardinarity2=
-Position="MAIN",0,2236,6714,6866,R,R
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20200502230222
-LineMode=0
-Bar1=224
-Bar2=671
-Bar3=687
-TermPos1=R
-TermPos2=R
-ZOrder=20
-
 [Entity]
-PName=RESTAURANT_OPEN_HOURS
+PName=RESTO_OPEN_HOURS
 LName=飲食店営業時間
 Comment=飲食店の営業時間を保持する
 TableOption=
@@ -472,13 +452,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165235
+ModifiedDateTime=20200524085556
 Position="MAIN",2200,1800
-ZOrder=21
+ZOrder=20
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_OPEN_HOURS
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_OPEN_HOURS
 RelationType1=2
 RelationType2=4
 Fields1=RESTAURANT_HISTORY_ID
@@ -496,10 +476,10 @@ Bar2=807
 Bar3=291
 TermPos1=R
 TermPos2=R
-ZOrder=22
+ZOrder=21
 
 [Entity]
-PName=RESTAURANT_CLOSE_DAYS_WKLY
+PName=RESTO_CLOSE_DAYS_WKLY
 LName=飲食店定休日_週次
 Comment=飲食店の定休日（週次の曜日）を保持する（WKLY: WEEKLY）
 TableOption=
@@ -514,13 +494,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165254
+ModifiedDateTime=20200524085358
 Position="MAIN",2200,2100
-ZOrder=23
+ZOrder=22
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_CLOSE_DAYS_WKLY
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_CLOSE_DAYS_WKLY
 RelationType1=2
 RelationType2=3
 Fields1=RESTAURANT_HISTORY_ID
@@ -538,10 +518,10 @@ Bar2=767
 Bar3=366
 TermPos1=R
 TermPos2=R
-ZOrder=24
+ZOrder=23
 
 [Entity]
-PName=RESTAURANT_CLOSE_DAYS_MO_DOW
+PName=RESTO_CLOSE_DAYS_MO_DOW
 LName=飲食店定休日_月次曜日
 Comment=飲食店の定休日（月次の曜日）を保持する（MO: MONTHLY、DOW: DAYS_OF_WEEK）
 TableOption=
@@ -557,13 +537,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165344
+ModifiedDateTime=20200524085352
 Position="MAIN",2200,2350
-ZOrder=25
+ZOrder=24
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_CLOSE_DAYS_MO_DOW
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_CLOSE_DAYS_MO_DOW
 RelationType1=2
 RelationType2=3
 Fields1=RESTAURANT_HISTORY_ID
@@ -581,10 +561,10 @@ Bar2=718
 Bar3=372
 TermPos1=R
 TermPos2=R
-ZOrder=26
+ZOrder=25
 
 [Entity]
-PName=RESTAURANT_CLOSΕ_DAYS_MO_DOM
+PName=RESTO_CLOSΕ_DAYS_MO_DOM
 LName=飲食店定休日_月次日
 Comment=飲食店の定休日（月次の日）を保持する（MO: MONTHLY、DM: DAYS_OFMONTH）
 TableOption=
@@ -599,13 +579,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165359
+ModifiedDateTime=20200524085404
 Position="MAIN",2200,2650
-ZOrder=27
+ZOrder=26
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_CLOSΕ_DAYS_MO_DOM
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_CLOSΕ_DAYS_MO_DOM
 RelationType1=2
 RelationType2=3
 Fields1=RESTAURANT_HISTORY_ID
@@ -623,10 +603,10 @@ Bar2=658
 Bar3=372
 TermPos1=R
 TermPos2=R
-ZOrder=28
+ZOrder=27
 
 [Entity]
-PName=RESTAURANT_TEMP_OPEN_DAYS
+PName=RESTO_TEMP_OPEN_DAYS
 LName=飲食店臨時営業日
 Comment=飲食店の臨時営業日を保持する
 TableOption=
@@ -646,13 +626,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200509122306
+ModifiedDateTime=20200524085633
 Position="MAIN",1750,600
-ZOrder=29
+ZOrder=28
 
 [Relation]
-Entity1=RESTAURANTS
-Entity2=RESTAURANT_TEMP_OPEN_DAYS
+Entity1=RESTOS
+Entity2=RESTO_TEMP_OPEN_DAYS
 RelationType1=2
 RelationType2=3
 Fields1=RESTAURANT_ID
@@ -670,10 +650,10 @@ Bar2=880
 Bar3=123
 TermPos1=R
 TermPos2=R
-ZOrder=30
+ZOrder=29
 
 [Entity]
-PName=RESTAURANT_TEMP_CLOSE_DAYS
+PName=RESTO_TEMP_CLOSE_DAYS
 LName=飲食店臨時休業日
 Comment=飲食店の臨時休業日を保持する
 TableOption=
@@ -689,13 +669,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200506113530
+ModifiedDateTime=20200524085628
 Position="MAIN",1750,900
-ZOrder=31
+ZOrder=30
 
 [Relation]
-Entity1=RESTAURANTS
-Entity2=RESTAURANT_TEMP_CLOSE_DAYS
+Entity1=RESTOS
+Entity2=RESTO_TEMP_CLOSE_DAYS
 RelationType1=2
 RelationType2=3
 Fields1=RESTAURANT_ID
@@ -748,7 +728,7 @@ Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200506112345
 Position="MAIN",100,1100
-ZOrder=32
+ZOrder=31
 
 [View]
 PName=PREFECTURES
@@ -761,7 +741,7 @@ LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
 Position="MAIN",600,1100
-ZOrder=33
+ZOrder=32
 Page=MAIN
 Left=600
 Top=1100
@@ -777,13 +757,13 @@ LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
 Position="MAIN",600,1300
-ZOrder=34
+ZOrder=33
 Page=MAIN
 Left=600
 Top=1300
 
 [Entity]
-PName=RESTAURANT_ADDRESSES
+PName=RESTO_ADDRESSES
 LName=飲食店住所
 Comment=
 TableOption=
@@ -801,13 +781,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200512213801
+ModifiedDateTime=20200524085346
 Position="MAIN",3000,1100
-ZOrder=35
+ZOrder=34
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_ADDRESSES
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_ADDRESSES
 RelationType1=2
 RelationType2=2
 Fields1=RESTAURANT_HISTORY_ID
@@ -825,10 +805,10 @@ Bar2=951
 Bar3=138
 TermPos1=R
 TermPos2=R
-ZOrder=36
+ZOrder=35
 
 [Entity]
-PName=RESTAURANT_TELNOES
+PName=RESTO_TELNOES
 LName=飲食店電話番号
 Comment=
 TableOption=
@@ -845,13 +825,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165710
+ModifiedDateTime=20200524085621
 Position="MAIN",3000,1600
-ZOrder=38
+ZOrder=37
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_TELNOES
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_TELNOES
 RelationType1=2
 RelationType2=4
 Fields1=RESTAURANT_HISTORY_ID
@@ -872,7 +852,7 @@ TermPos2=R
 ZOrder=6
 
 [Entity]
-PName=RESTAURANT_FAXNOES
+PName=RESTO_FAXNOES
 LName=飲食店FAX番号
 Comment=
 TableOption=
@@ -889,13 +869,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165726
+ModifiedDateTime=20200524085417
 Position="MAIN",3000,1900
-ZOrder=39
+ZOrder=38
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_FAXNOES
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_FAXNOES
 RelationType1=2
 RelationType2=3
 Fields1=RESTAURANT_HISTORY_ID
@@ -915,7 +895,7 @@ TermPos2=R
 ZOrder=5
 
 [Entity]
-PName=RESTAURANT_EXTERNAL_LINKS
+PName=RESTO_EXTERNAL_LINKS
 LName=飲食店外部リンク
 Comment=公式ホームページやSNSのリンクを保持する
 TableOption=
@@ -932,13 +912,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165803
+ModifiedDateTime=20200524085411
 Position="MAIN",3000,2200
-ZOrder=40
+ZOrder=39
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_EXTERNAL_LINKS
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_EXTERNAL_LINKS
 RelationType1=2
 RelationType2=3
 Fields1=RESTAURANT_HISTORY_ID
@@ -956,10 +936,10 @@ Bar2=875
 Bar3=288
 TermPos1=R
 TermPos2=R
-ZOrder=41
+ZOrder=40
 
 [Entity]
-PName=RESTAURANT_PHOTOS
+PName=RESTO_PHOTOS
 LName=飲食店写真
 Comment=店舗や看板メニューの写真のファイル名を保持する
 TableOption=
@@ -976,13 +956,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510165836
+ModifiedDateTime=20200524085610
 Position="MAIN",3000,2500
-ZOrder=42
+ZOrder=41
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_PHOTOS
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_PHOTOS
 RelationType1=2
 RelationType2=3
 Fields1=RESTAURANT_HISTORY_ID
@@ -1000,10 +980,10 @@ Bar2=848
 Bar3=288
 TermPos1=R
 TermPos2=R
-ZOrder=43
+ZOrder=42
 
 [Entity]
-PName=RESTAURANT_ORDER_AVAILABILITY
+PName=RESTO_ORDER_AVAILABILITY
 LName=飲食店注文可能
 Comment=ネットでの注文を受け付ける場合に、このテーブルへ該当飲食店のID（飲食店履歴ID）を保持する
 TableOption=
@@ -1015,13 +995,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510170121
+ModifiedDateTime=20200524085601
 Position="MAIN",3550,1150
-ZOrder=44
+ZOrder=43
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_ORDER_AVAILABILITY
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_ORDER_AVAILABILITY
 RelationType1=2
 RelationType2=1
 Fields1=RESTAURANT_HISTORY_ID
@@ -1042,7 +1022,7 @@ TermPos2=R
 ZOrder=4
 
 [Entity]
-PName=RESTAURANT_ORDER_SETTINGS
+PName=RESTO_ORDER_SETTINGS
 LName=飲食店注文設定
 Comment=注文時の設定を保持する
 TableOption=
@@ -1056,13 +1036,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510170148
+ModifiedDateTime=20200524085605
 Position="MAIN",3550,1400
-ZOrder=45
+ZOrder=44
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_ORDER_SETTINGS
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_ORDER_SETTINGS
 RelationType1=2
 RelationType2=1
 Fields1=RESTAURANT_HISTORY_ID
@@ -1083,7 +1063,7 @@ TermPos2=R
 ZOrder=3
 
 [Entity]
-PName=RESTAURANT_SEARCH_KEYWORDS
+PName=RESTO_SEARCH_KEYWORDS
 LName=飲食店検索キーワード
 Comment=検索用のキーワードを保持する
 TableOption=
@@ -1100,13 +1080,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510170233
+ModifiedDateTime=20200524085614
 Position="MAIN",3550,1700
-ZOrder=46
+ZOrder=45
 
 [Relation]
-Entity1=RESTAURANT_HISTORIES
-Entity2=RESTAURANT_SEARCH_KEYWORDS
+Entity1=RESTO_HISTORIES
+Entity2=RESTO_SEARCH_KEYWORDS
 RelationType1=2
 RelationType2=3
 Fields1=RESTAURANT_HISTORY_ID
@@ -1127,7 +1107,7 @@ TermPos2=R
 ZOrder=2
 
 [Entity]
-PName=メニュー
+PName=MENU
 LName=メニュー
 Comment=メニューエンティティのルート
 TableOption=
@@ -1143,13 +1123,13 @@ EffectMode=None
 Tag=メニュー
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510150118
+ModifiedDateTime=20200524084029
 Position="MAIN",2250,400
-ZOrder=47
+ZOrder=46
 
 [Relation]
-Entity1=RESTAURANTS
-Entity2=メニュー
+Entity1=RESTOS
+Entity2=MENU
 RelationType1=2
 RelationType2=3
 Fields1=RESTAURANT_ID
@@ -1167,7 +1147,7 @@ Bar2=837
 Bar3=355
 TermPos1=R
 TermPos2=R
-ZOrder=48
+ZOrder=47
 
 [Entity]
 PName=MENU_HISTORIES
@@ -1189,10 +1169,10 @@ Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510170707
 Position="MAIN",2600,400
-ZOrder=49
+ZOrder=48
 
 [Relation]
-Entity1=メニュー
+Entity1=MENU
 Entity2=MENU_HISTORIES
 RelationType1=2
 RelationType2=4
@@ -1211,7 +1191,7 @@ Bar2=473
 Bar3=660
 TermPos1=R
 TermPos2=R
-ZOrder=50
+ZOrder=49
 
 [Entity]
 PName=MENU_APPEAR_END_DAYS
@@ -1222,15 +1202,16 @@ Page=MAIN
 Left=2600
 Top=800
 Field="メニュー履歴ID","MENU_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="掲載終了日","APPEAR_END_DATE","*終了日","NOT NULL",,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
 Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
 EffectMode=None
 Tag=メニュー
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510170718
+ModifiedDateTime=20200524101806
 Position="MAIN",2600,800
-ZOrder=51
+ZOrder=50
 
 [Relation]
 Entity1=MENU_HISTORIES
@@ -1252,7 +1233,7 @@ Bar2=505
 Bar3=464
 TermPos1=R
 TermPos2=R
-ZOrder=52
+ZOrder=51
 
 [Entity]
 PName=MENU_NAMES
@@ -1270,7 +1251,7 @@ Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510170826
 Position="MAIN",3250,100
-ZOrder=53
+ZOrder=52
 
 [Relation]
 Entity1=MENU_HISTORIES
@@ -1292,7 +1273,7 @@ Bar2=818
 Bar3=181
 TermPos1=R
 TermPos2=R
-ZOrder=54
+ZOrder=53
 
 [Entity]
 PName=MENU_PRICES
@@ -1310,7 +1291,7 @@ Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510170852
 Position="MAIN",3250,300
-ZOrder=55
+ZOrder=54
 
 [Relation]
 Entity1=MENU_HISTORIES
@@ -1332,7 +1313,7 @@ Bar2=685
 Bar3=667
 TermPos1=R
 TermPos2=R
-ZOrder=56
+ZOrder=55
 
 [Entity]
 PName=MENU_MEMOS
@@ -1350,7 +1331,7 @@ Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510170907
 Position="MAIN",3250,550
-ZOrder=57
+ZOrder=56
 
 [Relation]
 Entity1=MENU_HISTORIES
@@ -1372,7 +1353,7 @@ Bar2=632
 Bar3=269
 TermPos1=R
 TermPos2=R
-ZOrder=58
+ZOrder=57
 
 [Entity]
 PName=MENU_PHOTOS
@@ -1392,9 +1373,9 @@ EffectMode=None
 Tag=メニュー
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510170951
+ModifiedDateTime=20200524081828
 Position="MAIN",3250,750
-ZOrder=59
+ZOrder=58
 
 [Relation]
 Entity1=MENU_HISTORIES
@@ -1416,7 +1397,7 @@ Bar2=546
 Bar3=181
 TermPos1=R
 TermPos2=R
-ZOrder=60
+ZOrder=59
 
 [View]
 PName=ADDRESSES
@@ -1429,7 +1410,7 @@ LNameByComment=1
 Color=$000000
 BkColor=$FFFFFF
 Position="MAIN",600,1600
-ZOrder=61
+ZOrder=60
 Page=MAIN
 Left=600
 Top=1600
@@ -1439,7 +1420,7 @@ PName=ORDERS
 LName=注文
 Comment=利用者注文のルートエンティティ
 TableOption=
-Page=Main
+Page=MAIN
 Left=100
 Top=2000
 Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
@@ -1457,11 +1438,11 @@ Tag=注文
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510152645
-Position="Main",100,2000
-ZOrder=62
+Position="MAIN",100,2000
+ZOrder=61
 
 [Relation]
-Entity1=RESTAURANTS
+Entity1=RESTOS
 Entity2=ORDERS
 RelationType1=2
 RelationType2=3
@@ -1487,7 +1468,7 @@ PName=ORDER_DETAILS
 LName=注文明細
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=700
 Top=2550
 Field="注文明細ID","ORDER_DETAIL_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
@@ -1502,8 +1483,8 @@ Tag=注文
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510163540
-Position="Main",700,2550
-ZOrder=63
+Position="MAIN",700,2550
+ZOrder=62
 
 [Relation]
 Entity1=ORDERS
@@ -1525,14 +1506,14 @@ Bar2=490
 Bar3=250
 TermPos1=R
 TermPos2=R
-ZOrder=64
+ZOrder=63
 
 [Entity]
 PName=ORDERS_REPLIED
 LName=注文回答済み
 Comment=利用客へ返信済みの注文を保持する
 TableOption=
-Page=Main
+Page=MAIN
 Left=700
 Top=2000
 Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
@@ -1543,15 +1524,15 @@ Tag=注文
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510163525
-Position="Main",700,2000
-ZOrder=65
+Position="MAIN",700,2000
+ZOrder=64
 
 [Entity]
 PName=ORDER_REPLY_MESSAGES
 LName=注文回答メッセージ
 Comment=利用客への返信時メッセージを保持する
 TableOption=
-Page=Main
+Page=MAIN
 Left=700
 Top=2350
 Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
@@ -1561,8 +1542,8 @@ Tag=注文
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510163517
-Position="Main",700,2350
-ZOrder=66
+Position="MAIN",700,2350
+ZOrder=65
 
 [Relation]
 Entity1=ORDERS
@@ -1584,7 +1565,7 @@ Bar2=675
 Bar3=314
 TermPos1=R
 TermPos2=R
-ZOrder=67
+ZOrder=66
 
 [Relation]
 Entity1=ORDERS_REPLIED
@@ -1606,14 +1587,14 @@ Bar2=414
 Bar3=205
 TermPos1=R
 TermPos2=R
-ZOrder=68
+ZOrder=67
 
 [Entity]
 PName=ORDERS_PROVIDED
 LName=注文提供済み
 Comment=利用客へ提供済みの注文を保持する
 TableOption=
-Page=Main
+Page=MAIN
 Left=1200
 Top=2000
 Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
@@ -1624,8 +1605,8 @@ Tag=注文
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510164209
-Position="Main",1200,2000
-ZOrder=69
+Position="MAIN",1200,2000
+ZOrder=68
 
 [Relation]
 Entity1=ORDERS_REPLIED
@@ -1647,14 +1628,14 @@ Bar2=499
 Bar3=294
 TermPos1=R
 TermPos2=R
-ZOrder=70
+ZOrder=69
 
 [Entity]
 PName=ORDERS_CANCELED
 LName=注文キャンセル済み
 Comment=キャンセルした注文を保持する
 TableOption=
-Page=Main
+Page=MAIN
 Left=1200
 Top=2250
 Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
@@ -1665,8 +1646,8 @@ Tag=注文
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510164121
-Position="Main",1200,2250
-ZOrder=71
+Position="MAIN",1200,2250
+ZOrder=70
 
 [Relation]
 Entity1=ORDERS_REPLIED
@@ -1688,14 +1669,14 @@ Bar2=510
 Bar3=304
 TermPos1=R
 TermPos2=R
-ZOrder=72
+ZOrder=71
 
 [Entity]
-PName=RESTAURANT_LOGIN_REQUESTS
+PName=RESTO_LOGIN_REQUESTS
 LName=飲食店ログイン要求
 Comment=飲食店ログイン要求イベントを保持する
 TableOption=
-Page=Main
+Page=MAIN
 Left=800
 Top=500
 Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
@@ -1710,13 +1691,13 @@ EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200512221119
-Position="Main",800,500
-ZOrder=73
+ModifiedDateTime=20200524085435
+Position="MAIN",800,500
+ZOrder=72
 
 [Relation]
 Entity1=USERS
-Entity2=RESTAURANT_LOGIN_REQUESTS
+Entity2=RESTO_LOGIN_REQUESTS
 RelationType1=2
 RelationType2=3
 Fields1=MAIL_ADDRESS
@@ -1732,6 +1713,28 @@ LineMode=0
 Bar1=579
 Bar2=776
 Bar3=386
+TermPos1=R
+TermPos2=R
+ZOrder=73
+
+[Relation]
+Entity1=FOOD_GENRES
+Entity2=RESTO_GENRES
+RelationType1=2
+RelationType2=3
+Fields1=FOOT_GENRE_ID
+Fields2=FOOT_GENRE_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4983,5017,5974,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200524152806
+LineMode=0
+Bar1=498
+Bar2=502
+Bar3=597
 TermPos1=R
 TermPos2=R
 ZOrder=74
