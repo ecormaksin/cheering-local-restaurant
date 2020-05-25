@@ -2,16 +2,12 @@ package com.cheeringlocalrestaurant.domain.model.restaurant;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 
 @Builder
 @Getter
-public class RestaurantAccount {
+public class Restaurant {
 
-	@NonNull
-	private RestaurantId id;
-	@NonNull
-	private RestaurantName name;
-	@NonNull
+	private RestaurantId restaurantId;
+	private RestaurantName restaurantName;
 	private MailAddress mailAddress;
 }

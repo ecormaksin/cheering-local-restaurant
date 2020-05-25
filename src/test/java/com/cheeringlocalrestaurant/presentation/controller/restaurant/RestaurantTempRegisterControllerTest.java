@@ -5,11 +5,8 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegiste
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantMailAddressAlreadyRegisteredException;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantTempRegisterUseCase;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,7 +40,7 @@ public class RestaurantTempRegisterControllerTest {
 
     @Test
     void _登録後は完了ページへ遷移する() throws Exception {
-        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any())).willReturn(new RestaurantId());
+        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any())).willReturn(new RestaurantId(1L));
 
         final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
         this.mockMvc.perform(post(RestaurantTempRegisterController.PATH_REGISTER)
