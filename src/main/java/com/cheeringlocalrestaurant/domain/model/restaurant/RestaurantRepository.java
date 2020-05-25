@@ -1,5 +1,8 @@
 package com.cheeringlocalrestaurant.domain.model.restaurant;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface RestaurantRepository {
 
 	RestaurantAccount findByMailAddress(String mailAddress);
@@ -8,5 +11,5 @@ public interface RestaurantRepository {
 	
 	RestaurantAccount findAccountById(RestaurantId restaurantId);
 
-	RestaurantId save(Restaurant restaurant);
+	RestaurantId save(RestaurantTempRegister tempRegister);
 }

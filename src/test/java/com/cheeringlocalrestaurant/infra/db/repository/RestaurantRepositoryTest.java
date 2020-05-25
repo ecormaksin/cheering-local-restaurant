@@ -1,0 +1,31 @@
+package com.cheeringlocalrestaurant.infra.db.repository;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantId;
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+
+@SpringBootTest(webEnvironment = WebEnvironment.NONE)
+class RestaurantRepositoryTest {
+
+	@Autowired
+	private RestaurantRepository restaurantRepository;
+	
+	@Test
+	void _仮登録() {
+		final String name = "いろは食堂";
+		final String email = "iroha@example.com";
+
+		RestaurantTempRegister tempRegister = new RestaurantTempRegister(name, email);
+		RestaurantId idActual = restaurantRepository.save(tempRegister);
+		assertNotNull(idActual);
+		assertNotNull(idActual.getValue());
+	}
+
+}
