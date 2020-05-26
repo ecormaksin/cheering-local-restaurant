@@ -16,10 +16,12 @@ public class Resto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="RESTOS_RESTAURANTID_GENERATOR", sequenceName="RESTOS_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTOS_RESTAURANTID_GENERATOR")
 	@Column(name="RESTAURANT_ID")
-	private long restaurantId;
+	private Long restaurantId;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 
@@ -29,11 +31,11 @@ public class Resto implements Serializable {
 	public Resto() {
 	}
 
-	public long getRestaurantId() {
+	public Long getRestaurantId() {
 		return this.restaurantId;
 	}
 
-	public void setRestaurantId(long restaurantId) {
+	public void setRestaurantId(Long restaurantId) {
 		this.restaurantId = restaurantId;
 	}
 

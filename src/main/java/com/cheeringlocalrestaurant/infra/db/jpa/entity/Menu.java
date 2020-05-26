@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 
@@ -16,10 +15,12 @@ public class Menu implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="MENU_MENUID_GENERATOR", sequenceName="MENU_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MENU_MENUID_GENERATOR")
 	@Column(name="MENU_ID")
-	private long menuId;
+	private Long menuId;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 
@@ -27,16 +28,16 @@ public class Menu implements Serializable {
 	private String remoteIpAddress;
 
 	@Column(name="RESTAURANT_ID")
-	private BigDecimal restaurantId;
+	private Long restaurantId;
 
 	public Menu() {
 	}
 
-	public long getMenuId() {
+	public Long getMenuId() {
 		return this.menuId;
 	}
 
-	public void setMenuId(long menuId) {
+	public void setMenuId(Long menuId) {
 		this.menuId = menuId;
 	}
 
@@ -56,11 +57,11 @@ public class Menu implements Serializable {
 		this.remoteIpAddress = remoteIpAddress;
 	}
 
-	public BigDecimal getRestaurantId() {
+	public Long getRestaurantId() {
 		return this.restaurantId;
 	}
 
-	public void setRestaurantId(BigDecimal restaurantId) {
+	public void setRestaurantId(Long restaurantId) {
 		this.restaurantId = restaurantId;
 	}
 

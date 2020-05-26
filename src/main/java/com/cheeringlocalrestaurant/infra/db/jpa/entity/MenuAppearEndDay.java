@@ -17,14 +17,14 @@ public class MenuAppearEndDay implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="MENU_HISTORY_ID")
-	private long menuHistoryId;
+	private Long menuHistoryId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="APPEAR_END_DATE")
 	private Date appearEndDate;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 
@@ -34,11 +34,11 @@ public class MenuAppearEndDay implements Serializable {
 	public MenuAppearEndDay() {
 	}
 
-	public long getMenuHistoryId() {
+	public Long getMenuHistoryId() {
 		return this.menuHistoryId;
 	}
 
-	public void setMenuHistoryId(long menuHistoryId) {
+	public void setMenuHistoryId(Long menuHistoryId) {
 		this.menuHistoryId = menuHistoryId;
 	}
 

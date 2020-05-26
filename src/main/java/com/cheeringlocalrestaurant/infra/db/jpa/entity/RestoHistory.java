@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.sql.Timestamp;
 
@@ -18,14 +17,16 @@ public class RestoHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="RESTO_HISTORIES_RESTAURANTHISTORYID_GENERATOR", sequenceName="RESTO_HISTORIES_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_HISTORIES_RESTAURANTHISTORYID_GENERATOR")
 	@Column(name="RESTAURANT_HISTORY_ID")
-	private long restaurantHistoryId;
+	private Long restaurantHistoryId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="END_DATE")
 	private Date endDate;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 
@@ -33,7 +34,7 @@ public class RestoHistory implements Serializable {
 	private String remoteIpAddress;
 
 	@Column(name="RESTAURANT_ID")
-	private BigDecimal restaurantId;
+	private Long restaurantId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="START_DATE")
@@ -42,11 +43,11 @@ public class RestoHistory implements Serializable {
 	public RestoHistory() {
 	}
 
-	public long getRestaurantHistoryId() {
+	public Long getRestaurantHistoryId() {
 		return this.restaurantHistoryId;
 	}
 
-	public void setRestaurantHistoryId(long restaurantHistoryId) {
+	public void setRestaurantHistoryId(Long restaurantHistoryId) {
 		this.restaurantHistoryId = restaurantHistoryId;
 	}
 
@@ -74,11 +75,11 @@ public class RestoHistory implements Serializable {
 		this.remoteIpAddress = remoteIpAddress;
 	}
 
-	public BigDecimal getRestaurantId() {
+	public Long getRestaurantId() {
 		return this.restaurantId;
 	}
 
-	public void setRestaurantId(BigDecimal restaurantId) {
+	public void setRestaurantId(Long restaurantId) {
 		this.restaurantId = restaurantId;
 	}
 

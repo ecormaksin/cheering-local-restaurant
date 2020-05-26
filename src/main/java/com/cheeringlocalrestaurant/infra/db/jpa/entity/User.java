@@ -16,13 +16,15 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="USERS_USERID_GENERATOR", sequenceName="USERS_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USERS_USERID_GENERATOR")
 	@Column(name="USER_ID")
-	private long userId;
+	private Long userId;
 
 	@Column(name="MAIL_ADDRESS")
 	private String mailAddress;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 
@@ -35,11 +37,11 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public long getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

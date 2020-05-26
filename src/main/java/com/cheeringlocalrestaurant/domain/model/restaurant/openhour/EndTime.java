@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.domain.model.openhour;
+package com.cheeringlocalrestaurant.domain.model.restaurant.openhour;
 
 public class EndTime extends OpenHourPart {
 

@@ -15,9 +15,8 @@ public class MenuName implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="MENU_HISTORY_ID")
-	private long menuHistoryId;
+	private Long menuHistoryId;
 
 	@Column(name="MENU_NAME")
 	private String menuName;
@@ -25,11 +24,11 @@ public class MenuName implements Serializable {
 	public MenuName() {
 	}
 
-	public long getMenuHistoryId() {
+	public Long getMenuHistoryId() {
 		return this.menuHistoryId;
 	}
 
-	public void setMenuHistoryId(long menuHistoryId) {
+	public void setMenuHistoryId(Long menuHistoryId) {
 		this.menuHistoryId = menuHistoryId;
 	}
 

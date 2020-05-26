@@ -1,8 +1,10 @@
-package com.cheeringlocalrestaurant.domain.model.openhour;
+package com.cheeringlocalrestaurant.domain.model.restaurant.openhour;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import com.cheeringlocalrestaurant.domain.model.restaurant.openhour.OpenHour;
 
 class OpenHourTest {
 	

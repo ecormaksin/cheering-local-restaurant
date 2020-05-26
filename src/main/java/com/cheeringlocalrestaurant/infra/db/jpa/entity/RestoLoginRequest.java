@@ -16,15 +16,14 @@ public class RestoLoginRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	@SequenceGenerator(name="RESTO_LOGIN_REQUESTS_ID_GENERATOR", sequenceName="RESTO_LOGIN_REQUESTS_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_LOGIN_REQUESTS_ID_GENERATOR")
+	private Long id;
 
 	@Column(name="ACCESS_TOKEN")
 	private String accessToken;
 
-	@Column(name="MAIL_ADDRESS")
-	private String mailAddress;
-
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 
@@ -34,14 +33,17 @@ public class RestoLoginRequest implements Serializable {
 	@Column(name="TOKEN_EXPIRATION_DATETIME")
 	private Timestamp tokenExpirationDatetime;
 
+	@Column(name="USER_ID")
+	private Long userId;
+
 	public RestoLoginRequest() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -51,14 +53,6 @@ public class RestoLoginRequest implements Serializable {
 
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
-	}
-
-	public String getMailAddress() {
-		return this.mailAddress;
-	}
-
-	public void setMailAddress(String mailAddress) {
-		this.mailAddress = mailAddress;
 	}
 
 	public Timestamp getRegisteredTimestamp() {
@@ -83,6 +77,14 @@ public class RestoLoginRequest implements Serializable {
 
 	public void setTokenExpirationDatetime(Timestamp tokenExpirationDatetime) {
 		this.tokenExpirationDatetime = tokenExpirationDatetime;
+	}
+
+	public Long getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 }

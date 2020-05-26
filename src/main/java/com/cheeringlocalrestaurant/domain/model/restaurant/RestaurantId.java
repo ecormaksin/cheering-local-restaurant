@@ -1,12 +1,15 @@
 package com.cheeringlocalrestaurant.domain.model.restaurant;
 
-public class RestaurantId {
+import java.io.Serializable;
 
-	public RestaurantId(Long id) {
-		// TODO 自動生成されたコンストラクター・スタブ
-	}
+import lombok.Getter;
+import lombok.Value;
 
-	public Object getValue() {
-		return null;
-	}
+@Value
+@Getter
+public class RestaurantId implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	private final Long value;
 }

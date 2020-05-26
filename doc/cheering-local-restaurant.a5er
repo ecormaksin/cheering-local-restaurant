@@ -145,12 +145,12 @@ Left=1300
 Top=150
 Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200524085333
+ModifiedDateTime=20200526102009
 Position="MAIN",1300,150
 ZOrder=7
 
@@ -166,13 +166,13 @@ Field="ユーザーID","USER_ID","*ユーザーID","NOT NULL",0,"","",$FFFFFFFF,
 Field="メールアドレス","MAIL_ADDRESS","*メールアドレス","NOT NULL",,"","",$FFFFFFFF,""
 Field="ユーザーロール","USER_ROLE","*ユーザーロール","NOT NULL",,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 Index==2,MAIL_ADDRESS,USER_ROLE
 EffectMode=None
 Tag=ユーザー
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200512220040
+ModifiedDateTime=20200526101917
 Position="MAIN",200,150
 ZOrder=8
 
@@ -187,13 +187,13 @@ Top=150
 Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="ユーザーID","USER_ID","*ユーザーID","NOT NULL",,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 Index==1,USER_ID
 EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200524085340
+ModifiedDateTime=20200526101942
 Position="MAIN",800,150
 ZOrder=9
 
@@ -249,22 +249,12 @@ TableOption=
 Page=MAIN
 Left=1350
 Top=1500
-Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
-Field="飲食ジャンルID","FOOT_GENRE_ID","*飲食ジャンルID","NOT NULL",,"","",$FFFFFFFF,""
-Field="開始日","START_DATE","*開始日","NOT NULL",,"\q1900-01-01 00:00:00\q","",$FFFFFFFF,""
-Field="終了日","END_DATE","*終了日","NOT NULL",,"\q9999-12-31 23:59:59\q","",$FFFFFFFF,""
-Field="飲食ジャンル名","FOOD_GENRE_NAME","*飲食ジャンル名","NOT NULL",,"","",$FFFFFFFF,""
-Field="ジャンル階層","GENRE_LEVEL","*飲食ジャンル階層","NOT NULL",,"","",$FFFFFFFF,""
-Field="表示順","DISPLAY_ORDER","*表示順","NOT NULL",,"1","",$FFFFFFFF,""
-Field="上位飲食ジャンルID","SUPERIOR_FOOT_GENRE_ID","*飲食ジャンルID","NOT NULL",,"","最上位は0",$FFFFFFFF,""
-Index==2,SUPERIOR_FOOT_GENRE_ID,START_DATE,GENRE_LEVEL,DISPLAY_ORDER
-Index==2,FOOT_GENRE_ID,START_DATE
-Index==0,FOOT_GENRE_ID
+Field="飲食ジャンルID","FOOT_GENRE_ID","*飲食ジャンルID","NOT NULL",0,"","",$FFFFFFFF,""
 EffectMode=None
 Tag=飲食ジャンル
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200524152856
+ModifiedDateTime=20200526133901
 Position="MAIN",1350,1500
 ZOrder=12
 
@@ -281,14 +271,14 @@ Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",,"","",$FFFFFFFF,"
 Field="開始日","START_DATE","*開始日","NOT NULL",,"\q1900-01-01 00:00:00\q","",$FFFFFFFF,""
 Field="終了日","END_DATE","*終了日","NOT NULL",,"\q9999-12-31 23:59:59\q","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 Index==2,RESTAURANT_ID,START_DATE
 Index==0,RESTAURANT_ID
 EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200524085430
+ModifiedDateTime=20200526102210
 Position="MAIN",1350,1150
 ZOrder=13
 
@@ -1117,13 +1107,13 @@ Top=400
 Field="メニューID","MENU_ID","*メニューID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 Index==0,RESTAURANT_ID
 EffectMode=None
 Tag=メニュー
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200524084029
+ModifiedDateTime=20200526102117
 Position="MAIN",2250,400
 ZOrder=46
 
@@ -1161,13 +1151,13 @@ Field="メニュー履歴ID","MENU_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFF
 Field="メニューID","MENU_ID","*メニューID","NOT NULL",,"","",$FFFFFFFF,""
 Field="掲載開始日","APPEAR_START_DATE","*開始日","NOT NULL",,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 Index==2,MENU_ID ,APPEAR_START_DATE 
 EffectMode=None
 Tag=メニュー
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510170707
+ModifiedDateTime=20200526102128
 Position="MAIN",2600,400
 ZOrder=48
 
@@ -1204,12 +1194,12 @@ Top=800
 Field="メニュー履歴ID","MENU_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="掲載終了日","APPEAR_END_DATE","*終了日","NOT NULL",,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 EffectMode=None
 Tag=メニュー
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200524101806
+ModifiedDateTime=20200526102139
 Position="MAIN",2600,800
 ZOrder=50
 
@@ -1430,14 +1420,14 @@ Field="メールアドレス","MAIL_ADDRESS","*メールアドレス","NOT NULL"
 Field="電話番号","TEL_NO","*電話FAX番号","NOT NULL",,"","",$FFFFFFFF,""
 Field="受取希望日時","DESIRED_RECEIPT_DATETIME","*受取希望日時","NOT NULL",,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 Index==2,RESTAURANT_ID ,CUSTOMER_NAME ,MAIL_ADDRESS ,TEL_NO ,DESIRED_RECEIPT_DATETIME ,REMOTE_IP_ADDRESS 
 Index==0,RESTAURANT_ID 
 EffectMode=None
 Tag=注文
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510152645
+ModifiedDateTime=20200526102249
 Position="MAIN",100,2000
 ZOrder=61
 
@@ -1518,12 +1508,12 @@ Left=700
 Top=2000
 Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 EffectMode=None
 Tag=注文
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510163525
+ModifiedDateTime=20200526102307
 Position="MAIN",700,2000
 ZOrder=64
 
@@ -1533,8 +1523,8 @@ LName=注文回答メッセージ
 Comment=利用客への返信時メッセージを保持する
 TableOption=
 Page=MAIN
-Left=700
-Top=2350
+Left=1100
+Top=2250
 Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="メッセージ","MESSAGE","*注文回答時メッセージ","NOT NULL",,"","",$FFFFFFFF,""
 EffectMode=None
@@ -1542,7 +1532,7 @@ Tag=注文
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200510163517
-Position="MAIN",700,2350
+Position="MAIN",1100,2250
 ZOrder=65
 
 [Relation]
@@ -1599,12 +1589,12 @@ Left=1200
 Top=2000
 Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 EffectMode=None
 Tag=注文
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510164209
+ModifiedDateTime=20200526102340
 Position="MAIN",1200,2000
 ZOrder=68
 
@@ -1636,40 +1626,18 @@ LName=注文キャンセル済み
 Comment=キャンセルした注文を保持する
 TableOption=
 Page=MAIN
-Left=1200
-Top=2250
+Left=650
+Top=2200
 Field="注文ID","ORDER_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 EffectMode=None
 Tag=注文
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200510164121
-Position="MAIN",1200,2250
+ModifiedDateTime=20200526102406
+Position="MAIN",650,2200
 ZOrder=70
-
-[Relation]
-Entity1=ORDERS_REPLIED
-Entity2=ORDERS_CANCELED
-RelationType1=2
-RelationType2=1
-Fields1=ORDER_ID
-Fields2=ORDER_ID
-Cardinarity1=
-Cardinarity2=
-Position="MAIN",0,8280,5104,3043,R,R
-Dependence=1
-Caption=
-PName=
-ModifiedDateTime=20200510164159
-LineMode=0
-Bar1=828
-Bar2=510
-Bar3=304
-TermPos1=R
-TermPos2=R
-ZOrder=71
 
 [Entity]
 PName=RESTO_LOGIN_REQUESTS
@@ -1680,42 +1648,19 @@ Page=MAIN
 Left=800
 Top=500
 Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
-Field="メールアドレス","MAIL_ADDRESS","*メールアドレス","NOT NULL",,"","",$FFFFFFFF,""
+Field="ユーザーID","USER_ID","*ユーザーID","NOT NULL",,"","",$FFFFFFFF,""
 Field="アクセストークン","ACCESS_TOKEN","*アクセストークン","NOT NULL",,"","",$FFFFFFFF,""
 Field="アクセストークン有効期限","TOKEN_EXPIRATION_DATETIME","*アクセストークン有効期限","NOT NULL",,"","",$FFFFFFFF,""
 Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL",,"","",$FFFFFFFF,""
-Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 Index==2,ACCESS_TOKEN
-Index==0,MAIL_ADDRESS
 EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200524085435
+ModifiedDateTime=20200526131315
 Position="MAIN",800,500
-ZOrder=72
-
-[Relation]
-Entity1=USERS
-Entity2=RESTO_LOGIN_REQUESTS
-RelationType1=2
-RelationType2=3
-Fields1=MAIL_ADDRESS
-Fields2=MAIL_ADDRESS
-Cardinarity1=
-Cardinarity2=
-Position="MAIN",0,5788,7756,3857,R,R
-Dependence=0
-Caption=
-PName=
-ModifiedDateTime=20200512221252
-LineMode=0
-Bar1=579
-Bar2=776
-Bar3=386
-TermPos1=R
-TermPos2=R
-ZOrder=73
+ZOrder=71
 
 [Relation]
 Entity1=FOOD_GENRES
@@ -1730,11 +1675,104 @@ Position="MAIN",0,4983,5017,5974,R,R
 Dependence=0
 Caption=
 PName=
-ModifiedDateTime=20200524152806
+ModifiedDateTime=20200526133934
 LineMode=0
 Bar1=498
 Bar2=502
 Bar3=597
 TermPos1=R
 TermPos2=R
+ZOrder=72
+
+[Relation]
+Entity1=USERS
+Entity2=RESTO_LOGIN_REQUESTS
+RelationType1=2
+RelationType2=3
+Fields1=USER_ID
+Fields2=USER_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5788,7756,5107,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200526131338
+LineMode=0
+Bar1=579
+Bar2=776
+Bar3=511
+TermPos1=R
+TermPos2=R
+ZOrder=73
+
+[Entity]
+PName=FOOD_GENRE_HISTORIES
+LName=飲食ジャンル履歴
+Comment=
+TableOption=
+Page=Main
+Left=1550
+Top=1700
+Field="飲食ジャンル履歴ID","FOOT_GENRE_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
+Field="飲食ジャンルID","FOOT_GENRE_ID","*飲食ジャンルID","NOT NULL",,"","",$FFFFFFFF,""
+Field="開始日","START_DATE","*開始日","NOT NULL",,"\q1900-01-01 00:00:00\q","",$FFFFFFFF,""
+Field="終了日","END_DATE","*終了日","NOT NULL",,"\q9999-12-31 23:59:59\q","",$FFFFFFFF,""
+Field="飲食ジャンル名","FOOD_GENRE_NAME","*飲食ジャンル名","NOT NULL",,"","",$FFFFFFFF,""
+Field="ジャンル階層","GENRE_LEVEL","*飲食ジャンル階層","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","DISPLAY_ORDER","*表示順","NOT NULL",,"1","",$FFFFFFFF,""
+Field="上位飲食ジャンルID","SUPERIOR_FOOT_GENRE_ID","*飲食ジャンルID","NOT NULL",,"","最上位は0",$FFFFFFFF,""
+Index==2,SUPERIOR_FOOT_GENRE_ID,START_DATE,GENRE_LEVEL,DISPLAY_ORDER
+Index==2,FOOT_GENRE_ID,START_DATE
+Index==0,FOOT_GENRE_ID
+EffectMode=None
+Tag=飲食ジャンル
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20200526133810
+Position="Main",1550,1700
 ZOrder=74
+
+[Relation]
+Entity1=FOOD_GENRES
+Entity2=FOOD_GENRE_HISTORIES
+RelationType1=2
+RelationType2=4
+Fields1=FOOT_GENRE_ID
+Fields2=FOOT_GENRE_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4447,5553,3621,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20200526133942
+LineMode=0
+Bar1=445
+Bar2=555
+Bar3=362
+TermPos1=R
+TermPos2=R
+ZOrder=75
+
+[Relation]
+Entity1=ORDERS
+Entity2=ORDERS_CANCELED
+RelationType1=2
+RelationType2=1
+Fields1=ORDER_ID
+Fields2=ORDER_ID
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,8459,1541,938,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20200526143401
+LineMode=0
+Bar1=846
+Bar2=154
+Bar3=94
+TermPos1=R
+TermPos2=R
+ZOrder=76

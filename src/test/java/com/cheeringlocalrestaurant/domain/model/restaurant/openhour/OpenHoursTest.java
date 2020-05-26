@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.domain.model.openhour;
+package com.cheeringlocalrestaurant.domain.model.restaurant.openhour;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import com.cheeringlocalrestaurant.domain.model.restaurant.openhour.OpenHourOverlappedException;
+import com.cheeringlocalrestaurant.domain.model.restaurant.openhour.OpenHours;
 
 class OpenHoursTest {
 

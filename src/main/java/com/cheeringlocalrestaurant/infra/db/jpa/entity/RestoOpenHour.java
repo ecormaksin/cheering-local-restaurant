@@ -17,8 +17,9 @@ public class RestoOpenHour implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	@SequenceGenerator(name="RESTO_OPEN_HOURS_ID_GENERATOR", sequenceName="RESTO_OPEN_HOURS_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_OPEN_HOURS_ID_GENERATOR")
+	private Long id;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="END_TIME")
@@ -34,11 +35,11 @@ public class RestoOpenHour implements Serializable {
 	public RestoOpenHour() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

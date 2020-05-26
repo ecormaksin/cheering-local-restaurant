@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 
 /**
@@ -16,14 +15,15 @@ public class RestoTelnoe implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	@SequenceGenerator(name="RESTO_TELNOES_ID_GENERATOR", sequenceName="RESTO_TELNOES_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_TELNOES_ID_GENERATOR")
+	private Long id;
 
 	@Column(name="DISPLAY_ORDER")
-	private BigDecimal displayOrder;
+	private Integer displayOrder;
 
 	@Column(name="RESTAURANT_HISTORY_ID")
-	private BigDecimal restaurantHistoryId;
+	private Long restaurantHistoryId;
 
 	@Column(name="TEL_NO")
 	private String telNo;
@@ -31,27 +31,27 @@ public class RestoTelnoe implements Serializable {
 	public RestoTelnoe() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public BigDecimal getDisplayOrder() {
+	public Integer getDisplayOrder() {
 		return this.displayOrder;
 	}
 
-	public void setDisplayOrder(BigDecimal displayOrder) {
+	public void setDisplayOrder(Integer displayOrder) {
 		this.displayOrder = displayOrder;
 	}
 
-	public BigDecimal getRestaurantHistoryId() {
+	public Long getRestaurantHistoryId() {
 		return this.restaurantHistoryId;
 	}
 
-	public void setRestaurantHistoryId(BigDecimal restaurantHistoryId) {
+	public void setRestaurantHistoryId(Long restaurantHistoryId) {
 		this.restaurantHistoryId = restaurantHistoryId;
 	}
 

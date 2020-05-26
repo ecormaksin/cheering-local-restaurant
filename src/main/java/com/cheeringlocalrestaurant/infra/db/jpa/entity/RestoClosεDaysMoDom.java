@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 
 /**
@@ -16,39 +15,40 @@ public class RestoClosεDaysMoDom implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	@SequenceGenerator(name="RESTO_CLOSΕ_DAYS_MO_DOM_ID_GENERATOR", sequenceName="RESTO_CLOSΕ_DAYS_MO_DOM_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_CLOSΕ_DAYS_MO_DOM_ID_GENERATOR")
+	private Long id;
 
 	@Column(name="DAY_OF_MONTH")
-	private BigDecimal dayOfMonth;
+	private Integer dayOfMonth;
 
 	@Column(name="RESTAURANT_HISTORY_ID")
-	private BigDecimal restaurantHistoryId;
+	private Long restaurantHistoryId;
 
 	public RestoClosεDaysMoDom() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public BigDecimal getDayOfMonth() {
+	public Integer getDayOfMonth() {
 		return this.dayOfMonth;
 	}
 
-	public void setDayOfMonth(BigDecimal dayOfMonth) {
+	public void setDayOfMonth(Integer dayOfMonth) {
 		this.dayOfMonth = dayOfMonth;
 	}
 
-	public BigDecimal getRestaurantHistoryId() {
+	public Long getRestaurantHistoryId() {
 		return this.restaurantHistoryId;
 	}
 
-	public void setRestaurantHistoryId(BigDecimal restaurantHistoryId) {
+	public void setRestaurantHistoryId(Long restaurantHistoryId) {
 		this.restaurantHistoryId = restaurantHistoryId;
 	}
 

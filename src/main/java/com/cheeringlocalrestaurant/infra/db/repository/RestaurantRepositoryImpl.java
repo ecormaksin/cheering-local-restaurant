@@ -1,13 +1,40 @@
 package com.cheeringlocalrestaurant.infra.db.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.cheeringlocalrestaurant.domain.model.restaurant.Restaurant;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+import com.cheeringlocalrestaurant.domain.value.UserRole;
+import com.cheeringlocalrestaurant.infra.db.jpa.EntityUtil;
+import com.cheeringlocalrestaurant.infra.db.jpa.entity.Resto;
+import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoAccount;
+import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoHistory;
+import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoName;
+import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoAccountRepository;
+import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoHistoryRepository;
+import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoNameRepository;
+import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestroRepository;
+import com.cheeringlocalrestaurant.infra.db.jpa.repository.UserRepository;
 
+@Repository
 public class RestaurantRepositoryImpl implements RestaurantRepository {
 
+	@Autowired
+	private RestroRepository restroRepository;
+	@Autowired
+	private RestoHistoryRepository restoHistoryRepository;
+	@Autowired
+	private RestoNameRepository restoNameRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private RestoAccountRepository restoAccountRepository;
+	
 	@Override
 	public RestaurantAccount findByMailAddress(String mailAddress) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -27,9 +54,46 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 	}
 
 	@Override
+	@Transactional
 	public RestaurantId save(RestaurantTempRegister tempRegister) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+
+		final String ipAddress = "127.0.0.1"; // TODO
+		
+		// 飲食店
+		Resto resto = new Resto();
+		EntityUtil.setCommonColumn(resto, ipAddress);
+		resto = restroRepository.save(resto);
+		Long restoId = resto.getRestaurantId();
+		
+		// 飲食店履歴
+		RestoHistory restoHistory = new RestoHistory();
+		restoHistory.setRestaurantId(restoId);
+		EntityUtil.setCommonColumn(restoHistory, ipAddress);
+		restoHistory = restoHistoryRepository.save(restoHistory);
+		Long restoRevId = restoHistory.getRestaurantHistoryId();
+		
+		// 飲食店名
+		RestoName restoName = new RestoName();
+		restoName.setRestaurantHistoryId(restoRevId);
+		restoName.setRestaurantName(tempRegister.getName().getValue());
+		restoNameRepository.save(restoName);
+
+		// ユーザー
+		com.cheeringlocalrestaurant.infra.db.jpa.entity.User user = new com.cheeringlocalrestaurant.infra.db.jpa.entity.User();
+		user.setMailAddress(tempRegister.getMailAddress().getValue());
+		user.setUserRole(UserRole.RESTAURANT_ADMIN.getValue());
+		EntityUtil.setCommonColumn(user, ipAddress);
+		user = userRepository.save(user);
+		Long userId = user.getUserId();
+		
+		// 飲食店アカウント
+		RestoAccount restoAccount = new RestoAccount();
+		restoAccount.setRestaurantId(restoId);
+		restoAccount.setUserId(userId);
+		EntityUtil.setCommonColumn(restoAccount, ipAddress);
+		restoAccountRepository.save(restoAccount);
+		
+		return new RestaurantId(restoId);
 	}
 
 }

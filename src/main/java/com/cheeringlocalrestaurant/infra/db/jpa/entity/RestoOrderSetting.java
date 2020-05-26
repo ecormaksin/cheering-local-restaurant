@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 
 /**
@@ -16,40 +15,39 @@ public class RestoOrderSetting implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="RESTAURANT_HISTORY_ID")
-	private long restaurantHistoryId;
+	private Long restaurantHistoryId;
 
 	@Column(name="EARLIEST_READY_MINUTES")
-	private BigDecimal earliestReadyMinutes;
+	private Integer earliestReadyMinutes;
 
 	@Column(name="ORDER_AVAILABLE_FUTURE_DAYS")
-	private BigDecimal orderAvailableFutureDays;
+	private Integer orderAvailableFutureDays;
 
 	public RestoOrderSetting() {
 	}
 
-	public long getRestaurantHistoryId() {
+	public Long getRestaurantHistoryId() {
 		return this.restaurantHistoryId;
 	}
 
-	public void setRestaurantHistoryId(long restaurantHistoryId) {
+	public void setRestaurantHistoryId(Long restaurantHistoryId) {
 		this.restaurantHistoryId = restaurantHistoryId;
 	}
 
-	public BigDecimal getEarliestReadyMinutes() {
+	public Integer getEarliestReadyMinutes() {
 		return this.earliestReadyMinutes;
 	}
 
-	public void setEarliestReadyMinutes(BigDecimal earliestReadyMinutes) {
+	public void setEarliestReadyMinutes(Integer earliestReadyMinutes) {
 		this.earliestReadyMinutes = earliestReadyMinutes;
 	}
 
-	public BigDecimal getOrderAvailableFutureDays() {
+	public Integer getOrderAvailableFutureDays() {
 		return this.orderAvailableFutureDays;
 	}
 
-	public void setOrderAvailableFutureDays(BigDecimal orderAvailableFutureDays) {
+	public void setOrderAvailableFutureDays(Integer orderAvailableFutureDays) {
 		this.orderAvailableFutureDays = orderAvailableFutureDays;
 	}
 

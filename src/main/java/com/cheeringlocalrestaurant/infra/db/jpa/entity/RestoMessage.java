@@ -15,9 +15,8 @@ public class RestoMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="RESTAURANT_HISTORY_ID")
-	private long restaurantHistoryId;
+	private Long restaurantHistoryId;
 
 	@Column(name="MESSAGE_FROM_RESTAURANT")
 	private String messageFromRestaurant;
@@ -25,11 +24,11 @@ public class RestoMessage implements Serializable {
 	public RestoMessage() {
 	}
 
-	public long getRestaurantHistoryId() {
+	public Long getRestaurantHistoryId() {
 		return this.restaurantHistoryId;
 	}
 
-	public void setRestaurantHistoryId(long restaurantHistoryId) {
+	public void setRestaurantHistoryId(Long restaurantHistoryId) {
 		this.restaurantHistoryId = restaurantHistoryId;
 	}
 

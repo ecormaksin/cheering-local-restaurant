@@ -15,20 +15,19 @@ public class MenuMemo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="MENU_HISTORY_ID")
-	private long menuHistoryId;
+	private Long menuHistoryId;
 
 	private String memo;
 
 	public MenuMemo() {
 	}
 
-	public long getMenuHistoryId() {
+	public Long getMenuHistoryId() {
 		return this.menuHistoryId;
 	}
 
-	public void setMenuHistoryId(long menuHistoryId) {
+	public void setMenuHistoryId(Long menuHistoryId) {
 		this.menuHistoryId = menuHistoryId;
 	}
 

@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 
 /**
@@ -16,29 +15,30 @@ public class MenuPrice implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="MENU_PRICES_MENUHISTORYID_GENERATOR", sequenceName="MENU_PRICES_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MENU_PRICES_MENUHISTORYID_GENERATOR")
 	@Column(name="MENU_HISTORY_ID")
-	private long menuHistoryId;
+	private Long menuHistoryId;
 
 	@Column(name="TAX_INCLUDED_PRICE")
-	private BigDecimal taxIncludedPrice;
+	private Long taxIncludedPrice;
 
 	public MenuPrice() {
 	}
 
-	public long getMenuHistoryId() {
+	public Long getMenuHistoryId() {
 		return this.menuHistoryId;
 	}
 
-	public void setMenuHistoryId(long menuHistoryId) {
+	public void setMenuHistoryId(Long menuHistoryId) {
 		this.menuHistoryId = menuHistoryId;
 	}
 
-	public BigDecimal getTaxIncludedPrice() {
+	public Long getTaxIncludedPrice() {
 		return this.taxIncludedPrice;
 	}
 
-	public void setTaxIncludedPrice(BigDecimal taxIncludedPrice) {
+	public void setTaxIncludedPrice(Long taxIncludedPrice) {
 		this.taxIncludedPrice = taxIncludedPrice;
 	}
 

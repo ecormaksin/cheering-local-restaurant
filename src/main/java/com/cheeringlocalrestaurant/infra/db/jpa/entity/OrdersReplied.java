@@ -16,10 +16,10 @@ public class OrdersReplied implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ORDER_ID")
-	private long orderId;
+	private Long orderId;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 
@@ -29,11 +29,11 @@ public class OrdersReplied implements Serializable {
 	public OrdersReplied() {
 	}
 
-	public long getOrderId() {
+	public Long getOrderId() {
 		return this.orderId;
 	}
 
-	public void setOrderId(long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 

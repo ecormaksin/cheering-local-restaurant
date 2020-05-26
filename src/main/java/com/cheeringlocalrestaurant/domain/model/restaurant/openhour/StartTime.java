@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.domain.model.openhour;
+package com.cheeringlocalrestaurant.domain.model.restaurant.openhour;
 
 import lombok.EqualsAndHashCode;
 

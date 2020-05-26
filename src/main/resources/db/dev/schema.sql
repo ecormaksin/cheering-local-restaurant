@@ -1,15 +1,37 @@
 -- Project Name : 地元の飲食店 テイクアウト注文支援サービス
--- Date/Time    : 2020/05/24 15:35:31
+-- Date/Time    : 2020/05/26 13:41:29
 -- Author       : vagrant
 -- RDBMS Type   : Oracle Database
 -- Application  : A5:SQL Mk-2
+
+-- 飲食ジャンル履歴
+create table FOOD_GENRE_HISTORIES (
+  FOOT_GENRE_HISTORY_ID NUMBER(11,0) not null
+  , FOOT_GENRE_ID NUMBER(6,0) not null
+  , START_DATE DATE default '1900-01-01 00:00:00' not null
+  , END_DATE DATE default '9999-12-31 23:59:59' not null
+  , FOOD_GENRE_NAME VARCHAR2(100 CHAR) not null
+  , GENRE_LEVEL NUMBER(1,0) not null
+  , DISPLAY_ORDER NUMBER(3,0) default 1 not null
+  , SUPERIOR_FOOT_GENRE_ID NUMBER(6,0) not null
+  , constraint FOOD_GENRE_HISTORIES_PKC primary key (FOOT_GENRE_HISTORY_ID)
+) ;
+
+alter table FOOD_GENRE_HISTORIES add constraint FOOD_GENRE_HISTORIES_IX1
+  unique (SUPERIOR_FOOT_GENRE_ID,START_DATE,GENRE_LEVEL,DISPLAY_ORDER) ;
+
+alter table FOOD_GENRE_HISTORIES add constraint FOOD_GENRE_HISTORIES_IX2
+  unique (FOOT_GENRE_ID,START_DATE) ;
+
+create index FOOD_GENRE_HISTORIES_IX3
+  on FOOD_GENRE_HISTORIES(FOOT_GENRE_ID);
 
 -- メニュー掲載終了日
 create table MENU_APPEAR_END_DAYS (
   MENU_HISTORY_ID NUMBER(11,0) not null
   , APPEAR_END_DATE DATE not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint MENU_APPEAR_END_DAYS_PKC primary key (MENU_HISTORY_ID)
 ) ;
 
@@ -74,7 +96,7 @@ create table ORDER_REPLY_MESSAGES (
 create table ORDERS_CANCELED (
   ORDER_ID NUMBER(11,0) not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint ORDERS_CANCELED_PKC primary key (ORDER_ID)
 ) ;
 
@@ -82,7 +104,7 @@ create table ORDERS_CANCELED (
 create table ORDERS_PROVIDED (
   ORDER_ID NUMBER(11,0) not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint ORDERS_PROVIDED_PKC primary key (ORDER_ID)
 ) ;
 
@@ -90,7 +112,7 @@ create table ORDERS_PROVIDED (
 create table ORDERS_REPLIED (
   ORDER_ID NUMBER(11,0) not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint ORDERS_REPLIED_PKC primary key (ORDER_ID)
 ) ;
 
@@ -99,7 +121,7 @@ create table RESTO_ACCOUNTS (
   RESTAURANT_ID NUMBER(7,0) not null
   , USER_ID NUMBER(7,0) not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint RESTO_ACCOUNTS_PKC primary key (RESTAURANT_ID)
 ) ;
 
@@ -197,19 +219,16 @@ create index RESTO_GENRES_IX1
 -- 飲食店ログイン要求
 create table RESTO_LOGIN_REQUESTS (
   ID NUMBER(11,0) not null
-  , MAIL_ADDRESS VARCHAR2(255 CHAR) not null
+  , USER_ID NUMBER(7,0) not null
   , ACCESS_TOKEN VARCHAR2(36) not null
   , TOKEN_EXPIRATION_DATETIME TIMESTAMP not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint RESTO_LOGIN_REQUESTS_PKC primary key (ID)
 ) ;
 
 alter table RESTO_LOGIN_REQUESTS add constraint RESTO_LOGIN_REQUESTS_IX1
   unique (ACCESS_TOKEN) ;
-
-create index RESTO_LOGIN_REQUESTS_IX2
-  on RESTO_LOGIN_REQUESTS(MAIL_ADDRESS);
 
 -- 飲食店メッセージ
 create table RESTO_MESSAGES (
@@ -338,7 +357,7 @@ create table USERS (
   , MAIL_ADDRESS VARCHAR2(255 CHAR) not null
   , USER_ROLE VARCHAR2(100 CHAR) not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint USERS_PKC primary key (USER_ID)
 ) ;
 
@@ -381,25 +400,9 @@ create index ZIP_CODES_IX5
 
 -- 飲食ジャンル
 create table FOOD_GENRES (
-  ID NUMBER(11,0) not null
-  , FOOT_GENRE_ID NUMBER(6,0) not null
-  , START_DATE DATE default '1900-01-01 00:00:00' not null
-  , END_DATE DATE default '9999-12-31 23:59:59' not null
-  , FOOD_GENRE_NAME VARCHAR2(100 CHAR) not null
-  , GENRE_LEVEL NUMBER(1,0) not null
-  , DISPLAY_ORDER NUMBER(3,0) default 1 not null
-  , SUPERIOR_FOOT_GENRE_ID NUMBER(6,0) not null
-  , constraint FOOD_GENRES_PKC primary key (ID)
+  FOOT_GENRE_ID NUMBER(6,0) not null
+  , constraint FOOD_GENRES_PKC primary key (FOOT_GENRE_ID)
 ) ;
-
-alter table FOOD_GENRES add constraint FOOD_GENRES_IX1
-  unique (SUPERIOR_FOOT_GENRE_ID,START_DATE,GENRE_LEVEL,DISPLAY_ORDER) ;
-
-alter table FOOD_GENRES add constraint FOOD_GENRES_IX2
-  unique (FOOT_GENRE_ID,START_DATE) ;
-
-create index FOOD_GENRES_IX3
-  on FOOD_GENRES(FOOT_GENRE_ID);
 
 -- メニュー履歴
 create table MENU_HISTORIES (
@@ -407,7 +410,7 @@ create table MENU_HISTORIES (
   , MENU_ID NUMBER(10,0) not null
   , APPEAR_START_DATE DATE not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint MENU_HISTORIES_PKC primary key (MENU_HISTORY_ID)
 ) ;
 
@@ -423,7 +426,7 @@ create table ORDERS (
   , TEL_NO VARCHAR2(16) not null
   , DESIRED_RECEIPT_DATETIME DATE not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint ORDERS_PKC primary key (ORDER_ID)
 ) ;
 
@@ -440,7 +443,7 @@ create table RESTO_HISTORIES (
   , START_DATE DATE default '1900-01-01 00:00:00' not null
   , END_DATE DATE default '9999-12-31 23:59:59' not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint RESTO_HISTORIES_PKC primary key (RESTAURANT_HISTORY_ID)
 ) ;
 
@@ -455,7 +458,7 @@ create table MENU (
   MENU_ID NUMBER(10,0) not null
   , RESTAURANT_ID NUMBER(7,0) not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint MENU_PKC primary key (MENU_ID)
 ) ;
 
@@ -466,7 +469,7 @@ create index MENU_IX1
 create table RESTOS (
   RESTAURANT_ID NUMBER(7,0) not null
   , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
   , constraint RESTOS_PKC primary key (RESTAURANT_ID)
 ) ;
 
@@ -561,8 +564,15 @@ WHERE
   UPDATE_DISPLAY_FLAG IN ('0', '1')
 ;
 
-create unique index USERS_IX2
-  on USERS(MAIL_ADDRESS);
+comment on table FOOD_GENRE_HISTORIES is '飲食ジャンル履歴';
+comment on column FOOD_GENRE_HISTORIES.FOOT_GENRE_HISTORY_ID is '飲食ジャンル履歴ID';
+comment on column FOOD_GENRE_HISTORIES.FOOT_GENRE_ID is '飲食ジャンルID';
+comment on column FOOD_GENRE_HISTORIES.START_DATE is '開始日';
+comment on column FOOD_GENRE_HISTORIES.END_DATE is '終了日';
+comment on column FOOD_GENRE_HISTORIES.FOOD_GENRE_NAME is '飲食ジャンル名';
+comment on column FOOD_GENRE_HISTORIES.GENRE_LEVEL is 'ジャンル階層';
+comment on column FOOD_GENRE_HISTORIES.DISPLAY_ORDER is '表示順';
+comment on column FOOD_GENRE_HISTORIES.SUPERIOR_FOOT_GENRE_ID is '上位飲食ジャンルID	 最上位は0';
 
 comment on table MENU_APPEAR_END_DAYS is 'メニュー掲載終了日	 ユーザーに入力してもらう項目のため、履歴テーブルから外出しする';
 comment on column MENU_APPEAR_END_DAYS.MENU_HISTORY_ID is 'メニュー履歴ID';
@@ -663,7 +673,7 @@ comment on column RESTO_GENRES.FOOT_GENRE_ID is '飲食ジャンルID';
 
 comment on table RESTO_LOGIN_REQUESTS is '飲食店ログイン要求	 飲食店ログイン要求イベントを保持する';
 comment on column RESTO_LOGIN_REQUESTS.ID is 'ID';
-comment on column RESTO_LOGIN_REQUESTS.MAIL_ADDRESS is 'メールアドレス';
+comment on column RESTO_LOGIN_REQUESTS.USER_ID is 'ユーザーID';
 comment on column RESTO_LOGIN_REQUESTS.ACCESS_TOKEN is 'アクセストークン';
 comment on column RESTO_LOGIN_REQUESTS.TOKEN_EXPIRATION_DATETIME is 'アクセストークン有効期限';
 comment on column RESTO_LOGIN_REQUESTS.REMOTE_IP_ADDRESS is '登録元IPアドレス';
@@ -747,14 +757,7 @@ comment on column ZIP_CODES.UPDATE_DISPLAY_FLAG is '更新の表示	 「0」は�
 comment on column ZIP_CODES.CHANGE_REASON_FLAG is '変更理由	 「0」は変更なし、「1」市政・区政・町政・分区・政令指定都市施行、「2」住居表示の実施、「3」区画整理、「4」郵便区調整等、「5」訂正、「6」廃止（廃止データのみ使用）';
 
 comment on table FOOD_GENRES is '飲食ジャンル';
-comment on column FOOD_GENRES.ID is 'ID';
 comment on column FOOD_GENRES.FOOT_GENRE_ID is '飲食ジャンルID';
-comment on column FOOD_GENRES.START_DATE is '開始日';
-comment on column FOOD_GENRES.END_DATE is '終了日';
-comment on column FOOD_GENRES.FOOD_GENRE_NAME is '飲食ジャンル名';
-comment on column FOOD_GENRES.GENRE_LEVEL is 'ジャンル階層';
-comment on column FOOD_GENRES.DISPLAY_ORDER is '表示順';
-comment on column FOOD_GENRES.SUPERIOR_FOOT_GENRE_ID is '上位飲食ジャンルID	 最上位は0';
 
 comment on table MENU_HISTORIES is 'メニュー履歴';
 comment on column MENU_HISTORIES.MENU_HISTORY_ID is 'メニュー履歴ID';

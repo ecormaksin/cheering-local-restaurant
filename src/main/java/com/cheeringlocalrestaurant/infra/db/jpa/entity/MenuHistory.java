@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.sql.Timestamp;
 
@@ -18,17 +17,19 @@ public class MenuHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="MENU_HISTORIES_MENUHISTORYID_GENERATOR", sequenceName="MENU_HISTORIES_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MENU_HISTORIES_MENUHISTORYID_GENERATOR")
 	@Column(name="MENU_HISTORY_ID")
-	private long menuHistoryId;
+	private Long menuHistoryId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="APPEAR_START_DATE")
 	private Date appearStartDate;
 
 	@Column(name="MENU_ID")
-	private BigDecimal menuId;
+	private Long menuId;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 
@@ -38,11 +39,11 @@ public class MenuHistory implements Serializable {
 	public MenuHistory() {
 	}
 
-	public long getMenuHistoryId() {
+	public Long getMenuHistoryId() {
 		return this.menuHistoryId;
 	}
 
-	public void setMenuHistoryId(long menuHistoryId) {
+	public void setMenuHistoryId(Long menuHistoryId) {
 		this.menuHistoryId = menuHistoryId;
 	}
 
@@ -54,11 +55,11 @@ public class MenuHistory implements Serializable {
 		this.appearStartDate = appearStartDate;
 	}
 
-	public BigDecimal getMenuId() {
+	public Long getMenuId() {
 		return this.menuId;
 	}
 
-	public void setMenuId(BigDecimal menuId) {
+	public void setMenuId(Long menuId) {
 		this.menuId = menuId;
 	}
 

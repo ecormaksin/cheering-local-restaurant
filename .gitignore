@@ -29,5 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Customized ###
 /work.md
 .attach_pid*

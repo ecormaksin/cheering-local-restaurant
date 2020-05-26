@@ -15,9 +15,8 @@ public class OrderReplyMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ORDER_ID")
-	private long orderId;
+	private Long orderId;
 
 	@Column(name="\"MESSAGE\"")
 	private String message;
@@ -25,11 +24,11 @@ public class OrderReplyMessage implements Serializable {
 	public OrderReplyMessage() {
 	}
 
-	public long getOrderId() {
+	public Long getOrderId() {
 		return this.orderId;
 	}
 
-	public void setOrderId(long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 

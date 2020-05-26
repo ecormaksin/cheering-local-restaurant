@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 
 /**
@@ -16,40 +15,41 @@ public class OrderDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="ORDER_DETAILS_ORDERDETAILID_GENERATOR", sequenceName="ORDER_DETAILS_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ORDER_DETAILS_ORDERDETAILID_GENERATOR")
 	@Column(name="ORDER_DETAIL_ID")
-	private long orderDetailId;
+	private Long orderDetailId;
 
 	@Column(name="MENU_ID")
-	private BigDecimal menuId;
+	private Long menuId;
 
 	@Column(name="MENU_NAME")
 	private String menuName;
 
 	@Column(name="ORDER_ID")
-	private BigDecimal orderId;
+	private Long orderId;
 
-	private BigDecimal quantity;
+	private Integer quantity;
 
 	@Column(name="TAX_INCLUDED_PRICE")
-	private BigDecimal taxIncludedPrice;
+	private Integer taxIncludedPrice;
 
 	public OrderDetail() {
 	}
 
-	public long getOrderDetailId() {
+	public Long getOrderDetailId() {
 		return this.orderDetailId;
 	}
 
-	public void setOrderDetailId(long orderDetailId) {
+	public void setOrderDetailId(Long orderDetailId) {
 		this.orderDetailId = orderDetailId;
 	}
 
-	public BigDecimal getMenuId() {
+	public Long getMenuId() {
 		return this.menuId;
 	}
 
-	public void setMenuId(BigDecimal menuId) {
+	public void setMenuId(Long menuId) {
 		this.menuId = menuId;
 	}
 
@@ -61,27 +61,27 @@ public class OrderDetail implements Serializable {
 		this.menuName = menuName;
 	}
 
-	public BigDecimal getOrderId() {
+	public Long getOrderId() {
 		return this.orderId;
 	}
 
-	public void setOrderId(BigDecimal orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 
-	public BigDecimal getQuantity() {
+	public Integer getQuantity() {
 		return this.quantity;
 	}
 
-	public void setQuantity(BigDecimal quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
-	public BigDecimal getTaxIncludedPrice() {
+	public Integer getTaxIncludedPrice() {
 		return this.taxIncludedPrice;
 	}
 
-	public void setTaxIncludedPrice(BigDecimal taxIncludedPrice) {
+	public void setTaxIncludedPrice(Integer taxIncludedPrice) {
 		this.taxIncludedPrice = taxIncludedPrice;
 	}
 

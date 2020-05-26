@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.sql.Timestamp;
 
@@ -18,9 +17,10 @@ public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="ORDERS_ORDERID_GENERATOR", sequenceName="ORDERS_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ORDERS_ORDERID_GENERATOR")
 	@Column(name="ORDER_ID")
-	private long orderId;
+	private Long orderId;
 
 	@Column(name="CUSTOMER_NAME")
 	private String customerName;
@@ -32,6 +32,7 @@ public class Order implements Serializable {
 	@Column(name="MAIL_ADDRESS")
 	private String mailAddress;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 
@@ -39,7 +40,7 @@ public class Order implements Serializable {
 	private String remoteIpAddress;
 
 	@Column(name="RESTAURANT_ID")
-	private BigDecimal restaurantId;
+	private Long restaurantId;
 
 	@Column(name="TEL_NO")
 	private String telNo;
@@ -47,11 +48,11 @@ public class Order implements Serializable {
 	public Order() {
 	}
 
-	public long getOrderId() {
+	public Long getOrderId() {
 		return this.orderId;
 	}
 
-	public void setOrderId(long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 
@@ -95,11 +96,11 @@ public class Order implements Serializable {
 		this.remoteIpAddress = remoteIpAddress;
 	}
 
-	public BigDecimal getRestaurantId() {
+	public Long getRestaurantId() {
 		return this.restaurantId;
 	}
 
-	public void setRestaurantId(BigDecimal restaurantId) {
+	public void setRestaurantId(Long restaurantId) {
 		this.restaurantId = restaurantId;
 	}
 

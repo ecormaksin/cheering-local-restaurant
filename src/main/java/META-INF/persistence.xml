@@ -37,5 +37,6 @@
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoTempCloseDay</class>
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoTempOpenDay</class>
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.User</class>
+		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.FoodGenreHistory</class>
 	</persistence-unit>
 </persistence>

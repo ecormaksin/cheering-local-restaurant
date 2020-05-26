@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 
 /**
@@ -16,29 +15,28 @@ public class RestoGenre implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="RESTAURANT_HISTORY_ID")
-	private long restaurantHistoryId;
+	private Long restaurantHistoryId;
 
 	@Column(name="FOOT_GENRE_ID")
-	private BigDecimal footGenreId;
+	private Long footGenreId;
 
 	public RestoGenre() {
 	}
 
-	public long getRestaurantHistoryId() {
+	public Long getRestaurantHistoryId() {
 		return this.restaurantHistoryId;
 	}
 
-	public void setRestaurantHistoryId(long restaurantHistoryId) {
+	public void setRestaurantHistoryId(Long restaurantHistoryId) {
 		this.restaurantHistoryId = restaurantHistoryId;
 	}
 
-	public BigDecimal getFootGenreId() {
+	public Long getFootGenreId() {
 		return this.footGenreId;
 	}
 
-	public void setFootGenreId(BigDecimal footGenreId) {
+	public void setFootGenreId(Long footGenreId) {
 		this.footGenreId = footGenreId;
 	}
 
