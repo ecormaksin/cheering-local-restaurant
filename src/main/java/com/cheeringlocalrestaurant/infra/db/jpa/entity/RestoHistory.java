@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 
 /**
@@ -24,7 +25,7 @@ public class RestoHistory implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="END_DATE")
-	private Date endDate;
+	private Date endDate = java.sql.Timestamp.valueOf(LocalDateTime.of(9999, 12, 31, 0, 0));
 
 	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
@@ -38,7 +39,7 @@ public class RestoHistory implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="START_DATE")
-	private Date startDate;
+	private Date startDate = java.sql.Timestamp.valueOf(LocalDateTime.of(1900, 1, 1, 0, 0));
 
 	public RestoHistory() {
 	}
