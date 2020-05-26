@@ -40,7 +40,7 @@ public class RestaurantTempRegisterControllerTest {
 
     @Test
     void _登録後は完了ページへ遷移する() throws Exception {
-        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any())).willReturn(new RestaurantId(1L));
+        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (String) any())).willReturn(new RestaurantId(1L));
 
         final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
         this.mockMvc.perform(post(RestaurantTempRegisterController.PATH_REGISTER)
@@ -74,7 +74,8 @@ public class RestaurantTempRegisterControllerTest {
     void _メールアドレスがすでに登録されている場合はフォームへ戻る() throws Exception {
         final String errorMessage = "メールアドレスはすでに登録されています。ログイン認証ページからアクセスしてください。";
 
-        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any())).willThrow(RestaurantMailAddressAlreadyRegisteredException.class);
+        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (String) any()))
+        		.willThrow(RestaurantMailAddressAlreadyRegisteredException.class);
         doReturn(errorMessage).when(messagesource).getMessage("message.restaurant.mailAddressAlreadyRegistered", null, Locale.getDefault());
 
         RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();

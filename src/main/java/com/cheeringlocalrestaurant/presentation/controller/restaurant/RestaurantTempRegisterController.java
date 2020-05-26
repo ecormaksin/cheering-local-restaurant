@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping(RestaurantTempRegisterController.PATH_BASE)
 @RequiredArgsConstructor
@@ -40,12 +42,14 @@ public class RestaurantTempRegisterController {
 	}
 
 	@PostMapping(PATH_REL_REGISTER)
-	String register(@Validated RestaurantTempRegisterForm form, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+	String register(HttpServletRequest request,
+						@Validated RestaurantTempRegisterForm form, 
+						BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 		if(result.hasErrors()) {
 			return VIEW_FORM;
 		}
 		try {
-			restaurantTempRegisterUseCase.execute(null);
+			restaurantTempRegisterUseCase.execute(null, request.getRemoteAddr());
 		} catch(RestaurantMailAddressAlreadyRegisteredException e) {
 			model.addAttribute("errorMessage",
 					messagesource.getMessage("message.restaurant.mailAddressAlreadyRegistered", null, Locale.getDefault()));

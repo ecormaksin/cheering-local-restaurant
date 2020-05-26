@@ -55,20 +55,18 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
 	@Override
 	@Transactional
-	public RestaurantId save(RestaurantTempRegister tempRegister) {
+	public RestaurantId save(RestaurantTempRegister tempRegister, String remoteIpAddress) {
 
-		final String ipAddress = "127.0.0.1"; // TODO
-		
 		// 飲食店
 		Resto resto = new Resto();
-		EntityUtil.setCommonColumn(resto, ipAddress);
+		EntityUtil.setCommonColumn(resto, remoteIpAddress);
 		resto = restroRepository.save(resto);
 		Long restoId = resto.getRestaurantId();
 		
 		// 飲食店履歴
 		RestoHistory restoHistory = new RestoHistory();
 		restoHistory.setRestaurantId(restoId);
-		EntityUtil.setCommonColumn(restoHistory, ipAddress);
+		EntityUtil.setCommonColumn(restoHistory, remoteIpAddress);
 		restoHistory = restoHistoryRepository.save(restoHistory);
 		Long restoRevId = restoHistory.getRestaurantHistoryId();
 		
@@ -82,7 +80,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 		com.cheeringlocalrestaurant.infra.db.jpa.entity.User user = new com.cheeringlocalrestaurant.infra.db.jpa.entity.User();
 		user.setMailAddress(tempRegister.getMailAddress().getValue());
 		user.setUserRole(UserRole.RESTAURANT_ADMIN.getValue());
-		EntityUtil.setCommonColumn(user, ipAddress);
+		EntityUtil.setCommonColumn(user, remoteIpAddress);
 		user = userRepository.save(user);
 		Long userId = user.getUserId();
 		
@@ -90,7 +88,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 		RestoAccount restoAccount = new RestoAccount();
 		restoAccount.setRestaurantId(restoId);
 		restoAccount.setUserId(userId);
-		EntityUtil.setCommonColumn(restoAccount, ipAddress);
+		EntityUtil.setCommonColumn(restoAccount, remoteIpAddress);
 		restoAccountRepository.save(restoAccount);
 		
 		return new RestaurantId(restoId);

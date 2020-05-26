@@ -23,7 +23,7 @@ class RestaurantRepositoryTest {
 		final String email = "iroha@example.com";
 
 		RestaurantTempRegister tempRegister = new RestaurantTempRegister(name, email);
-		RestaurantId idActual = restaurantRepository.save(tempRegister);
+		RestaurantId idActual = restaurantRepository.save(tempRegister, "127.0.0.1");
 		assertNotNull(idActual);
 		assertNotNull(idActual.getValue());
 	}

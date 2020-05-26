@@ -41,10 +41,10 @@ class RestaurantTempRegisterUseCaseTest {
 													.name(new RestaurantName(name))
 													.mailAddress(new MailAddress(email))
 													.build();
-		given(restaurantRepository.save(tempRegister)).willReturn(idExpected);
+		given(restaurantRepository.save((RestaurantTempRegister) any(), (String) any())).willReturn(idExpected);
 		given(restaurantRepository.findAccountById(idExpected)).willReturn(accountExpected);
 		
-		RestaurantId idActual = restaurantTempRegisterUseCase.execute(tempRegister);
+		RestaurantId idActual = restaurantTempRegisterUseCase.execute(tempRegister, "127.0.0.1");
 		assertNotNull(idActual);
 		assertNotNull(idActual.getValue());
 

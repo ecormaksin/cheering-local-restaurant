@@ -8,5 +8,5 @@ public interface RestaurantRepository {
 	
 	RestaurantAccount findAccountById(RestaurantId restaurantId);
 
-	RestaurantId save(RestaurantTempRegister tempRegister);
+	RestaurantId save(RestaurantTempRegister tempRegister, String remoteIpAddress);
 }
