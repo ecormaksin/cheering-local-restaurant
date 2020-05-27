@@ -102,12 +102,12 @@ CASCADE CONSTRAINTS;
 起動時の引数として指定する（機微な情報なので、HashiCorp Vaultを使った方法に切り換える想定）
 
 ```
-spring.mail.host
-spring.mail.port
+spring.mail.host（Yahoo!メールの場合: smtp.mail.yahoo.co.jp、GMailの場合: smtp.gmail.com）
+spring.mail.port（Yahoo!メール・GMail両方: 587）
 spring.mail.username
-spring.mail.password
-spring.mail.properties.mail.smtp.auth
-spring.mail.properties.mail.smtp.starttls.enable
+spring.mail.password（GMailの場合は2段階認証を有効にしてアプリパスワードを設定しないとブロックされた）
+spring.mail.properties.mail.smtp.auth（Yahoo!メール・GMail両方: true）
+spring.mail.properties.mail.smtp.starttls.enable（Yahoo!メールの場合: false、GMailの場合: true）
 
 mail.from.address
 mail.test.to.address

@@ -2,6 +2,8 @@ package com.cheeringlocalrestaurant.infra.mail;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +29,7 @@ class SendMailTest {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom(mailAddressFrom);
 		message.setTo(mailAddressTo); 
-		message.setSubject("送信テスト"); 
+		message.setSubject("送信テスト" + LocalDateTime.now().toString()); 
 		message.setText("Test");
 		emailSender.send(message);
 	}
