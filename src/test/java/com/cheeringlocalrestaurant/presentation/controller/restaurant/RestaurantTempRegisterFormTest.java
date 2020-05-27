@@ -9,8 +9,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,8 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RestaurantTempRegisterFormTest {
 
     private Validator validator;
-
-    private String nameNotAllBlankMessage = "{0}'s size must be between 1 and 50. Only blanks are not allowed.";
 
     private RestaurantTempRegisterForm form = new RestaurantTempRegisterForm();
 
@@ -31,20 +27,9 @@ public class RestaurantTempRegisterFormTest {
         RestaurantTempRegisterFormCreator.setOkPattern(form);
     }
 
-    private Set<ConstraintViolation<RestaurantTempRegisterForm>> validate() {
-        return validator.validate(form);
-    }
-
-    private void validateNameOnly() {
-        validateSingleItem(nameNotAllBlankMessage);
-    }
-
-    private void validateSingleItem(final String expectedMessage) {
-        Set<ConstraintViolation<RestaurantTempRegisterForm>> violations = validate();
-        assertTrue(violations.size() == 1);
-        List<ConstraintViolation<RestaurantTempRegisterForm>> violationList = new ArrayList<>(violations);
-        ConstraintViolation<RestaurantTempRegisterForm> violation = violationList.get(0);
-        assertEquals(expectedMessage, violation.getMessage());
+    private void validate() {
+    	Set<ConstraintViolation<RestaurantTempRegisterForm>> violations = validator.validate(form);
+		assertTrue(violations.size() != 0);
     }
 
     @Test
@@ -56,45 +41,44 @@ public class RestaurantTempRegisterFormTest {
     @Test
     void _店名が長さ0の文字列はNG() throws Exception {
         form.setName("");
-        validateNameOnly();
+        validate();
     }
 
     @Test
     void _店名が50字を超える場合はNG() throws Exception {
         form.setName(StringUtils.repeat("あ", 51));
-        validateNameOnly();
+        validate();
     }
 
     @Test
     void _店名がスペースとタブだけの場合はNG() throws Exception {
         form.setName(" 　\t");
-        validateNameOnly();
+        validate();
     }
 
     @Test
     void _メールアドレスが長さ0の文字列の場合はNG() throws Exception {
         form.setMailAddress("");
-        validateSingleItem("must not be blank");
+        validate();
     }
 
     @Test
     void _メールアドレスが不正の場合はNG() throws Exception {
         form.setMailAddress("iroha");
-        validateSingleItem("must be a well-formed email address");
+        validate();
     }
 
     @Test
     void _利用規約が未チェックの場合はNG() throws Exception {
-        form.setAgreedTermOfUse(false);
-        validateSingleItem("must be true");
+        form.setAgreedTermOfUse("");
+        validate();
     }
 
     @Test
     void _すべて未入力の場合はNG() throws Exception {
         form.setName("");
         form.setMailAddress("");
-        form.setAgreedTermOfUse(false);
-        Set<ConstraintViolation<RestaurantTempRegisterForm>> violations = validate();
-        assertTrue(violations.size() == 3);
+        form.setAgreedTermOfUse("");
+        validate();
     }
 }

@@ -1,5 +1,6 @@
 package com.cheeringlocalrestaurant.presentation.controller.restaurant;
 
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantMailAddressAlreadyRegisteredException;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantTempRegisterUseCase;
 import org.springframework.context.MessageSource;
@@ -49,7 +50,8 @@ public class RestaurantTempRegisterController {
 			return VIEW_FORM;
 		}
 		try {
-			restaurantTempRegisterUseCase.execute(null, request.getRemoteAddr());
+			RestaurantTempRegister tempRegister = new RestaurantTempRegister(form.getName(), form.getMailAddress());
+			restaurantTempRegisterUseCase.execute(tempRegister, request.getRemoteAddr());
 		} catch(RestaurantMailAddressAlreadyRegisteredException e) {
 			model.addAttribute("errorMessage",
 					messagesource.getMessage("message.restaurant.mailAddressAlreadyRegistered", null, Locale.getDefault()));

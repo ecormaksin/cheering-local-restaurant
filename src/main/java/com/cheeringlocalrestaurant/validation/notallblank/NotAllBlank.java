@@ -19,7 +19,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {NotAllBlankValidator.class})
 public @interface NotAllBlank {
 
-    String message() default "{validation.NotAllBlank.message}";
+    String message() default "{custom.validation.NotAllBlank.message}";
 
     Class<?>[] groups() default { };
 

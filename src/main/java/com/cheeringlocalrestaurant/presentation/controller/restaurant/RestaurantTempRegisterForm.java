@@ -21,6 +21,7 @@ public class RestaurantTempRegisterForm implements Serializable {
 	@Email
 	private String mailAddress;
 
-	@AssertTrue
-	private Boolean agreedTermOfUse;
+	@NotBlank
+	@Pattern(regexp="checked")
+	private String agreedTermOfUse;
 }

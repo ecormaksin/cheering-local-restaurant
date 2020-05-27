@@ -12,6 +12,6 @@ public class RestaurantTempRegisterFormCreator {
     public static void setOkPattern(RestaurantTempRegisterForm form) {
         form.setName("いろは食堂");
         form.setMailAddress("iroha@example.com");
-        form.setAgreedTermOfUse(true);
+        form.setAgreedTermOfUse("checked");
     }
 }

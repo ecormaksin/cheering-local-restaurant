@@ -16,7 +16,7 @@
 							<span th:text="${errorMessage}" class="invalid-feedback">error!</span>
 						</div>
 						<div class="form-group form-row">
-							<label for="name" class="col-lg-3 col-form-label" th:text="#{label.restaurant.name}">店名</label>
+							<label for="name" class="col-lg-3 col-form-label" th:text="#{restaurantTempRegisterForm.name}"></label>
 							<div class="col-lg-5">
 								<input type="text" id="name" name="name" 
 									th:field="*{name}" 
@@ -26,30 +26,32 @@
 							</div>
 						</div>
 						<div class="form-group form-row">
-							<label for="mailAddress" class="col-lg-3 col-form-label" th:text="#{label.mailaddress}">メールアドレス</label>
+							<label for="mailAddress" class="col-lg-3 col-form-label" th:text="#{restaurantTempRegisterForm.mailAddress}"></label>
 							<div class="col-lg-5">
 								<input type="text" id="mailAddress" name="mailAddress" 
 									th:field="*{mailAddress}" 
 									class="form-control" th:classappend="${#fields.hasErrors('mailAddress')}? 'is-invalid'" 
 									value="restaurant-admin@example.com"/>
 								<span th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}" class="invalid-feedback">error!</span>
-								<div><small th:text="#{guidance.restaurant.mailaddress}">※このメールアドレスにお客さんからの注文情報が届きます。</small></div>
+								<div><small th:text="#{guidance.restaurant.mailaddress}"></small></div>
 							</div>
 						</div>
 						<div class="form-group form-row">
-							<label class="col-12 col-form-label" th:text="#{label.terms_of_service}">利用規約</label>
+							<label class="col-12 col-form-label" th:text="#{restaurantTempRegisterForm.agreedTermOfUse}"></label>
 							<div>
-								<div class="overflow-auto bg-light border" thex:textbr="#{guidance.terms_of_service}" style="max-height: 400px;">利用規約の内容</div>
+								<div class="overflow-auto bg-light border" thex:textbr="#{guidance.terms_of_service}" style="max-height: 400px;"></div>
 							</div>
 						</div>
 						<hr/>
 						<div class="form-group form-row">
-							<div class="col-lg-10" th:text="#{guidance.temp.regist}">仮登録ガイダンス</div>
+							<div class="col-lg-10" th:text="#{guidance.temp.regist}"></div>
 						</div>
 						<div class="form-group form-row">
 							<div>
-								<input type="checkbox" name="agreed" id="agreed" th:field="*{agreedTermOfUse}"/>
-								<label for="agreed" class="col-form-label">利用規約に同意しました。</label>
+								<input type="checkbox" name="agreed" id="agreed" value="checked" th:field="*{agreedTermOfUse}"
+									th:classappend="${#fields.hasErrors('agreedTermOfUse')}? 'is-invalid'"/>
+								<label for="agreed" class="col-form-label" th:text="#{label.agreed_term_of_use}"></label>
+								<span th:if="${#fields.hasErrors('agreedTermOfUse')}" th:errors="*{agreedTermOfUse}" class="invalid-feedback">error!</span>
 							</div>
 						</div>
 						<div class="form-group form-row">
