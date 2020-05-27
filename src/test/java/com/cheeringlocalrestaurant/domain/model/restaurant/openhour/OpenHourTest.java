@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.cheeringlocalrestaurant.domain.model.restaurant.openhour.OpenHour;
-
 class OpenHourTest {
 	
 	private static final String GENERAL_START_TIME = "11:00";

@@ -1,5 +1,7 @@
 package com.cheeringlocalrestaurant.domain.model.restaurant;
 
+import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
+
 public interface RestaurantRepository {
 
 	RestaurantAccount findByMailAddress(String mailAddress);

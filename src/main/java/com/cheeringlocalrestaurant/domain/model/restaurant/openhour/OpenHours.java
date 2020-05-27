@@ -9,6 +9,9 @@ import java.util.TreeMap;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.cheeringlocalrestaurant.domain.type.time.EndTime;
+import com.cheeringlocalrestaurant.domain.type.time.StartTime;
+
 public class OpenHours {
 	
 	private static final String LOCAL_TIME_MIN = "00:00"; // java.time.LocalTime.MIN の精度が変更になるかもしれないのでリテラルで定義する

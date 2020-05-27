@@ -7,9 +7,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.cheeringlocalrestaurant.domain.model.restaurant.openhour.OpenHourOverlappedException;
-import com.cheeringlocalrestaurant.domain.model.restaurant.openhour.OpenHours;
-
 class OpenHoursTest {
 
 	@Test

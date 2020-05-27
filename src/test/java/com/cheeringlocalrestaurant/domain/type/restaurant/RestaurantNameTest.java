@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.domain.model.restaurant;
+package com.cheeringlocalrestaurant.domain.type.restaurant;
 
 import static org.junit.jupiter.api.Assertions.*;
 

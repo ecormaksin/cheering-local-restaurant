@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.validation.constraints.*;
 
-import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantName;
+import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantName;
 import com.cheeringlocalrestaurant.validation.notallblank.NotAllBlank;
 import lombok.*;
 

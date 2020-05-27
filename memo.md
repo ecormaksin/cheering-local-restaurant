@@ -1,3 +1,4 @@
+# DB関連メモ
 ```
 docker run -d --hostname local-oracle-db --name local-oracle-db -p 49161:1521 -p 58080:8080 -e ORACLE_ALLOW_REMOTE=true -e ORACLE_DISABLE_ASYNCH_IO=true wnameless/oracle-xe-11g-r2
 
@@ -92,4 +93,22 @@ INCLUDING CONTENTS
 AND DATAFILES
 CASCADE CONSTRAINTS;
 */
+```
+
+# メール関連
+
+## メール送信のために必要なパラメーター
+
+起動時の引数として指定する（機微な情報なので、HashiCorp Vaultを使った方法に切り換える想定）
+
+```
+spring.mail.host
+spring.mail.port
+spring.mail.username
+spring.mail.password
+spring.mail.properties.mail.smtp.auth
+spring.mail.properties.mail.smtp.starttls.enable
+
+mail.from.address
+mail.test.to.address
 ```

@@ -6,10 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cheeringlocalrestaurant.domain.model.restaurant.Restaurant;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
-import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
-import com.cheeringlocalrestaurant.domain.value.UserRole;
+import com.cheeringlocalrestaurant.domain.type.UserRole;
+import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.infra.db.jpa.EntityUtil;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.Resto;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoAccount;

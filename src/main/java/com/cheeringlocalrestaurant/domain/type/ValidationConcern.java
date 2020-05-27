@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.domain.model;
+package com.cheeringlocalrestaurant.domain.type;
 
 import java.io.Serializable;
 import java.util.Set;

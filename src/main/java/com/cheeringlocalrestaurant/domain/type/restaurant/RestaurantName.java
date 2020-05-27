@@ -1,6 +1,6 @@
-package com.cheeringlocalrestaurant.domain.model.restaurant;
+package com.cheeringlocalrestaurant.domain.type.restaurant;
 
-import com.cheeringlocalrestaurant.domain.model.ValidationConcern;
+import com.cheeringlocalrestaurant.domain.type.ValidationConcern;
 import com.cheeringlocalrestaurant.validation.notallblank.NotAllBlank;
 
 import lombok.EqualsAndHashCode;

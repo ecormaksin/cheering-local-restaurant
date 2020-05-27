@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.cheeringlocalrestaurant.domain.model.restaurant.openhour.EndTime;
-import com.cheeringlocalrestaurant.domain.model.restaurant.openhour.StartTime;
+import com.cheeringlocalrestaurant.domain.type.time.EndTime;
+import com.cheeringlocalrestaurant.domain.type.time.StartTime;
 
-class OpenHourPartTest {
+class TimeTest {
 
 	@Test
 	void _nullの場合は例外が発生する() {

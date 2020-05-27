@@ -1,5 +1,8 @@
 package com.cheeringlocalrestaurant.domain.model.restaurant.openhour;
 
+import com.cheeringlocalrestaurant.domain.type.time.EndTime;
+import com.cheeringlocalrestaurant.domain.type.time.StartTime;
+
 import lombok.Getter;
 
 @Getter

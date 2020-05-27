@@ -1,7 +1,7 @@
 package com.cheeringlocalrestaurant.presentation.controller.restaurant;
 
-import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantMailAddressAlreadyRegisteredException;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantTempRegisterUseCase;
 import org.junit.jupiter.api.Test;

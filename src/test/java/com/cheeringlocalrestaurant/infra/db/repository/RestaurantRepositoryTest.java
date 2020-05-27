@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
-import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 class RestaurantRepositoryTest {

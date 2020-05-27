@@ -1,18 +1,18 @@
-package com.cheeringlocalrestaurant.domain.model.restaurant.openhour;
+package com.cheeringlocalrestaurant.domain.type.time;
 
 import java.io.Serializable;
 import java.time.LocalTime;
 
 import lombok.Getter;
 
-public abstract class OpenHourPart implements Serializable, Comparable<OpenHourPart> {
+public class Time implements Serializable, Comparable<Time> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Getter
 	protected LocalTime value;
 	
-	public OpenHourPart(final String timeString) {
+	public Time(final String timeString) {
 		try {
 			this.value = LocalTime.parse(timeString);
 		} catch(Exception e) {
@@ -24,7 +24,7 @@ public abstract class OpenHourPart implements Serializable, Comparable<OpenHourP
 		return this.value.toString();
 	}
 	
-	public boolean equals(OpenHourPart other) {
+	public boolean equals(Time other) {
 		return this.toString().equals(other.toString());
 	}
 	
@@ -32,7 +32,7 @@ public abstract class OpenHourPart implements Serializable, Comparable<OpenHourP
 		return this.value.hashCode();
 	}
 	
-	public int compareTo(OpenHourPart other) {
+	public int compareTo(Time other) {
 		return this.toString().compareTo(other.toString());
 	}
 }

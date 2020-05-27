@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.domain.value;
+package com.cheeringlocalrestaurant.domain.type;
 
 public enum UserRole {
 	ADMIN("ROLE_ADMIN"),
