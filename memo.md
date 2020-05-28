@@ -426,6 +426,11 @@ sudo chown --recursive vault:vault /etc/vault.d
 sudo chmod 640 /etc/vault.d/vault.hcl
 ```
 
+```
+sudo mkdir -p /var/raft
+sudo chown -R vault:vault /var/raft
+```
+
 `/etc/vault.d/vault.hcl`を編集する。
 
 ```
@@ -434,10 +439,12 @@ listener "tcp" {
  tls_disable = 1
 }
 
-storage "consul" {
-  address = "127.0.0.1:8500"
-  path    = "vault/"
-  token = "<Consulの設定で取得したVaultのサービス トークン>"
+storage "raft" {
+  path    = "/var/raft/"
+  node_id = "node1"
+  retry_join {
+    leader_api_addr = "http://127.0.0.1:8200"
+  }
 }
 
 api_addr = "http://127.0.0.1:8200"
