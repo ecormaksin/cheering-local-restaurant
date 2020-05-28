@@ -11,21 +11,21 @@
   ignore_errors: "{{ ansible_check_mode }}"
   unarchive:
     src:  "{{ hashicorp_vault_zip_dest }}"
-    dest:  "{{ hashicorp_vault_bin_dest }}"
+    dest:  "{{ usr_local_bin }}"
     remote_src: yes
 
 - name: "HashiCorp Vault | Vaultを設定する"
   ignore_errors: "{{ ansible_check_mode }}"
   shell:
     cmd: |
-      vault -autocomplete-install
-      complete -C /usr/local/bin/vault vault
+      {{ hashicorp_vault_name }} -autocomplete-install
+      complete -C {{ hashicorp_vault_bin_path }} {{ hashicorp_vault_name }}
 
 - name: "HashiCorp Vault | mlockのシステムコールをrootでなくても実行可能にする"
   become: yes
   ignore_errors: "{{ ansible_check_mode }}"
   shell:
-    cmd: setcap cap_ipc_lock=+ep /usr/local/bin/vault
+    cmd: setcap cap_ipc_lock=+ep {{ hashicorp_vault_bin_path }}
 
 - name: "HashiCorp Vault | Vault用のユーザーを追加する"
   become: yes
@@ -33,3 +33,22 @@
   user:
     home: "{{ hashicorp_vault_etc_dir_root_path }}"
     name: "{{ hashicorp_vault_name }}"
+    system: yes
+    shell: /bin/false
+
+- name: "HashiCorp Vault | Vault用のディレクトリを作成する"
+  become: yes
+  ignore_errors: "{{ ansible_check_mode }}"
+  file:
+    group: "{{ hashicorp_vault_name }}"
+    owner: "{{ hashicorp_vault_name }}"
+    path: "{{ hashicorp_vault_etc_dir_root_path }}"
+    recurse: yes
+    state: directory
+
+- name: "HashiCorp Vault | systemdサービスファイルを配置する"
+  become: yes
+  ignore_errors: "{{ ansible_check_mode }}"
+  template:
+    dest: "{{ hashicorp_vault_service_file_path }}"
+    src: "{{ hashicorp_vault_service_file_template }}"
