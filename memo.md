@@ -113,352 +113,219 @@ mail.from.address
 mail.test.to.address
 ```
 
-# HashiCorp Consul
-
-## インストール
-
-https://learn.hashicorp.com/consul/datacenter-deploy/deployment-guide#install-consul
-
-バイナリをダウンロードして、PATHの通ったディレクトリへ配置する。
-
-```
-sudo chown root:root ./consul
-sudo mv ./consul /usr/local/bin/
-```
-
-`consul --version`コマンドを実行してバージョンが返ってくればインストールOK。
-
-続けて以下のコマンドを実行する。
-
-```
-consul -autocomplete-install
-complete -C /usr/local/bin/consul consul
-sudo useradd --system --home /etc/consul.d --shell /bin/false consul
-sudo mkdir --parents /opt/consul
-sudo chown --recursive consul:consul /opt/consul
-```
-
-## インスタンスの起動
-
-以下の手順に従ってサービス化する。
-
-https://learn.hashicorp.com/consul/datacenter-deploy/deployment-guide#configure-systemd
-
-### systemdユニットファイルの作成
-
-`/etc/systemd/system/consul.service`を作成する。
-
-```
-[Unit]
-Description="HashiCorp Consul - A service mesh solution"
-Documentation=https://www.consul.io/
-Requires=network-online.target
-After=network-online.target
-ConditionFileNotEmpty=/etc/consul.d/consul.hcl
-
-[Service]
-Type=notify
-User=consul
-Group=consul
-ExecStart=/usr/local/bin/consul agent -config-dir=/etc/consul.d/
-ExecReload=/usr/local/bin/consul reload
-ExecStop=/usr/local/bin/consul leave
-KillMode=process
-Restart=on-failure
-LimitNOFILE=65536
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### Consulの設定
-
-以下のコマンドを順に実行する。
-
-```
-sudo mkdir --parents /etc/consul.d
-sudo touch /etc/consul.d/consul.hcl
-sudo chown --recursive consul:consul /etc/consul.d
-sudo chmod 640 /etc/consul.d/consul.hcl
-```
-
-`consul keygen`を実行して設定ファイルに記述する文字列を取得する。
-
-`/etc/consul.d/consul.hcl` を以下のように編集する。
-
-```
-datacenter = "dc1"
-data_dir = "/opt/consul"
-encrypt = "<`consul keygen`で生成された文字列>"
-bind_addr = "<サーバーのプライベートIPアドレス>"
-retry_join = ["<サーバーのプライベートIPアドレス>"]
-```
-
-※IPアドレスを設定しないと、`Multiple private IPv4 addresses found. Please configure one with 'bind' and/or 〜`が発生した。
-
-### Consulサーバーの設定
-
-以下のコマンドを順に実行する。
-
-```
-sudo mkdir --parents /etc/consul.d
-sudo touch /etc/consul.d/server.hcl
-sudo chown --recursive consul:consul /etc/consul.d
-sudo chmod 640 /etc/consul.d/server.hcl
-```
-
-`/etc/consul.d/server.hcl`を以下のように編集する。
-
-```
-server = true
-bootstrap_expect = 1
-```
-
-※公式ページは`bootstrap_expect = 3`となっているが、1台だけで稼働させるので1にする。
-
-### Consulサービスの起動
-
-以下のコマンドを実行する。
-
-```
-sudo systemctl daemon-reload
-sudo systemctl enable consul
-sudo systemctl start consul
-sudo systemctl status consul
-```
-
 # HashiCorp Vault
 
 https://learn.hashicorp.com/vault/operations/ops-deployment-guide
 
+https://www.vaultproject.io/docs/concepts/integrated-storage
+
+https://www.vaultproject.io/docs/configuration/storage/raft
+
 ## インストール
 
-バイナリをダウンロードして、PATHの通ったディレクトリへ配置する。
+[Ansible](https://docs.ansible.com/) を使ってインストール・セットアップする。
 
-```
-sudo chown root:root ./vault
-sudo mv ./vault /usr/local/bin/
-```
+Consulをバックエンドのストレージにすると、サーバーのメモリを消費するので、単一サーバー上で`Integrated Storage`を使った構成にする。
 
-`vault --version`コマンドを実行してバージョン情報が返ってくればインストールOK。
+Ansibleをインストール・セットアップする。
 
-続けて以下のコマンドを実行する。
-
-```
-vault -autocomplete-install
-complete -C /usr/local/bin/vault vault
-sudo setcap cap_ipc_lock=+ep /usr/local/bin/vault
-sudo useradd --system --home /etc/vault.d --shell /bin/false vault
+```shell
+sudo yum -y install ansible
+sudo cp /etc/ansible/ansible.cfg ~/.ansible.cfg
+sudo chown $USER:$USER ~/.ansible.cfg
+sed -i -e "s/#log_path = \/var\/log\/ansible\.log/log_path = ~\/ansible\.log/g" ~/.ansible.cfg
 ```
 
-## systemdユニットファイルの作成
+`ansible-playbook --version`コマンドを実行し、バージョン情報および設定ファイルのパスが「/home/$USER/.ansible.cfg」で表示されることを確認する。
 
-`/etc/systemd/system/vault.service`を作成する。
+以下のコマンドを実行してVaultをインストール・セットアップ・サービス起動する。
 
-```
-[Unit]
-Description="HashiCorp Vault - A tool for managing secrets"
-Documentation=https://www.vaultproject.io/docs/
-Requires=network-online.target
-After=network-online.target
-ConditionFileNotEmpty=/etc/vault.d/vault.hcl
-StartLimitIntervalSec=60
-StartLimitBurst=3
+※サーバー全体のセットアップ手順も作った後で、コマンド実行の手順はそちらへ移動する。
 
-[Service]
-User=vault
-Group=vault
-ProtectSystem=full
-ProtectHome=read-only
-PrivateTmp=yes
-PrivateDevices=yes
-SecureBits=keep-caps
-AmbientCapabilities=CAP_IPC_LOCK
-Capabilities=CAP_IPC_LOCK+ep
-CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
-NoNewPrivileges=yes
-ExecStart=/usr/local/bin/vault server -config=/etc/vault.d/vault.hcl
-ExecReload=/bin/kill --signal HUP $MAINPID
-KillMode=process
-KillSignal=SIGINT
-Restart=on-failure
-RestartSec=5
-TimeoutStopSec=30
-StartLimitInterval=60
-StartLimitIntervalSec=60
-StartLimitBurst=3
-LimitNOFILE=65536
-LimitMEMLOCK=infinity
-
-[Install]
-WantedBy=multi-user.target
+```shell
+cd ./ansible
+ansible-playbook --connection=local --inventory 127.0.0.1, --limit 127.0.0.1 site.yml -vv
 ```
 
-## Consulの設定変更
+## Vaultサーバー初期化
 
-`/etc/consul.d/acl.hcl`を作成する。
+### デフォルトの設定で初期化する場合
 
-```
-acl {
- enabled = true
- default_policy = "deny"
- enable_token_persistence = true
-}
-```
+https://learn.hashicorp.com/vault/getting-started/deploy#initializing-the-vault
 
-Consulサービスを再起動する
+**実運用環境では非推奨とのこと。（`Unseal Key`を1人で保管するのはリスクがあるため。）**
 
-```
-sudo systemctl restart consul
+```shell
+vault operator init
 ```
 
-以下のコマンドを実行して Consul ACLの管理トークンを取得する。
+出力される5個の`Unseal Key`と1個の`Initial Root Token`を控えておく。
+**失くしたり忘れたりすると復号化できなくなるので注意。**
 
-```
-consul acl bootstrap
-```
+復号化するには5個のうち3個の`Unseal Key`が必要。
 
-`SecretID`の値を控えておく。
+```shell
+export VAULT_ADDR='http://127.0.0.1:8200'
 
-環境変数`CONSUL_MGMT_TOKEN`をセットする。
+vault operator unseal
 
-```
-export CONSUL_MGMT_TOKEN="<上記のSecretIDの文字列>"
-```
-
-`node-policy.hcl`を作成する。
-
-※パスの記載がなかったので、`./node-policy.hcl`とした。
-
-```
-agent_prefix "" {
- policy = "write"
-}
-node_prefix "" {
- policy = "write"
-}
-service_prefix "" {
- policy = "read"
-}
-session_prefix "" {
- policy = "read"
-}
+Unseal Key (will be hidden): # ←1個の`Unseal Key`を入力
+Key                Value
+---                -----
+Seal Type          shamir
+Initialized        true
+Sealed             true # ← `vault operator unseal`を3回実行し、毎回異なる`Unseal Key`を入力して処理に成功すると、`false`に変わる。
+#（後略）
 ```
 
-以下のコマンドを実行して`Consul node ACL Policy`を作成する。
+復号化した後は`Initial Root Token`でログインできるようになる。
 
-```
-consul acl policy create \
-     -token=${CONSUL_MGMT_TOKEN} \
-     -name node-policy \
-     -rules @node-policy.hcl
+```shell
+vault login <`Initial Root Token`の値>
 ```
 
-以下のコマンドを実行してノード トークンを作成する。
+### 安全性を高めた方法で初期化する場合
 
-```
-consul acl token create \
-     -token=${CONSUL_MGMT_TOKEN} \
-     -description "node token" \
-     -policy-name node-policy
-```
+https://www.vaultproject.io/docs/concepts/pgp-gpg-keybase.html
+https://www.vaultproject.io/docs/commands/operator/init
+https://gnupg.org/gph/en/manual.html
 
-`SecretID`の値を控えておく。
+`Unseal Key`をGPGにより暗号化する方法に加え、`Initial Root Token`もGPGにより暗号化することによりさらに安全性を高めてみる。
 
-以下のコマンドを実行して、すべてのConsulサーバーにノード トークンを設定する。
+#### 新しい鍵のペア（keypair）を作成する
 
-```
-consul acl set-agent-token \
-     -token=${CONSUL_MGMT_TOKEN} \
-     agent "<Node Token SecretID>"
-```
+`Unseal Key`用に3個、`Initial Root Token`用に1個の計4個作成する。
 
-`vault-policy.hcl`を作成する。
+`Unseal Key`用の鍵の個数は任意（ただし、1〜2個だと安全性を高めていることにはならないはず。）
 
-※パスの記載がないので`./vault-policy.hcl`とした。
+ユーザーID例
 
-```
-key_prefix "vault/" {
- policy = "write"
-}
-node_prefix "" {
- policy = "write"
-}
-service "vault" {
- policy = "write"
-}
-agent_prefix "" {
- policy = "write"
-}
-session_prefix "" {
- policy = "write"
-}
+- chloresto-usk-1
+- chloresto-usk-2
+- chloresto-usk-3
+- chloresto-irt
+
+```shell
+gpg --gen-key
 ```
 
-以下のコマンドを実行して`Consul Vault ACL Policy`を作成する。
+すべてデフォルトで作成する
 
-```
-consul acl policy create \
-     -token=${CONSUL_MGMT_TOKEN} \
-     -name vault-policy \
-     -rules @vault-policy.hcl
-```
+- 鍵の種類: (1) RSA と RSA (デフォルト)
+- 鍵長: 2048
+- 鍵の有効期間: 0
 
-以下のコマンドを実行してVaultのサービス トークンを取得する。
+鍵をbase64形式でエクスポートする。
 
-```
-consul acl token create \
-     -token=${CONSUL_MGMT_TOKEN} \
-     -description "Token for Vault Service" \
-     -policy-name vault-policy
+```shell
+gpg --export <ユーザーID> | base64 > <任意のファイル名>.asc
 ```
 
-`SecretID`の値を控えておく。
+例）
 
-## Vaultの設定
-
-以下のコマンドを順に実行する。
-
-```
-sudo mkdir --parents /etc/vault.d
-sudo touch /etc/vault.d/vault.hcl
-sudo chown --recursive vault:vault /etc/vault.d
-sudo chmod 640 /etc/vault.d/vault.hcl
+```shell
+gpg --export chloresto-usk-1 | base64 > chloresto-usk-1.asc
+gpg --export chloresto-usk-2 | base64 > chloresto-usk-2.asc
+gpg --export chloresto-usk-3 | base64 > chloresto-usk-3.asc
+gpg --export chloresto-irt | base64 > chloresto-irt.asc
 ```
 
-```
-sudo mkdir -p /var/raft
-sudo chown -R vault:vault /var/raft
-```
+#### GPG鍵を指定してVaultサーバーを初期化する
 
-`/etc/vault.d/vault.hcl`を編集する。
+コマンドを実行するディレクトリと、鍵ファイルを配置しているディレクトリが同じであること。
 
-```
-listener "tcp" {
- address     = "127.0.0.1:8200"
- tls_disable = 1
-}
-
-storage "raft" {
-  path    = "/var/raft/"
-  node_id = "node1"
-  retry_join {
-    leader_api_addr = "http://127.0.0.1:8200"
-  }
-}
-
-api_addr = "http://127.0.0.1:8200"
+```shell
+vault operator init -key-shares=<生成する`Unseal Key`の個数（マスター キーの分割数）> -key-threshold=<マスター キーを復元するために必要な`Unseal Key`の個数（`-key-shares`の数値以下であること）> -pgp-keys="<`Unseal Key`用ユーザーの鍵ファイルをカンマ区切りで列挙>" -root-token-pgp-key=<`Initial Root Token`用ユーザーの鍵ファイル>
 ```
 
-※ローカルで動かすので公式ページとは設定を変えている。
+例）
 
-## サービスを起動する
-
-以下のコマンドを実行する。
-
+```shell
+vault operator init -key-shares=3 -key-threshold=2 -pgp-keys="chloresto-usk-1.asc,chloresto-usk-2.asc,chloresto-usk-3.asc" -root-token-pgp-key=chloresto-irt.asc
 ```
-sudo systemctl daemon-reload
-sudo systemctl enable vault
-sudo systemctl start vault
-sudo systemctl status vault
+
+出力される`Unseal Key`と`Initial Root Token`を控えておく。
+**失くしたり忘れたりすると復号化できなくなるので注意。**
+
+例の場合、復号化するには3個のうち2個の`Unseal Key`が必要。
+1個目から順番に個別のGPGユーザーの鍵と紐づけられている。
+
+#### `Unseal Key`を復号化する
+
+```shell
+echo "`vault operator init〜`で出力された`Unseal Key`" | base64 --decode | gpg -dq
 ```
+
+GPG秘密鍵のパスワード入力が求められるので、対応するユーザーのパスワードを入力する。
+
+正しいパスワードを入力し、ターミナルに出力された文字列が`Unseal Key`となる。
+
+#### Vaultを復号化する
+
+```shell
+export VAULT_ADDR='http://127.0.0.1:8200'
+
+vault operator unseal
+
+Unseal Key (will be hidden): # ←1個の`Unseal Key`を入力
+Key                Value
+---                -----
+Seal Type          shamir
+Initialized        true
+Sealed             true # ← `vault operator unseal`を2回実行し、毎回異なる`Unseal Key`を入力して処理に成功すると、`false`に変わる。
+#（後略）
+```
+
+#### `Initial Root Token`を復号化する
+
+```shell
+echo "`vault operator init〜`で出力された`Initial Root Token`" | base64 --decode | gpg -dq
+```
+
+GPG秘密鍵のパスワード入力が求められるので、対応するユーザーのパスワードを入力する。
+
+正しいパスワードを入力し、ターミナルに出力された文字列が`Initial Root Token`となる。
+
+#### ログインする
+
+```shell
+vault login <復号化された`Initial Root Token`>
+```
+
+## シークレット エンジン（Secrets Engine）を有効化する
+
+```shell
+vault secrets enable -path=<有効にしたい任意のパス> kv
+```
+
+例）
+
+```shell
+vault secrets enable -path=chloresto kv
+```
+
+`vault secrets list`を実行し、指定したパスが一覧に出力されることを確認する。
+
+## 機密情報のセット
+
+プロジェクト ディレクトリの`valut`ディレクトリ内の環境別ディレクトリへ移動して各jsonファイルから値をロードさせる。
+
+### 開発環境（dev）の場合
+
+```shell
+cd ./vault/dev
+vault kv put chloresto/config/mail @mail.json
+```
+
+## データのリセット
+
+**※暗号化されたデータがすべて消えてしまうので要注意。開発環境でやり直す時や、実運用環境での最終手段として使う。**
+
+```shell
+# 管理者として実行する。
+systemctl stop vault
+rm -rf /var/vault/data/*
+systemctl start vault
+```
+
+Vaultサーバーの初期化を再実行する。

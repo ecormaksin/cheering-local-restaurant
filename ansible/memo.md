@@ -17,7 +17,15 @@ ansible-playbook --connection=local --inventory 127.0.0.1, --limit 127.0.0.1 sit
 リセット用
 
 ```
+systemctl stop vault
+systemctl disable vault
+rm -f /etc/systemd/system/vault.service
+
+rm -fr /etc/vault.d
+rm -fr /var/vault/data
+
 userdel -r vault
 groupdel vault
+
 rm -f /usr/local/bin/vault
 ```
