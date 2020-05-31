@@ -156,6 +156,8 @@ https://learn.hashicorp.com/vault/getting-started/deploy#initializing-the-vault
 **実運用環境では非推奨とのこと。（`Unseal Key`を1人で保管するのはリスクがあるため。）**
 
 ```shell
+export VAULT_ADDR='http://127.0.0.1:8200'
+
 vault operator init
 ```
 
@@ -235,6 +237,8 @@ gpg --export chloresto-irt | base64 > chloresto-irt.asc
 コマンドを実行するディレクトリと、鍵ファイルを配置しているディレクトリが同じであること。
 
 ```shell
+export VAULT_ADDR='http://127.0.0.1:8200'
+
 vault operator init -key-shares=<生成する`Unseal Key`の個数（マスター キーの分割数）> -key-threshold=<マスター キーを復元するために必要な`Unseal Key`の個数（`-key-shares`の数値以下であること）> -pgp-keys="<`Unseal Key`用ユーザーの鍵ファイルをカンマ区切りで列挙>" -root-token-pgp-key=<`Initial Root Token`用ユーザーの鍵ファイル>
 ```
 
@@ -301,7 +305,7 @@ vault secrets enable -path=<有効にしたい任意のパス> kv
 例）
 
 ```shell
-vault secrets enable -path=chloresto kv
+vault secrets enable -path=secret kv
 ```
 
 `vault secrets list`を実行し、指定したパスが一覧に出力されることを確認する。
@@ -314,7 +318,20 @@ vault secrets enable -path=chloresto kv
 
 ```shell
 cd ./vault/dev
-vault kv put chloresto/config/mail @mail.json
+vault kv put secret/data/chloresto @mail.json
+vault kv put secret/chloresto @mail.json
+```
+
+## アプリケーション用ポリシーの作成
+
+```shell
+vault policy write chloresto-read-policy chloresto-read-policy.hcl
+```
+
+## アプリケーション用トークンの作成
+
+```shell
+vault token create -policy=chloresto-read-policy
 ```
 
 ## データのリセット

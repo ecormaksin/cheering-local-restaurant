@@ -33,3 +33,4 @@ build/
 ### Customized ###
 /work.md
 .attach_pid*
+/eclipse.log
