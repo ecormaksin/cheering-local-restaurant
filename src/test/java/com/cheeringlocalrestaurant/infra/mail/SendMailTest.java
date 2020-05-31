@@ -19,8 +19,8 @@ import com.cheeringlocalrestaurant.CheeringLocalRestaurantApplication;
 	webEnvironment = WebEnvironment.NONE)
 class SendMailTest {
 
-//	@Autowired
-//	private JavaMailSender emailSender;
+	@Autowired
+	private JavaMailSender emailSender;
 	
 	@Value("${mail.from.address}")
 	private String mailAddressFrom;
@@ -30,14 +30,12 @@ class SendMailTest {
 	
 	@Test
 	void test() {
-	    assertEquals("truth_jp_4133@yahoo.co.jp", mailAddressTo);
-	    System.out.println("mailAddressTo: " + mailAddressTo);
-//		SimpleMailMessage message = new SimpleMailMessage();
-//		message.setFrom(mailAddressFrom);
-//		message.setTo(mailAddressTo); 
-//		message.setSubject("送信テスト" + LocalDateTime.now().toString()); 
-//		message.setText("Test");
-//		emailSender.send(message);
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom(mailAddressFrom);
+		message.setTo(mailAddressTo); 
+		message.setSubject("送信テスト" + LocalDateTime.now().toString()); 
+		message.setText("Test");
+		emailSender.send(message);
 	}
 
 }

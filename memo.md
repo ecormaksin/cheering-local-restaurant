@@ -318,7 +318,6 @@ vault secrets enable -path=secret kv
 
 ```shell
 cd ./vault/dev
-vault kv put secret/data/chloresto @mail.json
 vault kv put secret/chloresto @mail.json
 ```
 
