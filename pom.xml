@@ -94,6 +94,14 @@
 		    <groupId>org.freemarker</groupId>
 		    <artifactId>freemarker</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>com.querydsl</groupId>
+		    <artifactId>querydsl-apt</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.querydsl</groupId>
+		    <artifactId>querydsl-jpa</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -153,6 +161,22 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+		    <plugin>
+		      <groupId>com.mysema.maven</groupId>
+		      <artifactId>maven-apt-plugin</artifactId>
+		      <version>1.0.4</version>
+		      <executions>
+		        <execution>
+		          <goals>
+		            <goal>process</goal>
+		          </goals>
+		          <configuration>
+		            <outputDirectory>target/generated-sources/java</outputDirectory>
+		            <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+		          </configuration>
+		        </execution>
+		      </executions>
+		    </plugin>
 		</plugins>
 	</build>
 
