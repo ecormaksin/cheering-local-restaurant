@@ -3,6 +3,7 @@ package com.cheeringlocalrestaurant.domain.model.restaurant;
 import javax.validation.Valid;
 
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.UserId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantName;
 
@@ -16,10 +17,13 @@ public class RestaurantAccount {
 
 	@NonNull
 	@Valid
-	private RestaurantId id;
+	private UserId userId;
 	@NonNull
 	@Valid
-	private RestaurantName name;
+	private RestaurantId restaurantId;
+	@NonNull
+	@Valid
+	private RestaurantName restaurantName;
 	@NonNull
 	@Valid
 	private MailAddress mailAddress;

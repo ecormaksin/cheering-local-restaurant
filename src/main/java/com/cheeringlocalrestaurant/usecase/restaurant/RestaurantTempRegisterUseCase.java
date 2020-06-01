@@ -19,6 +19,7 @@ public class RestaurantTempRegisterUseCase {
 	private RestaurantRepository restaurantRepository;
 
 	public RestaurantId execute(RestaurantTempRegister restaurantTempRegister, String remoteIpAddress) {
-        return restaurantRepository.save(restaurantTempRegister, remoteIpAddress);
+		RestaurantId restaurantId = restaurantRepository.save(restaurantTempRegister, remoteIpAddress);
+        return restaurantId;
     }
 }

@@ -16,6 +16,7 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.UserId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantName;
 
@@ -35,24 +36,31 @@ class RestaurantTempRegisterUseCaseTest {
 
 		RestaurantTempRegister tempRegister = new RestaurantTempRegister(name, email);
 
-		RestaurantId idExpected = new RestaurantId(1L);
-		RestaurantAccount accountExpected = RestaurantAccount.builder()
-													.id(idExpected)
-													.name(new RestaurantName(name))
+		UserId userIdExp = new UserId(1L);
+		RestaurantId restoIdExp = new RestaurantId(1L);
+		RestaurantAccount accountExp = RestaurantAccount.builder()
+													.userId(userIdExp)
+													.restaurantId(restoIdExp)
+													.restaurantName(new RestaurantName(name))
 													.mailAddress(new MailAddress(email))
 													.build();
-		given(restaurantRepository.save((RestaurantTempRegister) any(), (String) any())).willReturn(idExpected);
-		given(restaurantRepository.findAccountById(idExpected)).willReturn(accountExpected);
+		given(restaurantRepository.save((RestaurantTempRegister) any(), (String) any())).willReturn(restoIdExp);
+		given(restaurantRepository.findAccountById(restoIdExp)).willReturn(accountExp);
 		
-		RestaurantId idActual = restaurantTempRegisterUseCase.execute(tempRegister, "127.0.0.1");
-		assertNotNull(idActual);
-		assertNotNull(idActual.getValue());
+		RestaurantId restoIdAct = restaurantTempRegisterUseCase.execute(tempRegister, "127.0.0.1");
+		assertNotNull(restoIdAct);
+		assertNotNull(restoIdAct.getValue());
 
-		RestaurantAccount accountActual = restaurantRepository.findAccountById(idActual);
-		RestaurantName nameActual = accountActual.getName();
-		MailAddress mailAddress = accountActual.getMailAddress();
-		assertNotNull(nameActual);
-		assertEquals(name, nameActual.getValue());
+		RestaurantAccount accountAct = restaurantRepository.findAccountById(restoIdAct);
+		UserId userIdAct = accountAct.getUserId();
+		assertNotNull(userIdAct);
+		assertEquals(userIdExp.getValue(), userIdAct.getValue());
+		
+		RestaurantName restoNameAct = accountAct.getRestaurantName();
+		assertNotNull(restoNameAct);
+		assertEquals(name, restoNameAct.getValue());
+
+		MailAddress mailAddress = accountAct.getMailAddress();
 		assertNotNull(mailAddress);
 		assertEquals(email, mailAddress.getValue());
 	}

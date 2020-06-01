@@ -5,6 +5,7 @@
   "spring.mail.password": "<メールアカウントのパスワード>",
   "spring.mail.properties.mail.smtp.auth": true|false,
   "spring.mail.properties.mail.smtp.starttls.enable": true|false,
-  "mail.from.address": "差出人の表示名<差出人のメールアドレス>",
+  "mail.sender.name": "差出人の表示名",
+  "mail.sender.address": "<差出人のメールアドレス>",
   "mail.test.to.address": "<テスト用に送信するメールの宛先>"
 }
