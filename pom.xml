@@ -89,6 +89,11 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+		<dependency>
+		    <groupId>org.freemarker</groupId>
+		    <artifactId>freemarker</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -114,6 +119,12 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-params</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.icegreen</groupId>
+		    <artifactId>greenmail</artifactId>
+		    <version>1.5.13</version>
+		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 
