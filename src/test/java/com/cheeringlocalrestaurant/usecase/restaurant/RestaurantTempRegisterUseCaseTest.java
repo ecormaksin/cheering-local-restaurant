@@ -23,46 +23,42 @@ import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantName;
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 class RestaurantTempRegisterUseCaseTest {
 
-	@Autowired
-	private RestaurantTempRegisterUseCase restaurantTempRegisterUseCase;
-	
-	@MockBean
-	private RestaurantRepository restaurantRepository;
-	
-	@Test
-	void _正常系() {
-		final String name = "いろは食堂";
-		final String email = "iroha@example.com";
+    @Autowired
+    private RestaurantTempRegisterUseCase restaurantTempRegisterUseCase;
 
-		RestaurantTempRegister tempRegister = new RestaurantTempRegister(name, email);
+    @MockBean
+    private RestaurantRepository restaurantRepository;
 
-		UserId userIdExp = new UserId(1L);
-		RestaurantId restoIdExp = new RestaurantId(1L);
-		RestaurantAccount accountExp = RestaurantAccount.builder()
-													.userId(userIdExp)
-													.restaurantId(restoIdExp)
-													.restaurantName(new RestaurantName(name))
-													.mailAddress(new MailAddress(email))
-													.build();
-		given(restaurantRepository.save((RestaurantTempRegister) any(), (String) any())).willReturn(restoIdExp);
-		given(restaurantRepository.findAccountById(restoIdExp)).willReturn(accountExp);
-		
-		RestaurantId restoIdAct = restaurantTempRegisterUseCase.execute(tempRegister, "127.0.0.1");
-		assertNotNull(restoIdAct);
-		assertNotNull(restoIdAct.getValue());
+    @Test
+    void _正常系() {
+        final String name = "いろは食堂";
+        final String email = "iroha@example.com";
 
-		RestaurantAccount accountAct = restaurantRepository.findAccountById(restoIdAct);
-		UserId userIdAct = accountAct.getUserId();
-		assertNotNull(userIdAct);
-		assertEquals(userIdExp.getValue(), userIdAct.getValue());
-		
-		RestaurantName restoNameAct = accountAct.getRestaurantName();
-		assertNotNull(restoNameAct);
-		assertEquals(name, restoNameAct.getValue());
+        RestaurantTempRegister tempRegister = new RestaurantTempRegister(name, email);
 
-		MailAddress mailAddress = accountAct.getMailAddress();
-		assertNotNull(mailAddress);
-		assertEquals(email, mailAddress.getValue());
-	}
+        UserId userIdExp = new UserId(1L);
+        RestaurantId restoIdExp = new RestaurantId(1L);
+        RestaurantAccount accountExp = RestaurantAccount.builder().userId(userIdExp).restaurantId(restoIdExp)
+                .restaurantName(new RestaurantName(name)).mailAddress(new MailAddress(email)).build();
+        given(restaurantRepository.save((RestaurantTempRegister) any(), (String) any())).willReturn(restoIdExp);
+        given(restaurantRepository.findAccountById(restoIdExp)).willReturn(accountExp);
+
+        RestaurantId restoIdAct = restaurantTempRegisterUseCase.execute(tempRegister, "127.0.0.1");
+        assertNotNull(restoIdAct);
+        assertNotNull(restoIdAct.getValue());
+
+        RestaurantAccount accountAct = restaurantRepository.findAccountById(restoIdAct);
+        UserId userIdAct = accountAct.getUserId();
+        assertNotNull(userIdAct);
+        assertEquals(userIdExp.getValue(), userIdAct.getValue());
+
+        RestaurantName restoNameAct = accountAct.getRestaurantName();
+        assertNotNull(restoNameAct);
+        assertEquals(name, restoNameAct.getValue());
+
+        MailAddress mailAddress = accountAct.getMailAddress();
+        assertNotNull(mailAddress);
+        assertEquals(email, mailAddress.getValue());
+    }
 
 }

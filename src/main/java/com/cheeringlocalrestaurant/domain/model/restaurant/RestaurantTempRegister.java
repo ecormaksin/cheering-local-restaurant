@@ -11,15 +11,15 @@ import lombok.NonNull;
 @Getter
 public class RestaurantTempRegister {
 
-	@NonNull
-	@Valid
-	private RestaurantName name;
-	@NonNull
-	@Valid
-	private MailAddress mailAddress;
+    @NonNull
+    @Valid
+    private RestaurantName name;
+    @NonNull
+    @Valid
+    private MailAddress mailAddress;
 
-	public RestaurantTempRegister(String name, String mail) {
-		this.name = new RestaurantName(name);
-		this.mailAddress = new MailAddress(mail);
-	}
+    public RestaurantTempRegister(String name, String mail) {
+        this.name = new RestaurantName(name);
+        this.mailAddress = new MailAddress(mail);
+    }
 }

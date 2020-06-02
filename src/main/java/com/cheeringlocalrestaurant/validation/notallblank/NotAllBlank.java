@@ -16,14 +16,14 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ FIELD, ANNOTATION_TYPE, PARAMETER })
 @Retention(RUNTIME)
 @Repeatable(NotAllBlank.List.class)
-@Constraint(validatedBy = {NotAllBlankValidator.class})
+@Constraint(validatedBy = { NotAllBlankValidator.class })
 public @interface NotAllBlank {
 
     String message() default "{custom.validation.NotAllBlank.message}";
 
-    Class<?>[] groups() default { };
+    Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default { };
+    Class<? extends Payload>[] payload() default {};
 
     int min() default 1;
 

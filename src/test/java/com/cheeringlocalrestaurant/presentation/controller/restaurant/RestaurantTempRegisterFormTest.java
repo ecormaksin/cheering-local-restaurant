@@ -28,8 +28,8 @@ public class RestaurantTempRegisterFormTest {
     }
 
     private void validate() {
-    	Set<ConstraintViolation<RestaurantTempRegisterForm>> violations = validator.validate(form);
-		assertTrue(violations.size() != 0);
+        Set<ConstraintViolation<RestaurantTempRegisterForm>> violations = validator.validate(form);
+        assertTrue(violations.size() != 0);
     }
 
     @Test

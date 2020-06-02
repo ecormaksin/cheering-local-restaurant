@@ -8,8 +8,8 @@ import com.cheeringlocalrestaurant.presentation.view.TextNewLineConverterProcess
 @Configuration
 public class ThymeleafDialectConfig {
 
-	@Bean
-	public TextNewLineConverterProcessorDialect textNewLineConverterProcessorDialect() {
-		return new TextNewLineConverterProcessorDialect();
-	}
+    @Bean
+    public TextNewLineConverterProcessorDialect textNewLineConverterProcessorDialect() {
+        return new TextNewLineConverterProcessorDialect();
+    }
 }

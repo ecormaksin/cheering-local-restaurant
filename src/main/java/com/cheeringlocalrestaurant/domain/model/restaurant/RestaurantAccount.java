@@ -15,16 +15,16 @@ import lombok.NonNull;
 @Getter
 public class RestaurantAccount {
 
-	@NonNull
-	@Valid
-	private UserId userId;
-	@NonNull
-	@Valid
-	private RestaurantId restaurantId;
-	@NonNull
-	@Valid
-	private RestaurantName restaurantName;
-	@NonNull
-	@Valid
-	private MailAddress mailAddress;
+    @NonNull
+    @Valid
+    private UserId userId;
+    @NonNull
+    @Valid
+    private RestaurantId restaurantId;
+    @NonNull
+    @Valid
+    private RestaurantName restaurantName;
+    @NonNull
+    @Valid
+    private MailAddress mailAddress;
 }

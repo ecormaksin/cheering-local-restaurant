@@ -16,20 +16,20 @@ class QueryDslTest {
 
     @Autowired
     private TestEntityManager entityManager;
-    
+
     @Autowired
     private RestroRepository restroRepository;
 
     @Test
     void test() {
-	Resto restoExp = new Resto();
-	restoExp.setRestaurantId(1L);
-	EntityUtil.setCommonColumn(restoExp, "127.0.0.1");
-	restroRepository.save(restoExp);
+        Resto restoExp = new Resto();
+        restoExp.setRestaurantId(1L);
+        EntityUtil.setCommonColumn(restoExp, "127.0.0.1");
+        restroRepository.save(restoExp);
 //	entityManager.persist(restoExp);
-	
-	Resto restoAct = restroRepository.getOne(1L);
-	assertNotNull(restoAct);
+
+        Resto restoAct = restroRepository.getOne(1L);
+        assertNotNull(restoAct);
 
 //	entityManager.flush();
     }

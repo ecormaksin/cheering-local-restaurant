@@ -9,18 +9,18 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class RestaurantId extends ValidationConcern {
 
-	private static final long serialVersionUID = 1L;
-	
-	@NotNull
-	@Positive
-	private final Long value;
-	
-	public RestaurantId(final Long value) {
-    	this.value = value;
+    private static final long serialVersionUID = 1L;
 
-		this.validate(this);
-	}
+    @NotNull
+    @Positive
+    private final Long value;
+
+    public RestaurantId(final Long value) {
+        this.value = value;
+
+        this.validate(this);
+    }
 }

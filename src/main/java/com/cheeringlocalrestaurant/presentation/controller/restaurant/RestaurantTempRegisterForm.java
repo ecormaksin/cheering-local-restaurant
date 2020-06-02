@@ -12,16 +12,16 @@ import lombok.*;
 @NoArgsConstructor
 public class RestaurantTempRegisterForm implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@NotAllBlank(max = RestaurantName.MAX_SIZE)
-	private String name;
+    @NotAllBlank(max = RestaurantName.MAX_SIZE)
+    private String name;
 
-	@NotBlank
-	@Email
-	private String mailAddress;
+    @NotBlank
+    @Email
+    private String mailAddress;
 
-	@NotBlank
-	@Pattern(regexp="checked")
-	private String agreedTermOfUse;
+    @NotBlank
+    @Pattern(regexp = "checked")
+    private String agreedTermOfUse;
 }

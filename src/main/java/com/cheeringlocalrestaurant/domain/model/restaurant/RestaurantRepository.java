@@ -4,11 +4,11 @@ import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 
 public interface RestaurantRepository {
 
-	RestaurantAccount findByMailAddress(String mailAddress);
+    RestaurantAccount findByMailAddress(String mailAddress);
 
-	Restaurant findById(RestaurantId restaurantId);
-	
-	RestaurantAccount findAccountById(RestaurantId restaurantId);
+    Restaurant findById(RestaurantId restaurantId);
 
-	RestaurantId save(RestaurantTempRegister tempRegister, String remoteIpAddress);
+    RestaurantAccount findAccountById(RestaurantId restaurantId);
+
+    RestaurantId save(RestaurantTempRegister tempRegister, String remoteIpAddress);
 }

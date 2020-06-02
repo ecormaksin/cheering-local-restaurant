@@ -24,74 +24,74 @@ import com.cheeringlocalrestaurant.infra.db.jpa.repository.UserRepository;
 @Repository
 public class RestaurantRepositoryImpl implements RestaurantRepository {
 
-	@Autowired
-	private RestroRepository restroRepository;
-	@Autowired
-	private RestoHistoryRepository restoHistoryRepository;
-	@Autowired
-	private RestoNameRepository restoNameRepository;
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private RestoAccountRepository restoAccountRepository;
-	
-	@Override
-	public RestaurantAccount findByMailAddress(String mailAddress) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
+    @Autowired
+    private RestroRepository restroRepository;
+    @Autowired
+    private RestoHistoryRepository restoHistoryRepository;
+    @Autowired
+    private RestoNameRepository restoNameRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RestoAccountRepository restoAccountRepository;
 
-	@Override
-	public Restaurant findById(RestaurantId restaurantId) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
+    @Override
+    public RestaurantAccount findByMailAddress(String mailAddress) {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
 
-	@Override
-	public RestaurantAccount findAccountById(RestaurantId restaurantId) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
+    @Override
+    public Restaurant findById(RestaurantId restaurantId) {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
 
-	@Override
-	@Transactional
-	public RestaurantId save(RestaurantTempRegister tempRegister, String remoteIpAddress) {
+    @Override
+    public RestaurantAccount findAccountById(RestaurantId restaurantId) {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
 
-		// 飲食店
-		Resto resto = new Resto();
-		EntityUtil.setCommonColumn(resto, remoteIpAddress);
-		resto = restroRepository.save(resto);
-		Long restoId = resto.getRestaurantId();
-		
-		// 飲食店履歴
-		RestoHistory restoHistory = new RestoHistory();
-		restoHistory.setRestaurantId(restoId);
-		EntityUtil.setCommonColumn(restoHistory, remoteIpAddress);
-		restoHistory = restoHistoryRepository.save(restoHistory);
-		Long restoRevId = restoHistory.getRestaurantHistoryId();
-		
-		// 飲食店名
-		RestoName restoName = new RestoName();
-		restoName.setRestaurantHistoryId(restoRevId);
-		restoName.setRestaurantName(tempRegister.getName().getValue());
-		restoNameRepository.save(restoName);
+    @Override
+    @Transactional
+    public RestaurantId save(RestaurantTempRegister tempRegister, String remoteIpAddress) {
 
-		// ユーザー
-		com.cheeringlocalrestaurant.infra.db.jpa.entity.User user = new com.cheeringlocalrestaurant.infra.db.jpa.entity.User();
-		user.setMailAddress(tempRegister.getMailAddress().getValue());
-		user.setUserRole(UserRole.RESTAURANT_ADMIN.getValue());
-		EntityUtil.setCommonColumn(user, remoteIpAddress);
-		user = userRepository.save(user);
-		Long userId = user.getUserId();
-		
-		// 飲食店アカウント
-		RestoAccount restoAccount = new RestoAccount();
-		restoAccount.setRestaurantId(restoId);
-		restoAccount.setUserId(userId);
-		EntityUtil.setCommonColumn(restoAccount, remoteIpAddress);
-		restoAccountRepository.save(restoAccount);
-		
-		return new RestaurantId(restoId);
-	}
+        // 飲食店
+        Resto resto = new Resto();
+        EntityUtil.setCommonColumn(resto, remoteIpAddress);
+        resto = restroRepository.save(resto);
+        Long restoId = resto.getRestaurantId();
+
+        // 飲食店履歴
+        RestoHistory restoHistory = new RestoHistory();
+        restoHistory.setRestaurantId(restoId);
+        EntityUtil.setCommonColumn(restoHistory, remoteIpAddress);
+        restoHistory = restoHistoryRepository.save(restoHistory);
+        Long restoRevId = restoHistory.getRestaurantHistoryId();
+
+        // 飲食店名
+        RestoName restoName = new RestoName();
+        restoName.setRestaurantHistoryId(restoRevId);
+        restoName.setRestaurantName(tempRegister.getName().getValue());
+        restoNameRepository.save(restoName);
+
+        // ユーザー
+        com.cheeringlocalrestaurant.infra.db.jpa.entity.User user = new com.cheeringlocalrestaurant.infra.db.jpa.entity.User();
+        user.setMailAddress(tempRegister.getMailAddress().getValue());
+        user.setUserRole(UserRole.RESTAURANT_ADMIN.getValue());
+        EntityUtil.setCommonColumn(user, remoteIpAddress);
+        user = userRepository.save(user);
+        Long userId = user.getUserId();
+
+        // 飲食店アカウント
+        RestoAccount restoAccount = new RestoAccount();
+        restoAccount.setRestaurantId(restoId);
+        restoAccount.setUserId(userId);
+        EntityUtil.setCommonColumn(restoAccount, remoteIpAddress);
+        restoAccountRepository.save(restoAccount);
+
+        return new RestaurantId(restoId);
+    }
 
 }

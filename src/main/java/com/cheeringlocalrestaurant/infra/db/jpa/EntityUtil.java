@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 public final class EntityUtil {
 
     public static <E> void setCommonColumn(E entity, String remoteIpAddress) {
-    	setRegisteredTimestamp(entity);
-    	setRemoteIpAddress(entity, remoteIpAddress);
+        setRegisteredTimestamp(entity);
+        setRemoteIpAddress(entity, remoteIpAddress);
     }
 
     private static <E> void setRegisteredTimestamp(E entity) {
@@ -20,7 +20,7 @@ public final class EntityUtil {
 
         }
     }
-    
+
     private static <E> void setRemoteIpAddress(E entity, String remoteIpAddress) {
         try {
             Field field = getField(entity, "remoteIpAddress");

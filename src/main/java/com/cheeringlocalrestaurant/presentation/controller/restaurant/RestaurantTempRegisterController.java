@@ -22,47 +22,46 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class RestaurantTempRegisterController {
 
-	static final String PATH_BASE = "restaurant/temp_register";
+    static final String PATH_BASE = "restaurant/temp_register";
 
-	static final String VIEW_FORM = PATH_BASE + "/form";
+    static final String VIEW_FORM = PATH_BASE + "/form";
 
-	static final String PATH_REL_REGISTER = "/register";
-	static final String PATH_REGISTER = "/" + PATH_BASE + PATH_REL_REGISTER;
+    static final String PATH_REL_REGISTER = "/register";
+    static final String PATH_REGISTER = "/" + PATH_BASE + PATH_REL_REGISTER;
 
-	static final String PATH_REL_COMPLETED = "/completed";
-	static final String VIEW_COMPLETED = PATH_BASE + PATH_REL_COMPLETED;
-	static final String PATH_COMPLETED = "/" + VIEW_COMPLETED;
+    static final String PATH_REL_COMPLETED = "/completed";
+    static final String VIEW_COMPLETED = PATH_BASE + PATH_REL_COMPLETED;
+    static final String PATH_COMPLETED = "/" + VIEW_COMPLETED;
 
-	private final RestaurantTempRegisterUseCase restaurantTempRegisterUseCase;
-	private final MessageSource messagesource;
+    private final RestaurantTempRegisterUseCase restaurantTempRegisterUseCase;
+    private final MessageSource messagesource;
 
-	@GetMapping("/")
-	String showForm(Model model) {
-		model.addAttribute("restaurantTempRegisterForm", new RestaurantTempRegisterForm());
-		return VIEW_FORM;
-	}
+    @GetMapping("/")
+    String showForm(Model model) {
+        model.addAttribute("restaurantTempRegisterForm", new RestaurantTempRegisterForm());
+        return VIEW_FORM;
+    }
 
-	@PostMapping(PATH_REL_REGISTER)
-	String register(HttpServletRequest request,
-						@Validated RestaurantTempRegisterForm form, 
-						BindingResult result, Model model, RedirectAttributes redirectAttributes) {
-		if(result.hasErrors()) {
-			return VIEW_FORM;
-		}
-		try {
-			RestaurantTempRegister tempRegister = new RestaurantTempRegister(form.getName(), form.getMailAddress());
-			restaurantTempRegisterUseCase.execute(tempRegister, request.getRemoteAddr());
-		} catch(RestaurantMailAddressAlreadyRegisteredException e) {
-			model.addAttribute("errorMessage",
-					messagesource.getMessage("message.restaurant.mailAddressAlreadyRegistered", null, Locale.getDefault()));
-			return VIEW_FORM;
-		}
-		redirectAttributes.addFlashAttribute(form);
-		return "redirect:" + PATH_COMPLETED;
-	}
+    @PostMapping(PATH_REL_REGISTER)
+    String register(HttpServletRequest request, @Validated RestaurantTempRegisterForm form, BindingResult result,
+            Model model, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            return VIEW_FORM;
+        }
+        try {
+            RestaurantTempRegister tempRegister = new RestaurantTempRegister(form.getName(), form.getMailAddress());
+            restaurantTempRegisterUseCase.execute(tempRegister, request.getRemoteAddr());
+        } catch (RestaurantMailAddressAlreadyRegisteredException e) {
+            model.addAttribute("errorMessage", messagesource
+                    .getMessage("message.restaurant.mailAddressAlreadyRegistered", null, Locale.getDefault()));
+            return VIEW_FORM;
+        }
+        redirectAttributes.addFlashAttribute(form);
+        return "redirect:" + PATH_COMPLETED;
+    }
 
-	@GetMapping(PATH_REL_COMPLETED)
-	String completed(RestaurantTempRegisterForm form) {
-		return VIEW_COMPLETED;
-	}
+    @GetMapping(PATH_REL_COMPLETED)
+    String completed(RestaurantTempRegisterForm form) {
+        return VIEW_COMPLETED;
+    }
 }

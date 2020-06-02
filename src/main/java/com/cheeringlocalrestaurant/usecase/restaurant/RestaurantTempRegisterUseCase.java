@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RestaurantTempRegisterUseCase {
-	
-	@Autowired
-	private RestaurantRepository restaurantRepository;
 
-	public RestaurantId execute(RestaurantTempRegister restaurantTempRegister, String remoteIpAddress) {
-		RestaurantId restaurantId = restaurantRepository.save(restaurantTempRegister, remoteIpAddress);
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+
+    public RestaurantId execute(RestaurantTempRegister restaurantTempRegister, String remoteIpAddress) {
+        RestaurantId restaurantId = restaurantRepository.save(restaurantTempRegister, remoteIpAddress);
         return restaurantId;
     }
 }

@@ -5,66 +5,65 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
 /**
  * The persistent class for the RESTO_OPEN_HOURS database table.
  * 
  */
 @Entity
-@Table(name="RESTO_OPEN_HOURS")
-@NamedQuery(name="RestoOpenHour.findAll", query="SELECT r FROM RestoOpenHour r")
+@Table(name = "RESTO_OPEN_HOURS")
+@NamedQuery(name = "RestoOpenHour.findAll", query = "SELECT r FROM RestoOpenHour r")
 public class RestoOpenHour implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="RESTO_OPEN_HOURS_ID_GENERATOR", sequenceName="RESTO_OPEN_HOURS_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_OPEN_HOURS_ID_GENERATOR")
-	private Long id;
+    @Id
+    @SequenceGenerator(name = "RESTO_OPEN_HOURS_ID_GENERATOR", sequenceName = "RESTO_OPEN_HOURS_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESTO_OPEN_HOURS_ID_GENERATOR")
+    private Long id;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="END_TIME")
-	private Date endTime;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "END_TIME")
+    private Date endTime;
 
-	@Column(name="RESTAURANT_HISTORY_ID")
-	private BigDecimal restaurantHistoryId;
+    @Column(name = "RESTAURANT_HISTORY_ID")
+    private BigDecimal restaurantHistoryId;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="START_TIME")
-	private Date startTime;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "START_TIME")
+    private Date startTime;
 
-	public RestoOpenHour() {
-	}
+    public RestoOpenHour() {
+    }
 
-	public Long getId() {
-		return this.id;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Date getEndTime() {
-		return this.endTime;
-	}
+    public Date getEndTime() {
+        return this.endTime;
+    }
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 
-	public BigDecimal getRestaurantHistoryId() {
-		return this.restaurantHistoryId;
-	}
+    public BigDecimal getRestaurantHistoryId() {
+        return this.restaurantHistoryId;
+    }
 
-	public void setRestaurantHistoryId(BigDecimal restaurantHistoryId) {
-		this.restaurantHistoryId = restaurantHistoryId;
-	}
+    public void setRestaurantHistoryId(BigDecimal restaurantHistoryId) {
+        this.restaurantHistoryId = restaurantHistoryId;
+    }
 
-	public Date getStartTime() {
-		return this.startTime;
-	}
+    public Date getStartTime() {
+        return this.startTime;
+    }
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
 
 }

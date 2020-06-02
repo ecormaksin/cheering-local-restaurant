@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public class Restaurant {
 
-	private RestaurantId restaurantId;
-	private RestaurantName restaurantName;
-	private MailAddress mailAddress;
+    private RestaurantId restaurantId;
+    private RestaurantName restaurantName;
+    private MailAddress mailAddress;
 }

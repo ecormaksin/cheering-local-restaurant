@@ -37,62 +37,62 @@ class SendMailTest {
 
     @Autowired
     MockHttpServletRequest request;
-	
-	@Autowired
-	private JavaMailSender emailSender;
-	
-	@Autowired
+
+    @Autowired
+    private JavaMailSender emailSender;
+
+    @Autowired
     private Configuration freemarkerConfig;
-	
-	@Value("${mail.sender.name}")
-	private String mailSenderName;
-	
-	@Value("${mail.sender.address}")
-	private String mailSenderAddress;
-	
-	private String mailSender;
 
-	@Value("${mail.test.to.address}")
-	private String mailAddressTo;
-	
-	@BeforeEach
-	void setup() {
-		mailSender = mailSenderName + "<" + mailSenderAddress + ">";
-	}
-	
-	@Test
-	@Disabled
-	void test() {
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom(mailSender);
-		message.setTo(mailAddressTo); 
-		message.setSubject("送信テスト" + LocalDateTime.now().toString()); 
-		message.setText("Test");
-		emailSender.send(message);
-	}
-	
-	@Test
-	void sendByFreeMarkerTemplate() throws Exception {
-		SimpleMailMessage message = new SimpleMailMessage();
-		
-		freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/mail_templates");
-		
-		Map<String, Object> model = new HashMap<>();
-		final int remotePort = request.getRemotePort();
-		final String remotePortString = (remotePort == 80 || remotePort == 443 ? "" : ":" + String.valueOf(remotePort));
-		model.put("appRoot", request.getRequestURL() + remotePortString);
-		model.put("token", UUID.randomUUID().toString());
-		model.put("mailSenderName", mailSenderName);
+    @Value("${mail.sender.name}")
+    private String mailSenderName;
 
-		Template t = freemarkerConfig.getTemplate("notify_login_url.ftl");
-		String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
-		
-		message.setFrom(mailSender);
-		message.setTo(mailAddressTo);
-		message.setSubject("ログインURLのお知らせ");
-		message.setText(text);
-		
-		emailSender.send(message);
-	}
+    @Value("${mail.sender.address}")
+    private String mailSenderAddress;
+
+    private String mailSender;
+
+    @Value("${mail.test.to.address}")
+    private String mailAddressTo;
+
+    @BeforeEach
+    void setup() {
+        mailSender = mailSenderName + "<" + mailSenderAddress + ">";
+    }
+
+    @Test
+    @Disabled
+    void test() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(mailSender);
+        message.setTo(mailAddressTo);
+        message.setSubject("送信テスト" + LocalDateTime.now().toString());
+        message.setText("Test");
+        emailSender.send(message);
+    }
+
+    @Test
+    void sendByFreeMarkerTemplate() throws Exception {
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/mail_templates");
+
+        Map<String, Object> model = new HashMap<>();
+        final int remotePort = request.getRemotePort();
+        final String remotePortString = (remotePort == 80 || remotePort == 443 ? "" : ":" + String.valueOf(remotePort));
+        model.put("appRoot", request.getRequestURL() + remotePortString);
+        model.put("token", UUID.randomUUID().toString());
+        model.put("mailSenderName", mailSenderName);
+
+        Template t = freemarkerConfig.getTemplate("notify_login_url.ftl");
+        String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
+
+        message.setFrom(mailSender);
+        message.setTo(mailAddressTo);
+        message.setSubject("ログインURLのお知らせ");
+        message.setText(text);
+
+        emailSender.send(message);
+    }
 
 }
