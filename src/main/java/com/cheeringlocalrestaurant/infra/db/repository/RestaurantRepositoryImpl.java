@@ -1,27 +1,24 @@
 package com.cheeringlocalrestaurant.infra.db.repository;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cheeringlocalrestaurant.domain.model.LoginAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.Restaurant;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
-import com.cheeringlocalrestaurant.domain.type.MailAddress;
-import com.cheeringlocalrestaurant.domain.type.UserRole;
+import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.account.UserRole;
+import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenId;
+import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenPublishedDateTime;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
-import com.cheeringlocalrestaurant.infra.db.JavaTimeDateConverter;
 import com.cheeringlocalrestaurant.infra.db.jpa.EntityUtil;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QResto;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QRestoAccount;
-import com.cheeringlocalrestaurant.infra.db.jpa.entity.QRestoHistory;
-import com.cheeringlocalrestaurant.infra.db.jpa.entity.QRestoName;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QUser;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.Resto;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoAccount;
@@ -66,36 +63,22 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     public RestaurantAccount findByMailAddress(MailAddress mailAddress) {
-        return this.findByMailAddress(mailAddress, LocalDate.now());
-    }
-
-    @Override
-    public RestaurantAccount findByMailAddress(MailAddress mailAddress, LocalDate targetLocalDate) {
 
         QUser qUser = QUser.user;
         QRestoAccount qRestoAccount = QRestoAccount.restoAccount;
         QResto qResto = QResto.resto;
-        QRestoHistory qRestoHistory = QRestoHistory.restoHistory;
-        QRestoName qRestoName = QRestoName.restoName;
         JPASQLQuery<?> query = new JPASQLQuery<Void>(entityManager, sqlTemplates);
-        Date targetDate = JavaTimeDateConverter.to(targetLocalDate);
         // @formatter:off
         RestaurantAccount restaurantAccount 
                 = query.select(Projections.constructor(RestaurantAccount.class, 
-                        qUser.userId, qResto.restaurantId, qRestoName.restaurantName, qUser.mailAddress))
+                        qUser.userId, qResto.restaurantId, qUser.mailAddress))
                         .from(qUser)
                             .innerJoin(qRestoAccount)
                                 .on(qUser.userId.eq(qRestoAccount.userId))
                             .innerJoin(qResto)
                                 .on(qRestoAccount.restaurantId.eq(qResto.restaurantId))
-                            .innerJoin(qRestoHistory)
-                                .on(qResto.restaurantId.eq(qRestoHistory.restaurantId))
-                            .innerJoin(qRestoName)
-                                .on(qRestoHistory.restaurantHistoryId.eq(qRestoName.restaurantHistoryId))
                         .where(qUser.mailAddress.eq(mailAddress.getValue())
                                 .and(qUser.userRole.eq(UserRole.RESTAURANT_ADMIN.getValue()))
-                                .and(qRestoHistory.startDate.loe(targetDate))
-                                .and(qRestoHistory.endDate.goe(targetDate))
                         ).fetchOne();
         // @formatter:on
 
@@ -164,6 +147,19 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
         restoAccountRepository.save(restoAccount);
 
         return new RestaurantId(restoId);
+    }
+
+    @Override
+    public AccessTokenId registerAccessToken(MailAddress mailAddress,
+            AccessTokenPublishedDateTime loginTokenPublishedDateTime) {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
+
+    @Override
+    public LoginAccount getLoginAccount(AccessTokenId loginTokenId) {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
     }
 
 }

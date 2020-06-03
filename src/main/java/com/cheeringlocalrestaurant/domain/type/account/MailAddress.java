@@ -1,7 +1,9 @@
-package com.cheeringlocalrestaurant.domain.type;
+package com.cheeringlocalrestaurant.domain.type.account;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+
+import com.cheeringlocalrestaurant.domain.type.ValidationConcern;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

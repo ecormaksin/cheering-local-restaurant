@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.domain.type;
+package com.cheeringlocalrestaurant.domain.type.account;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -20,7 +20,6 @@ public class UserId extends ValidationConcern {
 
     public UserId(final Long value) {
         this.value = value;
-
         this.validate(this);
     }
 }

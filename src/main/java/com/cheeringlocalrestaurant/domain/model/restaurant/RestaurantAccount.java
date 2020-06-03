@@ -2,10 +2,9 @@ package com.cheeringlocalrestaurant.domain.model.restaurant;
 
 import javax.validation.Valid;
 
-import com.cheeringlocalrestaurant.domain.type.MailAddress;
-import com.cheeringlocalrestaurant.domain.type.UserId;
+import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.account.UserId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
-import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantName;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,25 +24,20 @@ public class RestaurantAccount {
     private RestaurantId restaurantId;
     @NonNull
     @Valid
-    private RestaurantName restaurantName;
-    @NonNull
-    @Valid
     private MailAddress mailAddress;
     
-    public RestaurantAccount(Long userId, Long restaurantId, String restaurantName, String mailAddress) {
+    public RestaurantAccount(Long userId, Long restaurantId, String mailAddress) {
         this.userId = new UserId(userId);
         this.restaurantId = new RestaurantId(restaurantId);
-        this.restaurantName = new RestaurantName(restaurantName);
         this.mailAddress = new MailAddress(mailAddress);
     }
     
     public String toString() {
         // @formatter:off
-        return String.format("userId: %s, restaurantId: %s, restaurantName: %s, mailAddress: %s", 
+        return String.format("userId: %s, restaurantId: %s, mailAddress: %s", 
                 userId.getValue().toString(),
                 restaurantId.getValue().toString(),
-                restaurantName.getValue()
-                ,mailAddress.getValue());
+                mailAddress.getValue());
         // @formatter:on
     }
 }

@@ -50,7 +50,7 @@ class RestaurantTempRegisterUseCaseTest {
     @Test
     void _登録済みのメールアドレスの場合はエラーが発生すること() {
         
-        RestaurantAccount account = new RestaurantAccount(1L, 1L, name, email);
+        RestaurantAccount account = new RestaurantAccount(1L, 1L, email);
         given(restaurantRepository.doesExist(account.getMailAddress())).willReturn(true);
         
         assertThrows(RestaurantMailAddressAlreadyRegisteredException.class, () -> {

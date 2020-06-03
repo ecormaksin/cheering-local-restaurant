@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import com.cheeringlocalrestaurant.domain.type.UserRole;
+import com.cheeringlocalrestaurant.domain.type.account.UserRole;
 import com.cheeringlocalrestaurant.infra.db.jpa.EntityUtil;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QUser;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.Resto;

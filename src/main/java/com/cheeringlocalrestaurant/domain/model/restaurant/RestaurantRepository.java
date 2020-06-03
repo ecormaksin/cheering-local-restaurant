@@ -1,15 +1,14 @@
 package com.cheeringlocalrestaurant.domain.model.restaurant;
 
-import java.time.LocalDate;
-
-import com.cheeringlocalrestaurant.domain.type.MailAddress;
+import com.cheeringlocalrestaurant.domain.model.LoginAccount;
+import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenId;
+import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenPublishedDateTime;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 
 public interface RestaurantRepository {
 
     RestaurantAccount findByMailAddress(MailAddress mailAddress);
-
-    RestaurantAccount findByMailAddress(MailAddress mailAddress, LocalDate targetDate);
 
     Restaurant findById(RestaurantId restaurantId);
 
@@ -18,4 +17,8 @@ public interface RestaurantRepository {
     boolean doesExist(MailAddress mailAddress);
 
     RestaurantId save(RestaurantTempRegister tempRegister, String remoteIpAddress);
+
+    AccessTokenId registerAccessToken(MailAddress mailAddress, AccessTokenPublishedDateTime loginTokenPublishedDateTime);
+
+    LoginAccount getLoginAccount(AccessTokenId loginTokenId);
 }
