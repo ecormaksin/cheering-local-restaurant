@@ -13,6 +13,7 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
 import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.account.UserRole;
+import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenExpirationDateTime;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenId;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenPublishedDateTime;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
@@ -151,7 +152,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     public AccessTokenId registerAccessToken(MailAddress mailAddress,
-            AccessTokenPublishedDateTime loginTokenPublishedDateTime) {
+            AccessTokenExpirationDateTime expirationDateTime) {
         // TODO 自動生成されたメソッド・スタブ
         return null;
     }

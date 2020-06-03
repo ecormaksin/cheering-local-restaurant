@@ -19,6 +19,7 @@ import com.cheeringlocalrestaurant.domain.model.LoginAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenExpirationDateTime;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenId;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenPublishedDateTime;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
@@ -59,11 +60,10 @@ class RestaurantRepositoryTest {
 
     @Test
     void _ログイントークンの登録() {
-        final LocalDateTime currentDateTime = LocalDateTime.now();
-        final LocalDateTime loginExpirationDateTime = currentDateTime.plusHours(loginExpirationHours);
-        final AccessTokenPublishedDateTime loginTokenPublishedDateTime = new AccessTokenPublishedDateTime(currentDateTime);
+        final AccessTokenPublishedDateTime tokenPublishedtDateTime = new AccessTokenPublishedDateTime();
+        final AccessTokenExpirationDateTime tokenExpirationDateTime = tokenPublishedtDateTime.accessTokenExpirationDateTime(loginExpirationHours);
         
-        final AccessTokenId accessTokenId = restaurantRepository.registerAccessToken(tempRegister.getMailAddress(), loginTokenPublishedDateTime);
+        final AccessTokenId accessTokenId = restaurantRepository.registerAccessToken(tempRegister.getMailAddress(), tokenExpirationDateTime);
         assertNotNull(accessTokenId);
         assertNotNull(accessTokenId.getValue());
 
