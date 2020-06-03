@@ -60,5 +60,17 @@ class QueryDslTest {
         assertEquals(user.getUserId(), searched.getUserId());
         assertEquals(mailAddress, searched.getMailAddress());
     }
+    
+    @Test
+    void _存在しない場合のテスト() {
+        
+        QUser qUser = QUser.user;
+        User user = queryFactory.selectFrom(qUser)
+                .where(qUser.mailAddress.eq("dummy")
+                        .and(qUser.userRole.eq(UserRole.RESTAURANT_ADMIN.getValue())))
+                .fetchOne();
+
+        assertNull(user);
+    }
 
 }

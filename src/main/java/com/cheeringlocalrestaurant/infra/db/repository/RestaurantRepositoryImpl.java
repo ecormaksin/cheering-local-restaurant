@@ -1,9 +1,9 @@
 package com.cheeringlocalrestaurant.infra.db.repository;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,10 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.Restaurant;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.UserRole;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
+import com.cheeringlocalrestaurant.infra.db.JavaTimeDateConverter;
 import com.cheeringlocalrestaurant.infra.db.jpa.EntityUtil;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QResto;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QRestoAccount;
@@ -25,12 +27,14 @@ import com.cheeringlocalrestaurant.infra.db.jpa.entity.Resto;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoAccount;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoHistory;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoName;
+import com.cheeringlocalrestaurant.infra.db.jpa.entity.User;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoAccountRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoHistoryRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoNameRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestroRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.UserRepository;
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.sql.JPASQLQuery;
 import com.querydsl.sql.SQLTemplates;
 
@@ -53,8 +57,20 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     @Autowired
     private RestoAccountRepository restoAccountRepository;
 
+    private JPAQueryFactory queryFactory;
+    
+    @PostConstruct
+    void postConstruct() {
+        queryFactory = new JPAQueryFactory(entityManager);
+    }
+
     @Override
-    public RestaurantAccount findByMailAddress(String mailAddress) {
+    public RestaurantAccount findByMailAddress(MailAddress mailAddress) {
+        return this.findByMailAddress(mailAddress, LocalDate.now());
+    }
+
+    @Override
+    public RestaurantAccount findByMailAddress(MailAddress mailAddress, LocalDate targetLocalDate) {
 
         QUser qUser = QUser.user;
         QRestoAccount qRestoAccount = QRestoAccount.restoAccount;
@@ -62,7 +78,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
         QRestoHistory qRestoHistory = QRestoHistory.restoHistory;
         QRestoName qRestoName = QRestoName.restoName;
         JPASQLQuery<?> query = new JPASQLQuery<Void>(entityManager, sqlTemplates);
-        Date systemDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date targetDate = JavaTimeDateConverter.to(targetLocalDate);
         // @formatter:off
         RestaurantAccount restaurantAccount 
                 = query.select(Projections.constructor(RestaurantAccount.class, 
@@ -76,10 +92,10 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
                                 .on(qResto.restaurantId.eq(qRestoHistory.restaurantId))
                             .innerJoin(qRestoName)
                                 .on(qRestoHistory.restaurantHistoryId.eq(qRestoName.restaurantHistoryId))
-                        .where(qUser.mailAddress.eq(mailAddress)
+                        .where(qUser.mailAddress.eq(mailAddress.getValue())
                                 .and(qUser.userRole.eq(UserRole.RESTAURANT_ADMIN.getValue()))
-                                .and(qRestoHistory.startDate.loe(systemDate))
-                                .and(qRestoHistory.endDate.goe(systemDate))
+                                .and(qRestoHistory.startDate.loe(targetDate))
+                                .and(qRestoHistory.endDate.goe(targetDate))
                         ).fetchOne();
         // @formatter:on
 
@@ -96,6 +112,18 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     public RestaurantAccount findAccountById(RestaurantId restaurantId) {
         // TODO 自動生成されたメソッド・スタブ
         return null;
+    }
+    
+    @Override
+    public boolean doesExist(MailAddress mailAddress) {
+
+        QUser qUser = QUser.user;
+        User user = queryFactory.selectFrom(qUser)
+                .where(qUser.mailAddress.eq(mailAddress.getValue())
+                        .and(qUser.userRole.eq(UserRole.RESTAURANT_ADMIN.getValue())))
+                .fetchOne();
+
+        return null != user;
     }
 
     @Override

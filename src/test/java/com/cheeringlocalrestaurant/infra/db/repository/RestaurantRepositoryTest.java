@@ -39,7 +39,7 @@ class RestaurantRepositoryTest {
         assertNotNull(idActual);
         assertNotNull(idActual.getValue());
 
-        RestaurantAccount restaurantAccount = restaurantRepository.findByMailAddress(email);
+        RestaurantAccount restaurantAccount = restaurantRepository.findByMailAddress(tempRegister.getMailAddress());
 
         assertNotNull(restaurantAccount);
         assertNotNull(restaurantAccount.getUserId());
