@@ -14,6 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.account.UserId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
@@ -35,13 +37,31 @@ class RestaurantTempRegisterUseCaseTest {
     void _正常に登録できる場合はエラーが発生しないこと() {
 
         try {
+            UserId userIdExp = new UserId(1L);
             RestaurantId restoIdExp = new RestaurantId(1L);
+            // @formatter:off
+            RestaurantAccount accountExp = RestaurantAccount.builder()
+                                                .userId(userIdExp)
+                                                .restaurantId(restoIdExp)
+                                                .mailAddress(new MailAddress(email))
+                                                .build();
+            // @formatter:on
             given(restaurantRepository.doesExist(tempRegister.getMailAddress())).willReturn(false);
             given(restaurantRepository.save((RestaurantTempRegister) any(), (String) any())).willReturn(restoIdExp);
+            given(restaurantRepository.findAccountById(restoIdExp)).willReturn(accountExp);
 
             RestaurantId restoIdAct = restaurantTempRegisterUseCase.execute(tempRegister, remoteIPAddr);
             assertNotNull(restoIdAct);
             assertNotNull(restoIdAct.getValue());
+
+            RestaurantAccount accountAct = restaurantRepository.findAccountById(restoIdAct);
+            UserId userIdAct = accountAct.getUserId();
+            assertNotNull(userIdAct);
+            assertEquals(userIdExp.getValue(), userIdAct.getValue());
+
+            MailAddress mailAddress = accountAct.getMailAddress();
+            assertNotNull(mailAddress);
+            assertEquals(email, mailAddress.getValue());
         } catch (Exception e) {
             fail();
         }
