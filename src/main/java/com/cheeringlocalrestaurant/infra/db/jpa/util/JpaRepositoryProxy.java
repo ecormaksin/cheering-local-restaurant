@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.infra.db.jpa;
+package com.cheeringlocalrestaurant.infra.db.jpa.util;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

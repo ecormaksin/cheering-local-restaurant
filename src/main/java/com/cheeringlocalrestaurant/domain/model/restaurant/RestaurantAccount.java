@@ -2,7 +2,7 @@ package com.cheeringlocalrestaurant.domain.model.restaurant;
 
 import javax.validation.Valid;
 
-import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.account.UserId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 

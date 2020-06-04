@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 
 import javax.validation.Valid;
 
-import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.account.UserId;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessToken;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenExpirationDateTime;
+import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
+import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,8 +1,7 @@
-package com.cheeringlocalrestaurant.domain.type.account.access_token;
-
-import java.time.LocalDateTime;
+package com.cheeringlocalrestaurant.domain.type.account.login;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import com.cheeringlocalrestaurant.domain.type.ValidationConcern;
 
@@ -11,14 +10,15 @@ import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class AccessTokenExpirationDateTime extends ValidationConcern {
+public class AccessTokenExpirationHours extends ValidationConcern {
 
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    private final LocalDateTime value;
+    @Positive
+    private final Integer value;
 
-    public AccessTokenExpirationDateTime(final LocalDateTime value) {
+    public AccessTokenExpirationHours(final Integer value) {
         this.value = value;
         this.validate(this);
     }

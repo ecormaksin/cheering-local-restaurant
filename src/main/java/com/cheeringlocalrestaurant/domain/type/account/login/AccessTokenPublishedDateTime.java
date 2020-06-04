@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.domain.type.account.access_token;
+package com.cheeringlocalrestaurant.domain.type.account.login;
 
 import java.time.LocalDateTime;
 

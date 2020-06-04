@@ -12,16 +12,15 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.Restaurant;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
-import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.account.UserId;
 import com.cheeringlocalrestaurant.domain.type.account.UserRole;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessToken;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenExpirationDateTime;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenId;
+import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
+import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationDateTime;
+import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.infra.db.JavaTimeDateConverter;
-import com.cheeringlocalrestaurant.infra.db.jpa.JpaRepositoryProxy;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.LoginRequest;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QLoginRequest;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QResto;
@@ -37,6 +36,7 @@ import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoHistoryRepositor
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoNameRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestroRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.UserRepository;
+import com.cheeringlocalrestaurant.infra.db.jpa.util.JpaRepositoryProxy;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.sql.JPASQLQuery;
@@ -80,24 +80,6 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
         QUser qUser = QUser.user;
         RestaurantAccount restaurantAccount = findAccount(qUser.mailAddress.eq(mailAddress.getValue()));
-        /*
-        QRestoAccount qRestoAccount = QRestoAccount.restoAccount;
-        QResto qResto = QResto.resto;
-        JPASQLQuery<?> query = new JPASQLQuery<Void>(entityManager, sqlTemplates);
-        // @formatter:off
-        RestaurantAccount restaurantAccount 
-                = query.select(Projections.constructor(RestaurantAccount.class, 
-                        qUser.userId, qResto.restaurantId, qUser.mailAddress))
-                        .from(qUser)
-                            .innerJoin(qRestoAccount)
-                                .on(qUser.userId.eq(qRestoAccount.userId))
-                            .innerJoin(qResto)
-                                .on(qRestoAccount.restaurantId.eq(qResto.restaurantId))
-                        .where(qUser.mailAddress.eq(mailAddress.getValue())
-                                .and(qUser.userRole.eq(UserRole.RESTAURANT_ADMIN.getValue()))
-                        ).fetchOne();
-        // @formatter:on
-         */
 
         return Optional.ofNullable(restaurantAccount);
     }
@@ -136,16 +118,12 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
         // 飲食店
         Resto resto = new Resto();
-//        EntityUtil.setCommonColumn(resto, remoteIpAddress);
-//        resto = restroRepository.save(resto);
         resto = JpaRepositoryProxy.save(restroRepository, resto, remoteIpAddress);
         Long restoId = resto.getRestaurantId();
 
         // 飲食店履歴
         RestoHistory restoHistory = new RestoHistory();
         restoHistory.setRestaurantId(restoId);
-//        EntityUtil.setCommonColumn(restoHistory, remoteIpAddress);
-//        restoHistory = restoHistoryRepository.save(restoHistory);
         restoHistory = JpaRepositoryProxy.save(restoHistoryRepository, restoHistory, remoteIpAddress);
         Long restoRevId = restoHistory.getRestaurantHistoryId();
 
@@ -153,15 +131,12 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
         RestoName restoName = new RestoName();
         restoName.setRestaurantHistoryId(restoRevId);
         restoName.setRestaurantName(tempRegister.getName().getValue());
-//        restoNameRepository.save(restoName);
         JpaRepositoryProxy.save(restoNameRepository, restoName, remoteIpAddress);
 
         // ユーザー
         com.cheeringlocalrestaurant.infra.db.jpa.entity.User user = new com.cheeringlocalrestaurant.infra.db.jpa.entity.User();
         user.setMailAddress(tempRegister.getMailAddress().getValue());
         user.setUserRole(UserRole.RESTAURANT_ADMIN.getValue());
-//        EntityUtil.setCommonColumn(user, remoteIpAddress);
-//        user = userRepository.save(user);
         user = JpaRepositoryProxy.save(userRepository, user, remoteIpAddress);
         Long userId = user.getUserId();
 
@@ -169,8 +144,6 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
         RestoAccount restoAccount = new RestoAccount();
         restoAccount.setRestaurantId(restoId);
         restoAccount.setUserId(userId);
-//        EntityUtil.setCommonColumn(restoAccount, remoteIpAddress);
-//        restoAccountRepository.save(restoAccount);
         JpaRepositoryProxy.save(restoAccountRepository, restoAccount, remoteIpAddress);
 
         return new RestaurantId(restoId);
@@ -178,7 +151,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     // @formatter:off
-    public AccessTokenId registerAccessToken(UserId userId, 
+    public LoginRequestId registerAccessToken(UserId userId, 
             AccessToken accessToken, 
             AccessTokenExpirationDateTime expirationDateTime, 
             RemoteIpAddress remoteIpAddress) {
@@ -188,15 +161,13 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
         restoLoginRequest.setUserId(userId.getValue());
         restoLoginRequest.setAccessToken(accessToken.getValue());
         restoLoginRequest.setTokenExpirationDatetime(JavaTimeDateConverter.to(expirationDateTime.getValue()));
-//        EntityUtil.setCommonColumn(restoLoginRequest, remoteIpAddress);
-//        restoLoginRequest = restoLoginRequestRepository.save(restoLoginRequest);
         restoLoginRequest = JpaRepositoryProxy.save(restoLoginRequestRepository, restoLoginRequest, remoteIpAddress);
 
-        return new AccessTokenId(restoLoginRequest.getId());
+        return new LoginRequestId(restoLoginRequest.getId());
     }
 
     @Override
-    public UserLoginRequest getLoginRequest(AccessTokenId accessTokenId) throws LoginRequestNotFoundException {
+    public UserLoginRequest getLoginRequest(LoginRequestId loginRequestId) throws LoginRequestNotFoundException {
 
         QLoginRequest qLoginRequest = QLoginRequest.loginRequest;
         QUser qUser = QUser.user;
@@ -211,7 +182,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
                         ).from(qLoginRequest)
                             .innerJoin(qUser)
                                 .on(qLoginRequest.userId.eq(qUser.userId))
-                        .where(qLoginRequest.id.eq(accessTokenId.getValue()))
+                        .where(qLoginRequest.id.eq(loginRequestId.getValue()))
                         .fetchOne();
         // @formatter:on
         if (null == loginRequest) {

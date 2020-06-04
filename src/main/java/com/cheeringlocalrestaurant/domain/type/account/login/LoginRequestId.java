@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.domain.type.account.access_token;
+package com.cheeringlocalrestaurant.domain.type.account.login;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -10,7 +10,7 @@ import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class AccessTokenId extends ValidationConcern {
+public class LoginRequestId extends ValidationConcern {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,7 +18,7 @@ public class AccessTokenId extends ValidationConcern {
     @Positive
     private final Long value;
 
-    public AccessTokenId(final Long value) {
+    public LoginRequestId(final Long value) {
         this.value = value;
         this.validate(this);
     }

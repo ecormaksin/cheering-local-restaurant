@@ -14,10 +14,10 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
 import com.cheeringlocalrestaurant.domain.type.account.UserId;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessToken;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenExpirationDateTime;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenId;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenPublishedDateTime;
+import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
+import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationDateTime;
+import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenPublishedDateTime;
+import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 
 import lombok.extern.slf4j.Slf4j;
@@ -64,10 +64,10 @@ class RestaurantRepositoryTest {
         final AccessTokenExpirationDateTime tokenExpirationDateTime = tokenPublishedtDateTime.accessTokenExpirationDateTime(loginExpirationHours);
         
         // @formatter:off
-        final AccessTokenId accessTokenId = restaurantRepository.registerAccessToken(
+        final LoginRequestId loginRequestId = restaurantRepository.registerAccessToken(
                 userId, accessToken, tokenExpirationDateTime, remoteIpAddr);
         // @formatter:on
-        assertNotNull(accessTokenId);
-        assertNotNull(accessTokenId.getValue());
+        assertNotNull(loginRequestId);
+        assertNotNull(loginRequestId.getValue());
     }
 }

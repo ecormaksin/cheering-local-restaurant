@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.infra.db.jpa;
+package com.cheeringlocalrestaurant.infra.db.jpa.util;
 
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
 
-public final class EntityUtil {
+final class EntityUtil {
 
     public static <E> void setCommonColumn(E entity, RemoteIpAddress remoteIpAddress) {
         setRegisteredTimestamp(entity);

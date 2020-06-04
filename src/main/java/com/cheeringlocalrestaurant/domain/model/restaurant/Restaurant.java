@@ -1,6 +1,6 @@
 package com.cheeringlocalrestaurant.domain.model.restaurant;
 
-import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantName;
 

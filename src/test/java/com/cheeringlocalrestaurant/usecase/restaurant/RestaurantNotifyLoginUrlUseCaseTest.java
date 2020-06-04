@@ -18,12 +18,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.cheeringlocalrestaurant.domain.model.UserLoginRequest;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
+import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
-import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.account.UserId;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessToken;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenExpirationDateTime;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenId;
+import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
+import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationDateTime;
+import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
@@ -59,15 +59,15 @@ class RestaurantNotifyLoginUrlUseCaseTest {
                                             (AccessToken) any(),
                                             (AccessTokenExpirationDateTime) any(),
                                             (RemoteIpAddress) any())
-                    ).willReturn(new AccessTokenId(1L));
+                    ).willReturn(new LoginRequestId(1L));
             // @formatter:on
             given(restaurantRepository.findAccountByMailAddress((MailAddress) any())).willReturn(Optional.ofNullable(restaurantAccount));
-            given(restaurantRepository.getLoginRequest((AccessTokenId) any())).willReturn(loginRequestExp);
+            given(restaurantRepository.getLoginRequest((LoginRequestId) any())).willReturn(loginRequestExp);
     
-            AccessTokenId accessTokenId = restaurantNotifyLoginUrlUseCase.execute(mailAddress, remoteIpAddr);
-            assertNotNull(accessTokenId);
+            LoginRequestId loginRequestId = restaurantNotifyLoginUrlUseCase.execute(mailAddress, remoteIpAddr);
+            assertNotNull(loginRequestId);
             
-            UserLoginRequest loginAccount = restaurantRepository.getLoginRequest(accessTokenId);
+            UserLoginRequest loginAccount = restaurantRepository.getLoginRequest(loginRequestId);
             assertNotNull(loginAccount);
             assertNotNull(loginAccount.getUserId());
             assertNotNull(loginAccount.getMailAddress());
