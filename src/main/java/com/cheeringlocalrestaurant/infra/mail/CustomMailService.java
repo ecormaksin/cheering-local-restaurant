@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import javax.mail.internet.MimeMessage;
 
+import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.mail.CustomMailBody;
 import com.cheeringlocalrestaurant.domain.type.mail.CustomMailSender;
 import com.cheeringlocalrestaurant.domain.type.mail.CustomMailSubject;
-import com.icegreen.greenmail.mail.MailAddress;
 
 public interface CustomMailService {
 
