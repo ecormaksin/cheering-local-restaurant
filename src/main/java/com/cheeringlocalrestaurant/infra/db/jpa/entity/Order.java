@@ -31,6 +31,7 @@ public class Order implements Serializable {
 	@Column(name="MAIL_ADDRESS")
 	private String mailAddress;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 

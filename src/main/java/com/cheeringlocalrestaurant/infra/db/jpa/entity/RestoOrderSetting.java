@@ -15,15 +15,14 @@ public class RestoOrderSetting implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="RESTAURANT_HISTORY_ID")
 	private Long restaurantHistoryId;
 
 	@Column(name="EARLIEST_READY_MINUTES")
-	private Integer earliestReadyMinutes;
+	private Short earliestReadyMinutes;
 
 	@Column(name="ORDER_AVAILABLE_FUTURE_DAYS")
-	private Integer orderAvailableFutureDays;
+	private Short orderAvailableFutureDays;
 
 	public RestoOrderSetting() {
 	}
@@ -36,19 +35,19 @@ public class RestoOrderSetting implements Serializable {
 		this.restaurantHistoryId = restaurantHistoryId;
 	}
 
-	public Integer getEarliestReadyMinutes() {
+	public Short getEarliestReadyMinutes() {
 		return this.earliestReadyMinutes;
 	}
 
-	public void setEarliestReadyMinutes(Integer earliestReadyMinutes) {
+	public void setEarliestReadyMinutes(Short earliestReadyMinutes) {
 		this.earliestReadyMinutes = earliestReadyMinutes;
 	}
 
-	public Integer getOrderAvailableFutureDays() {
+	public Short getOrderAvailableFutureDays() {
 		return this.orderAvailableFutureDays;
 	}
 
-	public void setOrderAvailableFutureDays(Integer orderAvailableFutureDays) {
+	public void setOrderAvailableFutureDays(Short orderAvailableFutureDays) {
 		this.orderAvailableFutureDays = orderAvailableFutureDays;
 	}
 

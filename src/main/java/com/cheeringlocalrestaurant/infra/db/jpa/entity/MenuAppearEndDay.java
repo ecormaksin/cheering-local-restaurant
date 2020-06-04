@@ -17,7 +17,6 @@ public class MenuAppearEndDay implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="MENU_HISTORY_ID")
 	private Long menuHistoryId;
 
@@ -25,6 +24,7 @@ public class MenuAppearEndDay implements Serializable {
 	@Column(name="APPEAR_END_DATE")
 	private Date appearEndDate;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 

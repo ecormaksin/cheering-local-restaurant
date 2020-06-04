@@ -22,6 +22,7 @@ public class LoginRequest implements Serializable {
 	@Column(name="ACCESS_TOKEN")
 	private String accessToken;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 

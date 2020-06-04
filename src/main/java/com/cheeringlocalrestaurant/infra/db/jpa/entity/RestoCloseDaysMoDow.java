@@ -19,13 +19,13 @@ public class RestoCloseDaysMoDow implements Serializable {
 	private Long id;
 
 	@Column(name="DAY_OF_WEEK")
-	private Integer dayOfWeek;
+	private Short dayOfWeek;
 
 	@Column(name="RESTAURANT_HISTORY_ID")
 	private Long restaurantHistoryId;
 
 	@Column(name="WEEK_OF_MONTH")
-	private Integer weekOfMonth;
+	private Short weekOfMonth;
 
 	public RestoCloseDaysMoDow() {
 	}
@@ -38,11 +38,11 @@ public class RestoCloseDaysMoDow implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getDayOfWeek() {
+	public Short getDayOfWeek() {
 		return this.dayOfWeek;
 	}
 
-	public void setDayOfWeek(Integer dayOfWeek) {
+	public void setDayOfWeek(Short dayOfWeek) {
 		this.dayOfWeek = dayOfWeek;
 	}
 
@@ -54,11 +54,11 @@ public class RestoCloseDaysMoDow implements Serializable {
 		this.restaurantHistoryId = restaurantHistoryId;
 	}
 
-	public Integer getWeekOfMonth() {
+	public Short getWeekOfMonth() {
 		return this.weekOfMonth;
 	}
 
-	public void setWeekOfMonth(Integer weekOfMonth) {
+	public void setWeekOfMonth(Short weekOfMonth) {
 		this.weekOfMonth = weekOfMonth;
 	}
 

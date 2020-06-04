@@ -25,6 +25,7 @@ public class RestoHistory implements Serializable {
 	@Column(name="END_DATE")
 	private Date endDate;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 

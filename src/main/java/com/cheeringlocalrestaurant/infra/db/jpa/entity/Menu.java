@@ -19,6 +19,7 @@ public class Menu implements Serializable {
 	@Column(name="MENU_ID")
 	private Long menuId;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 

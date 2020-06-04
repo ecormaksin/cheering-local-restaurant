@@ -20,6 +20,7 @@ public class Resto implements Serializable {
 	@Column(name="RESTAURANT_ID")
 	private Long restaurantId;
 
+	@Version
 	@Column(name="REGISTERED_TIMESTAMP")
 	private Timestamp registeredTimestamp;
 

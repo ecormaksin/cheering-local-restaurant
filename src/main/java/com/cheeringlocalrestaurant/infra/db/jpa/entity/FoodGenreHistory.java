@@ -41,7 +41,7 @@ public class FoodGenreHistory implements Serializable {
 	private Date startDate;
 
 	@Column(name="SUPERIOR_FOOT_GENRE_ID")
-	private Integer superiorFootGenreId;
+	private Long superiorFootGenreId;
 
 	public FoodGenreHistory() {
 	}
@@ -102,11 +102,11 @@ public class FoodGenreHistory implements Serializable {
 		this.startDate = startDate;
 	}
 
-	public Integer getSuperiorFootGenreId() {
+	public Long getSuperiorFootGenreId() {
 		return this.superiorFootGenreId;
 	}
 
-	public void setSuperiorFootGenreId(Integer superiorFootGenreId) {
+	public void setSuperiorFootGenreId(Long superiorFootGenreId) {
 		this.superiorFootGenreId = superiorFootGenreId;
 	}
 

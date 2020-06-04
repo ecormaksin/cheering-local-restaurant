@@ -19,7 +19,7 @@ public class RestoCloseDaysWkly implements Serializable {
 	private Long id;
 
 	@Column(name="DAY_OF_WEEK")
-	private Integer dayOfWeek;
+	private Short dayOfWeek;
 
 	@Column(name="RESTAURANT_HISTORY_ID")
 	private Long restaurantHistoryId;
@@ -35,11 +35,11 @@ public class RestoCloseDaysWkly implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getDayOfWeek() {
+	public Short getDayOfWeek() {
 		return this.dayOfWeek;
 	}
 
-	public void setDayOfWeek(Integer dayOfWeek) {
+	public void setDayOfWeek(Short dayOfWeek) {
 		this.dayOfWeek = dayOfWeek;
 	}
 

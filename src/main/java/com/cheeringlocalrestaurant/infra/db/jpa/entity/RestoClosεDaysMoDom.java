@@ -19,7 +19,7 @@ public class RestoClosεDaysMoDom implements Serializable {
 	private Long id;
 
 	@Column(name="DAY_OF_MONTH")
-	private Integer dayOfMonth;
+	private Short dayOfMonth;
 
 	@Column(name="RESTAURANT_HISTORY_ID")
 	private Long restaurantHistoryId;
@@ -35,11 +35,11 @@ public class RestoClosεDaysMoDom implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getDayOfMonth() {
+	public Short getDayOfMonth() {
 		return this.dayOfMonth;
 	}
 
-	public void setDayOfMonth(Integer dayOfMonth) {
+	public void setDayOfMonth(Short dayOfMonth) {
 		this.dayOfMonth = dayOfMonth;
 	}
 
