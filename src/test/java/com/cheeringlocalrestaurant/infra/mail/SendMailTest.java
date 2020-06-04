@@ -1,16 +1,9 @@
 package com.cheeringlocalrestaurant.infra.mail;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -18,11 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
@@ -30,7 +20,6 @@ import com.cheeringlocalrestaurant.CheeringLocalRestaurantApplication;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import lombok.Data;
 
 @SpringBootTest(classes = CheeringLocalRestaurantApplication.class)
 class SendMailTest {

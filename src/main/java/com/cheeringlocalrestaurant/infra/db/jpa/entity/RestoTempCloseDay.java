@@ -4,53 +4,53 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 
+
 /**
  * The persistent class for the RESTO_TEMP_CLOSE_DAYS database table.
  * 
  */
 @Entity
-@Table(name = "RESTO_TEMP_CLOSE_DAYS")
-@NamedQuery(name = "RestoTempCloseDay.findAll", query = "SELECT r FROM RestoTempCloseDay r")
+@Table(name="RESTO_TEMP_CLOSE_DAYS")
+@NamedQuery(name="RestoTempCloseDay.findAll", query="SELECT r FROM RestoTempCloseDay r")
 public class RestoTempCloseDay implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @SequenceGenerator(name = "RESTO_TEMP_CLOSE_DAYS_ID_GENERATOR", sequenceName = "RESTO_TEMP_CLOSE_DAYS_SEQ")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESTO_TEMP_CLOSE_DAYS_ID_GENERATOR")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "CLOSE_DAY")
-    private Date closeDay;
+	@Temporal(TemporalType.DATE)
+	@Column(name="CLOSE_DAY")
+	private Date closeDay;
 
-    @Column(name = "RESTAURANT_ID")
-    private Long restaurantId;
+	@Column(name="RESTAURANT_ID")
+	private Long restaurantId;
 
-    public RestoTempCloseDay() {
-    }
+	public RestoTempCloseDay() {
+	}
 
-    public Long getId() {
-        return this.id;
-    }
+	public Long getId() {
+		return this.id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Date getCloseDay() {
-        return this.closeDay;
-    }
+	public Date getCloseDay() {
+		return this.closeDay;
+	}
 
-    public void setCloseDay(Date closeDay) {
-        this.closeDay = closeDay;
-    }
+	public void setCloseDay(Date closeDay) {
+		this.closeDay = closeDay;
+	}
 
-    public Long getRestaurantId() {
-        return this.restaurantId;
-    }
+	public Long getRestaurantId() {
+		return this.restaurantId;
+	}
 
-    public void setRestaurantId(Long restaurantId) {
-        this.restaurantId = restaurantId;
-    }
+	public void setRestaurantId(Long restaurantId) {
+		this.restaurantId = restaurantId;
+	}
 
 }

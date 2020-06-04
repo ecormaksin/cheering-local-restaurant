@@ -4,12 +4,10 @@ import java.time.LocalDateTime;
 
 import javax.validation.Valid;
 
-import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.account.UserId;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessToken;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenExpirationDateTime;
-import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +17,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @Builder
 @Getter
-public class LoginAccount {
+public class UserLoginRequest {
 
     @NonNull
     @Valid
@@ -34,7 +32,7 @@ public class LoginAccount {
     @Valid
     private AccessTokenExpirationDateTime accessTokenExpirationDateTime;
     
-    public LoginAccount(Long userId, String mailAddress, String accessToken, LocalDateTime accessTokenExpirationDateTime) {
+    public UserLoginRequest(Long userId, String mailAddress, String accessToken, LocalDateTime accessTokenExpirationDateTime) {
         this.userId = new UserId(userId);
         this.mailAddress = new MailAddress(mailAddress);
         this.accessToken = new AccessToken(accessToken);

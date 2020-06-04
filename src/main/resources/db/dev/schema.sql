@@ -1,5 +1,5 @@
 -- Project Name : 地元の飲食店 テイクアウト注文支援サービス
--- Date/Time    : 2020/05/26 13:41:29
+-- Date/Time    : 2020/06/04 16:57:13
 -- Author       : vagrant
 -- RDBMS Type   : Oracle Database
 -- Application  : A5:SQL Mk-2
@@ -25,6 +25,20 @@ alter table FOOD_GENRE_HISTORIES add constraint FOOD_GENRE_HISTORIES_IX2
 
 create index FOOD_GENRE_HISTORIES_IX3
   on FOOD_GENRE_HISTORIES(FOOT_GENRE_ID);
+
+-- ログイン要求
+create table LOGIN_REQUESTS (
+  ID NUMBER(11,0) not null
+  , USER_ID NUMBER(7,0) not null
+  , ACCESS_TOKEN VARCHAR2(36) not null
+  , TOKEN_EXPIRATION_DATETIME TIMESTAMP not null
+  , REMOTE_IP_ADDRESS VARCHAR2(15) not null
+  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
+  , constraint LOGIN_REQUESTS_PKC primary key (ID)
+) ;
+
+alter table LOGIN_REQUESTS add constraint LOGIN_REQUESTS_IX1
+  unique (ACCESS_TOKEN) ;
 
 -- メニュー掲載終了日
 create table MENU_APPEAR_END_DAYS (
@@ -215,20 +229,6 @@ create table RESTO_GENRES (
 
 create index RESTO_GENRES_IX1
   on RESTO_GENRES(FOOT_GENRE_ID);
-
--- 飲食店ログイン要求
-create table RESTO_LOGIN_REQUESTS (
-  ID NUMBER(11,0) not null
-  , USER_ID NUMBER(7,0) not null
-  , ACCESS_TOKEN VARCHAR2(36) not null
-  , TOKEN_EXPIRATION_DATETIME TIMESTAMP not null
-  , REMOTE_IP_ADDRESS VARCHAR2(15) not null
-  , REGISTERED_TIMESTAMP TIMESTAMP default SYSDATE not null
-  , constraint RESTO_LOGIN_REQUESTS_PKC primary key (ID)
-) ;
-
-alter table RESTO_LOGIN_REQUESTS add constraint RESTO_LOGIN_REQUESTS_IX1
-  unique (ACCESS_TOKEN) ;
 
 -- 飲食店メッセージ
 create table RESTO_MESSAGES (
@@ -574,6 +574,14 @@ comment on column FOOD_GENRE_HISTORIES.GENRE_LEVEL is 'ジャンル階層';
 comment on column FOOD_GENRE_HISTORIES.DISPLAY_ORDER is '表示順';
 comment on column FOOD_GENRE_HISTORIES.SUPERIOR_FOOT_GENRE_ID is '上位飲食ジャンルID	 最上位は0';
 
+comment on table LOGIN_REQUESTS is 'ログイン要求	 ログイン要求イベントを保持する';
+comment on column LOGIN_REQUESTS.ID is 'ID';
+comment on column LOGIN_REQUESTS.USER_ID is 'ユーザーID';
+comment on column LOGIN_REQUESTS.ACCESS_TOKEN is 'アクセストークン';
+comment on column LOGIN_REQUESTS.TOKEN_EXPIRATION_DATETIME is 'アクセストークン有効期限';
+comment on column LOGIN_REQUESTS.REMOTE_IP_ADDRESS is '登録元IPアドレス';
+comment on column LOGIN_REQUESTS.REGISTERED_TIMESTAMP is '登録日時';
+
 comment on table MENU_APPEAR_END_DAYS is 'メニュー掲載終了日	 ユーザーに入力してもらう項目のため、履歴テーブルから外出しする';
 comment on column MENU_APPEAR_END_DAYS.MENU_HISTORY_ID is 'メニュー履歴ID';
 comment on column MENU_APPEAR_END_DAYS.APPEAR_END_DATE is '掲載終了日';
@@ -670,14 +678,6 @@ comment on column RESTO_FAXNOES.FAX_NO is 'FAX番号';
 comment on table RESTO_GENRES is '飲食店ジャンル	 飲食店のジャンルを保持する';
 comment on column RESTO_GENRES.RESTAURANT_HISTORY_ID is '飲食店履歴ID';
 comment on column RESTO_GENRES.FOOT_GENRE_ID is '飲食ジャンルID';
-
-comment on table RESTO_LOGIN_REQUESTS is '飲食店ログイン要求	 飲食店ログイン要求イベントを保持する';
-comment on column RESTO_LOGIN_REQUESTS.ID is 'ID';
-comment on column RESTO_LOGIN_REQUESTS.USER_ID is 'ユーザーID';
-comment on column RESTO_LOGIN_REQUESTS.ACCESS_TOKEN is 'アクセストークン';
-comment on column RESTO_LOGIN_REQUESTS.TOKEN_EXPIRATION_DATETIME is 'アクセストークン有効期限';
-comment on column RESTO_LOGIN_REQUESTS.REMOTE_IP_ADDRESS is '登録元IPアドレス';
-comment on column RESTO_LOGIN_REQUESTS.REGISTERED_TIMESTAMP is '登録日時';
 
 comment on table RESTO_MESSAGES is '飲食店メッセージ	 飲食店からのメッセージを保持する';
 comment on column RESTO_MESSAGES.RESTAURANT_HISTORY_ID is '飲食店履歴ID';

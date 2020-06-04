@@ -1,9 +1,17 @@
 package com.cheeringlocalrestaurant.presentation.controller.restaurant;
 
-import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
-import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
-import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantMailAddressAlreadyRegisteredException;
-import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantTempRegisterUseCase;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.util.Locale;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,14 +19,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Locale;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
+import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
+import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccountAlreadyRegisteredException;
+import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantTempRegisterUseCase;
 
 @WebMvcTest(RestaurantTempRegisterController.class)
 public class RestaurantTempRegisterControllerTest {
@@ -39,7 +44,7 @@ public class RestaurantTempRegisterControllerTest {
 
     @Test
     void _登録後は完了ページへ遷移する() throws Exception {
-        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (String) any()))
+        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (RemoteIpAddress) any()))
                 .willReturn(new RestaurantId(1L));
 
         final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
@@ -71,8 +76,8 @@ public class RestaurantTempRegisterControllerTest {
     void _メールアドレスがすでに登録されている場合はフォームへ戻る() throws Exception {
         final String errorMessage = "メールアドレスはすでに登録されています。ログイン認証ページからアクセスしてください。";
 
-        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (String) any()))
-                .willThrow(RestaurantMailAddressAlreadyRegisteredException.class);
+        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (RemoteIpAddress) any()))
+                .willThrow(RestaurantAccountAlreadyRegisteredException.class);
         doReturn(errorMessage).when(messagesource).getMessage("message.restaurant.mailAddressAlreadyRegistered", null,
                 Locale.getDefault());
 

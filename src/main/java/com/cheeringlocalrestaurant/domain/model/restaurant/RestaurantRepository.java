@@ -1,25 +1,34 @@
 package com.cheeringlocalrestaurant.domain.model.restaurant;
 
-import com.cheeringlocalrestaurant.domain.model.LoginAccount;
+import java.util.Optional;
+
+import com.cheeringlocalrestaurant.domain.model.UserLoginRequest;
+import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
 import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.account.UserId;
+import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessToken;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenExpirationDateTime;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenId;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenPublishedDateTime;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
+import com.cheeringlocalrestaurant.infra.db.repository.LoginRequestNotFoundException;
+import com.cheeringlocalrestaurant.infra.db.repository.RestaurantAccountNotFoundException;
 
 public interface RestaurantRepository {
 
-    RestaurantAccount findByMailAddress(MailAddress mailAddress);
+    Optional<RestaurantAccount> findAccountByMailAddress(MailAddress mailAddress);
 
     Restaurant findById(RestaurantId restaurantId);
 
-    RestaurantAccount findAccountById(RestaurantId restaurantId);
+    RestaurantAccount getAccountById(RestaurantId restaurantId) throws RestaurantAccountNotFoundException;
 
-    boolean doesExist(MailAddress mailAddress);
+    RestaurantId save(RestaurantTempRegister tempRegister, RemoteIpAddress remoteIpAddress);
 
-    RestaurantId save(RestaurantTempRegister tempRegister, String remoteIpAddress);
+    // @formatter:off
+    AccessTokenId registerAccessToken(UserId userId, 
+            AccessToken accessToken, 
+            AccessTokenExpirationDateTime expirationDateTime, 
+            RemoteIpAddress remoteIpAddress);
+    // @formatter:on
 
-    AccessTokenId registerAccessToken(MailAddress mailAddress, AccessTokenExpirationDateTime expirationDateTime);
-
-    LoginAccount getLoginAccount(AccessTokenId loginTokenId);
+    UserLoginRequest getLoginRequest(AccessTokenId loginTokenId) throws LoginRequestNotFoundException;
 }

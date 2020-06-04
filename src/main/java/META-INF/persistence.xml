@@ -25,7 +25,6 @@
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoFaxnoe</class>
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoGenre</class>
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoHistory</class>
-		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoLoginRequest</class>
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoMessage</class>
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoName</class>
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoOpenHour</class>
@@ -38,5 +37,6 @@
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoTempOpenDay</class>
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.User</class>
 		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.FoodGenreHistory</class>
+		<class>com.cheeringlocalrestaurant.infra.db.jpa.entity.LoginRequest</class>
 	</persistence-unit>
 </persistence>

@@ -1640,13 +1640,13 @@ Position="MAIN",650,2200
 ZOrder=70
 
 [Entity]
-PName=RESTO_LOGIN_REQUESTS
-LName=飲食店ログイン要求
-Comment=飲食店ログイン要求イベントを保持する
+PName=LOGIN_REQUESTS
+LName=ログイン要求
+Comment=ログイン要求イベントを保持する
 TableOption=
 Page=MAIN
-Left=800
-Top=500
+Left=400
+Top=650
 Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="ユーザーID","USER_ID","*ユーザーID","NOT NULL",,"","",$FFFFFFFF,""
 Field="アクセストークン","ACCESS_TOKEN","*アクセストークン","NOT NULL",,"","",$FFFFFFFF,""
@@ -1655,11 +1655,10 @@ Field="登録元IPアドレス","REMOTE_IP_ADDRESS","*IPアドレス","NOT NULL"
 Field="登録日時","REGISTERED_TIMESTAMP","*登録日時","NOT NULL",,"SYSDATE","",$FFFFFFFF,""
 Index==2,ACCESS_TOKEN
 EffectMode=None
-Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200526131315
-Position="MAIN",800,500
+ModifiedDateTime=20200604165638
+Position="MAIN",400,650
 ZOrder=71
 
 [Relation]
@@ -1686,7 +1685,7 @@ ZOrder=72
 
 [Relation]
 Entity1=USERS
-Entity2=RESTO_LOGIN_REQUESTS
+Entity2=LOGIN_REQUESTS
 RelationType1=2
 RelationType2=3
 Fields1=USER_ID
@@ -1711,7 +1710,7 @@ PName=FOOD_GENRE_HISTORIES
 LName=飲食ジャンル履歴
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=1550
 Top=1700
 Field="飲食ジャンル履歴ID","FOOT_GENRE_HISTORY_ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
@@ -1730,7 +1729,7 @@ Tag=飲食ジャンル
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20200526133810
-Position="Main",1550,1700
+Position="MAIN",1550,1700
 ZOrder=74
 
 [Relation]

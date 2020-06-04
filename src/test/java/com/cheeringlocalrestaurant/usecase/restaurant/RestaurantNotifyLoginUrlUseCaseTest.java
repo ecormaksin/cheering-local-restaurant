@@ -1,64 +1,90 @@
 package com.cheeringlocalrestaurant.usecase.restaurant;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.TestPropertySource;
 
-import com.cheeringlocalrestaurant.domain.model.LoginAccount;
+import com.cheeringlocalrestaurant.domain.model.UserLoginRequest;
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
+import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
 import com.cheeringlocalrestaurant.domain.type.account.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.account.UserId;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessToken;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenExpirationDateTime;
 import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenId;
-import com.cheeringlocalrestaurant.domain.type.account.access_token.AccessTokenPublishedDateTime;
+import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 class RestaurantNotifyLoginUrlUseCaseTest {
 
     @Autowired
     RestaurantNotifyLoginUrlUseCase restaurantNotifyLoginUrlUseCase;
-    
+
     @MockBean
     private RestaurantRepository restaurantRepository;
 
     private final String email = "iroha@example.com";
     private final MailAddress mailAddress = new MailAddress(email);
-    private final String remoteIPAddr = "127.0.0.1";
+    private final RemoteIpAddress remoteIpAddr = new RemoteIpAddress("127.0.0.1");
 
     @Test
-    void _ログイン用のアクセストークンが作成されること() {
-        // @formatter:off
-        LoginAccount accountExp = LoginAccount.builder()
-                                            .userId(new UserId(1L))
-                                            .mailAddress(mailAddress)
-                                            .accessToken(new AccessToken(UUID.randomUUID().toString()))
-                                            .accessTokenExpirationDateTime(new AccessTokenExpirationDateTime(LocalDateTime.now()))
-                                            .build();
-        given(restaurantRepository.getLoginAccount((AccessTokenId) any())).willReturn(accountExp);
-
-        // @formatter:on
-        AccessTokenId accessTokenId = restaurantNotifyLoginUrlUseCase.execute(mailAddress, remoteIPAddr);
-        assertNotNull(accessTokenId);
-        
-        LoginAccount loginAccount = restaurantRepository.getLoginAccount(accessTokenId);
-        assertNotNull(loginAccount);
-        assertNotNull(loginAccount.getUserId());
-        assertNotNull(loginAccount.getMailAddress());
-        assertNotNull(loginAccount.getAccessToken());
-        assertNotNull(loginAccount.getAccessTokenExpirationDateTime());
+    void _メールアドレスが登録済みの場合はログイン用のアクセストークンが作成されること() {
+        try {
+            UserId userId = new UserId(1L);
+            RestaurantId restaurantId = new RestaurantId(1L);
+            RestaurantAccount restaurantAccount = new RestaurantAccount(userId, restaurantId, mailAddress);
+            AccessToken accessToken = new AccessToken();
+            AccessTokenExpirationDateTime accessTokenExpirationDateTime = new AccessTokenExpirationDateTime(LocalDateTime.now());
+            // @formatter:off
+            UserLoginRequest loginRequestExp = UserLoginRequest.builder()
+                        .userId(userId)
+                        .mailAddress(mailAddress)
+                        .accessToken(accessToken)
+                        .accessTokenExpirationDateTime(accessTokenExpirationDateTime)
+                    .build();
+            given(restaurantRepository.registerAccessToken(
+                                            (UserId) any(),
+                                            (AccessToken) any(),
+                                            (AccessTokenExpirationDateTime) any(),
+                                            (RemoteIpAddress) any())
+                    ).willReturn(new AccessTokenId(1L));
+            // @formatter:on
+            given(restaurantRepository.findAccountByMailAddress((MailAddress) any())).willReturn(Optional.ofNullable(restaurantAccount));
+            given(restaurantRepository.getLoginRequest((AccessTokenId) any())).willReturn(loginRequestExp);
+    
+            AccessTokenId accessTokenId = restaurantNotifyLoginUrlUseCase.execute(mailAddress, remoteIpAddr);
+            assertNotNull(accessTokenId);
+            
+            UserLoginRequest loginAccount = restaurantRepository.getLoginRequest(accessTokenId);
+            assertNotNull(loginAccount);
+            assertNotNull(loginAccount.getUserId());
+            assertNotNull(loginAccount.getMailAddress());
+            assertNotNull(loginAccount.getAccessToken());
+            assertNotNull(loginAccount.getAccessTokenExpirationDateTime());
+        } catch (Exception e) {
+            fail(e);
+        }
     }
-
+    
+    @Test
+    void _メールアドレスが未登録の場合は例外が発生すること() {
+        
+        given(restaurantRepository.findAccountByMailAddress((MailAddress) any())).willReturn(Optional.ofNullable(null));
+        
+        assertThrows(RestaurantAccountNotRegisteredException.class, () -> {
+            restaurantNotifyLoginUrlUseCase.execute(mailAddress, remoteIpAddr);
+        });
+    }
 }

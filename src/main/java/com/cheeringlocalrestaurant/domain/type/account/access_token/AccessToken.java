@@ -1,5 +1,7 @@
 package com.cheeringlocalrestaurant.domain.type.account.access_token;
 
+import java.util.UUID;
+
 import com.cheeringlocalrestaurant.domain.type.ValidationConcern;
 import com.cheeringlocalrestaurant.validation.notallblank.NotAllBlank;
 
@@ -15,6 +17,10 @@ public class AccessToken extends ValidationConcern {
     @NotAllBlank
     private final String value;
 
+    public AccessToken() {
+        this.value = UUID.randomUUID().toString();
+    }
+    
     public AccessToken(final String value) {
         this.value = value;
         this.validate(this);

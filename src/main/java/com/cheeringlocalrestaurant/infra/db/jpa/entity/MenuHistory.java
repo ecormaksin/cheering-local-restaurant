@@ -5,77 +5,76 @@ import javax.persistence.*;
 import java.util.Date;
 import java.sql.Timestamp;
 
+
 /**
  * The persistent class for the MENU_HISTORIES database table.
  * 
  */
 @Entity
-@Table(name = "MENU_HISTORIES")
-@NamedQuery(name = "MenuHistory.findAll", query = "SELECT m FROM MenuHistory m")
+@Table(name="MENU_HISTORIES")
+@NamedQuery(name="MenuHistory.findAll", query="SELECT m FROM MenuHistory m")
 public class MenuHistory implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @SequenceGenerator(name = "MENU_HISTORIES_MENUHISTORYID_GENERATOR", sequenceName = "MENU_HISTORIES_SEQ")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MENU_HISTORIES_MENUHISTORYID_GENERATOR")
-    @Column(name = "MENU_HISTORY_ID")
-    private Long menuHistoryId;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="MENU_HISTORY_ID")
+	private Long menuHistoryId;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "APPEAR_START_DATE")
-    private Date appearStartDate;
+	@Temporal(TemporalType.DATE)
+	@Column(name="APPEAR_START_DATE")
+	private Date appearStartDate;
 
-    @Column(name = "MENU_ID")
-    private Long menuId;
+	@Column(name="MENU_ID")
+	private Long menuId;
 
-    @Version
-    @Column(name = "REGISTERED_TIMESTAMP")
-    private Timestamp registeredTimestamp;
+	@Column(name="REGISTERED_TIMESTAMP")
+	private Timestamp registeredTimestamp;
 
-    @Column(name = "REMOTE_IP_ADDRESS")
-    private String remoteIpAddress;
+	@Column(name="REMOTE_IP_ADDRESS")
+	private String remoteIpAddress;
 
-    public MenuHistory() {
-    }
+	public MenuHistory() {
+	}
 
-    public Long getMenuHistoryId() {
-        return this.menuHistoryId;
-    }
+	public Long getMenuHistoryId() {
+		return this.menuHistoryId;
+	}
 
-    public void setMenuHistoryId(Long menuHistoryId) {
-        this.menuHistoryId = menuHistoryId;
-    }
+	public void setMenuHistoryId(Long menuHistoryId) {
+		this.menuHistoryId = menuHistoryId;
+	}
 
-    public Date getAppearStartDate() {
-        return this.appearStartDate;
-    }
+	public Date getAppearStartDate() {
+		return this.appearStartDate;
+	}
 
-    public void setAppearStartDate(Date appearStartDate) {
-        this.appearStartDate = appearStartDate;
-    }
+	public void setAppearStartDate(Date appearStartDate) {
+		this.appearStartDate = appearStartDate;
+	}
 
-    public Long getMenuId() {
-        return this.menuId;
-    }
+	public Long getMenuId() {
+		return this.menuId;
+	}
 
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
+	public void setMenuId(Long menuId) {
+		this.menuId = menuId;
+	}
 
-    public Timestamp getRegisteredTimestamp() {
-        return this.registeredTimestamp;
-    }
+	public Timestamp getRegisteredTimestamp() {
+		return this.registeredTimestamp;
+	}
 
-    public void setRegisteredTimestamp(Timestamp registeredTimestamp) {
-        this.registeredTimestamp = registeredTimestamp;
-    }
+	public void setRegisteredTimestamp(Timestamp registeredTimestamp) {
+		this.registeredTimestamp = registeredTimestamp;
+	}
 
-    public String getRemoteIpAddress() {
-        return this.remoteIpAddress;
-    }
+	public String getRemoteIpAddress() {
+		return this.remoteIpAddress;
+	}
 
-    public void setRemoteIpAddress(String remoteIpAddress) {
-        this.remoteIpAddress = remoteIpAddress;
-    }
+	public void setRemoteIpAddress(String remoteIpAddress) {
+		this.remoteIpAddress = remoteIpAddress;
+	}
 
 }
