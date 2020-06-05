@@ -11,12 +11,11 @@ import com.cheeringlocalrestaurant.domain.type.mail.CustomMailSubject;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.GreenMailUtil;
 
-//@Component
 public class CustomMailServiceTestImpl implements CustomMailService {
 
-    private GreenMail greenMail = new GreenMail();
-    
-    private MimeMessage[] mimeMessages = null;
+    private GreenMail greenMail;
+
+    private MimeMessage[] mimeMessages;
 
     @Override
     // @formatter:off
@@ -25,7 +24,9 @@ public class CustomMailServiceTestImpl implements CustomMailService {
             CustomMailSubject customMailSubject,
             CustomMailBody customMailBody) {
     // @formatter:on
+        greenMail = new GreenMail();
         greenMail.start();
+        mimeMessages = null;
         // @formatter:off
         GreenMailUtil.sendTextEmailTest(
                 mailAddress.getValue(), 
@@ -34,7 +35,7 @@ public class CustomMailServiceTestImpl implements CustomMailService {
                 customMailBody.getValue());
         // @formatter:on
         mimeMessages = greenMail.getReceivedMessages();
-        greenMail.start();
+        greenMail.stop();
     }
 
     @Override
