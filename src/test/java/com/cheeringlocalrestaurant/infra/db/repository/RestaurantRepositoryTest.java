@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
@@ -13,11 +12,6 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
-import com.cheeringlocalrestaurant.domain.type.account.UserId;
-import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
-import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationDateTime;
-import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenPublishedDateTime;
-import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,14 +23,10 @@ class RestaurantRepositoryTest {
     @Autowired
     private RestaurantRepository restaurantRepository;
     
-    @Value("${restaurant.login.expiration.hours}")
-    int loginExpirationHours;
-
-    private final String name = "いろは食堂";
     private final String email = "iroha@example.com";
     private final RemoteIpAddress remoteIpAddr = new RemoteIpAddress("127.0.0.1");
 
-    private RestaurantTempRegister tempRegister = new RestaurantTempRegister(name, email);
+    private RestaurantTempRegister tempRegister = new RestaurantTempRegister("いろは食堂", email);
 
     @Test
     void _仮登録() throws Exception {
@@ -52,22 +42,5 @@ class RestaurantRepositoryTest {
         assertNotNull(restaurantAccount.getRestaurantId());
         assertEquals(email, restaurantAccount.getMailAddress().getValue());
         log.info(restaurantAccount.toString());
-    }
-
-    @Test
-    void _ログイントークンの登録() throws Exception {
-        RestaurantId restaurantId = restaurantRepository.save(tempRegister, remoteIpAddr);
-        RestaurantAccount restaurantAccount = restaurantRepository.getAccountById(restaurantId);
-        final UserId userId = new UserId(restaurantAccount.getUserId().getValue());
-        final AccessToken accessToken = new AccessToken();
-        final AccessTokenPublishedDateTime tokenPublishedtDateTime = new AccessTokenPublishedDateTime();
-        final AccessTokenExpirationDateTime tokenExpirationDateTime = tokenPublishedtDateTime.accessTokenExpirationDateTime(loginExpirationHours);
-        
-        // @formatter:off
-        final LoginRequestId loginRequestId = restaurantRepository.registerAccessToken(
-                userId, accessToken, tokenExpirationDateTime, remoteIpAddr);
-        // @formatter:on
-        assertNotNull(loginRequestId);
-        assertNotNull(loginRequestId.getValue());
     }
 }

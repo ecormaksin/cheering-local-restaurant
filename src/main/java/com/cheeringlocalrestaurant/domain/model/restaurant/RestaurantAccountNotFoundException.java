@@ -1,4 +1,4 @@
-package com.cheeringlocalrestaurant.infra.db.repository;
+package com.cheeringlocalrestaurant.domain.model.restaurant;
 
 public class RestaurantAccountNotFoundException extends Exception {
 

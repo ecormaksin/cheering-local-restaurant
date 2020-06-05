@@ -16,8 +16,9 @@ public abstract class ValidationConcern implements Serializable {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<T>> violations = validator.validate(object);
-        if (violations.size() == 0)
-            return;
+
+        if (violations.size() == 0) return;
+
         StringBuilder sb = new StringBuilder();
         boolean firstLine = true;
         for (ConstraintViolation<T> violation : violations) {

@@ -7,22 +7,15 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cheeringlocalrestaurant.domain.model.UserLoginRequest;
 import com.cheeringlocalrestaurant.domain.model.restaurant.Restaurant;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccountNotFoundException;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
-import com.cheeringlocalrestaurant.domain.type.account.UserId;
 import com.cheeringlocalrestaurant.domain.type.account.UserRole;
-import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
-import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationDateTime;
-import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
-import com.cheeringlocalrestaurant.infra.db.JavaTimeDateConverter;
-import com.cheeringlocalrestaurant.infra.db.jpa.entity.LoginRequest;
-import com.cheeringlocalrestaurant.infra.db.jpa.entity.QLoginRequest;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QResto;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QRestoAccount;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QUser;
@@ -30,7 +23,6 @@ import com.cheeringlocalrestaurant.infra.db.jpa.entity.Resto;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoAccount;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoHistory;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoName;
-import com.cheeringlocalrestaurant.infra.db.jpa.repository.LoginRequestRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoAccountRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoHistoryRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoNameRepository;
@@ -60,8 +52,6 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     private UserRepository userRepository;
     @Autowired
     private RestoAccountRepository restoAccountRepository;
-    @Autowired
-    private LoginRequestRepository restoLoginRequestRepository;
 
     @Override
     public RestaurantAccount getAccountById(RestaurantId restaurantId) throws RestaurantAccountNotFoundException {
@@ -148,48 +138,4 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
         return new RestaurantId(restoId);
     }
-
-    @Override
-    // @formatter:off
-    public LoginRequestId registerAccessToken(UserId userId, 
-            AccessToken accessToken, 
-            AccessTokenExpirationDateTime expirationDateTime, 
-            RemoteIpAddress remoteIpAddress) {
-    // @formatter:on
-        
-        LoginRequest restoLoginRequest = new LoginRequest();
-        restoLoginRequest.setUserId(userId.getValue());
-        restoLoginRequest.setAccessToken(accessToken.getValue());
-        restoLoginRequest.setTokenExpirationDatetime(JavaTimeDateConverter.to(expirationDateTime.getValue()));
-        restoLoginRequest = JpaRepositoryProxy.save(restoLoginRequestRepository, restoLoginRequest, remoteIpAddress);
-
-        return new LoginRequestId(restoLoginRequest.getId());
-    }
-
-    @Override
-    public UserLoginRequest getLoginRequest(LoginRequestId loginRequestId) throws LoginRequestNotFoundException {
-
-        QLoginRequest qLoginRequest = QLoginRequest.loginRequest;
-        QUser qUser = QUser.user;
-        JPASQLQuery<?> query = new JPASQLQuery<Void>(entityManager, sqlTemplates);
-        // @formatter:off
-        UserLoginRequest loginRequest
-                = query.select(Projections.constructor(UserLoginRequest.class, 
-                            qLoginRequest.userId, 
-                            qUser.mailAddress, 
-                            qLoginRequest.accessToken, 
-                            qLoginRequest.tokenExpirationDatetime)
-                        ).from(qLoginRequest)
-                            .innerJoin(qUser)
-                                .on(qLoginRequest.userId.eq(qUser.userId))
-                        .where(qLoginRequest.id.eq(loginRequestId.getValue()))
-                        .fetchOne();
-        // @formatter:on
-        if (null == loginRequest) {
-            throw new LoginRequestNotFoundException();
-        }
-
-        return loginRequest;
-    }
-
 }
