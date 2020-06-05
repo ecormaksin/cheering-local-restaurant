@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.Optional;
 
 import javax.mail.Address;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.jupiter.api.Test;
@@ -60,12 +61,20 @@ class CustomMailServiceTest {
             assertEquals(body, GreenMailUtil.getBody(email));
             Address[] senders = email.getFrom();
             assertEquals(1, senders.length);
-            Address sender = senders[0];
-            assertEquals(senderNameStr + "<" + fromAddress + ">", sender.toString());
+            InternetAddress sender = (InternetAddress) senders[0];
+            log.info(
+                    "class.typeName: " + sender.getClass().getTypeName()
+                    + "/ address: " + sender.getAddress()
+                    + "/ personal: " + sender.getPersonal()
+                    + "/ type: " + sender.getType()
+                    + "/ string: " + sender.toString()
+                    + "/ unicodeString: " + sender.toUnicodeString()
+                    );
+            assertEquals(fromAddress, sender.getAddress());
             Address[] recipients = email.getAllRecipients();
             assertEquals(1, recipients.length);
-            Address recipient = recipients[0];
-            assertEquals(toAddress, recipient.toString());
+            InternetAddress recipient = (InternetAddress) recipients[0];
+            assertEquals(toAddress, recipient.getAddress());
         } catch (Exception e) {
             fail(e);
         }
