@@ -11,12 +11,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.cheeringlocalrestaurant.CheeringLocalRestaurantApplication;
+import com.cheeringlocalrestaurant.domain.type.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.mail.CustomMailBody;
+import com.cheeringlocalrestaurant.domain.type.mail.CustomMailSender;
+import com.cheeringlocalrestaurant.domain.type.mail.CustomMailSubject;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -28,7 +30,7 @@ class SendMailTest {
     MockHttpServletRequest request;
 
     @Autowired
-    private JavaMailSender emailSender;
+    private CustomMailService customMailService;
 
     @Autowired
     private Configuration freemarkerConfig;
@@ -39,30 +41,29 @@ class SendMailTest {
     @Value("${mail.sender.address}")
     private String mailSenderAddress;
 
-    private String mailSender;
-
     @Value("${mail.test.to.address}")
     private String mailAddressTo;
 
+    private CustomMailSender mailSender;
+
     @BeforeEach
     void setup() {
-        mailSender = mailSenderName + "<" + mailSenderAddress + ">";
+        mailSender = new CustomMailSender(mailSenderName, mailSenderAddress);
     }
-
+    
     @Test
     @Disabled
     void test() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(mailSender);
-        message.setTo(mailAddressTo);
-        message.setSubject("送信テスト" + LocalDateTime.now().toString());
-        message.setText("Test");
-        emailSender.send(message);
+        // @formatter:off
+        customMailService.send(mailSender, 
+                new MailAddress(mailAddressTo), 
+                new CustomMailSubject("送信テスト" + LocalDateTime.now().toString()), 
+                new CustomMailBody("Test"));
+        // @formatter:on
     }
 
     @Test
     void sendByFreeMarkerTemplate() throws Exception {
-        SimpleMailMessage message = new SimpleMailMessage();
 
         freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/mail_templates");
 
@@ -73,15 +74,15 @@ class SendMailTest {
         model.put("token", UUID.randomUUID().toString());
         model.put("mailSenderName", mailSenderName);
 
-        Template t = freemarkerConfig.getTemplate("notify_login_url.ftl");
-        String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
+        Template template = freemarkerConfig.getTemplate("notify_login_url.ftl");
+        String body = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 
-        message.setFrom(mailSender);
-        message.setTo(mailAddressTo);
-        message.setSubject("ログインURLのお知らせ");
-        message.setText(text);
-
-        emailSender.send(message);
+        // @formatter:off
+        customMailService.send(mailSender, 
+                new MailAddress(mailAddressTo), 
+                new CustomMailSubject("ログインURLのお知らせ"), 
+                new CustomMailBody(body));
+        // @formatter:on
     }
 
 }

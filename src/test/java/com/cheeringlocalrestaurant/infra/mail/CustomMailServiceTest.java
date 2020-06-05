@@ -41,27 +41,27 @@ class CustomMailServiceTest {
             final String toAddress = "to@localhost.com";
             final String subject = "some subject";
             final String body = "some body";
-            CustomMailSender mailSender = new CustomMailSender(senderNameStr, fromAddress);
+            final CustomMailSender mailSender = new CustomMailSender(senderNameStr, fromAddress);
             // @formatter:off
             customMailService.send(mailSender, 
                     new MailAddress(toAddress), 
                     new CustomMailSubject(subject), 
                     new CustomMailBody(body));
             // @formatter:on
-            Optional<MimeMessage[]> mimeMessagesOpt = customMailService.getMimeMessages();
+            final Optional<MimeMessage[]> mimeMessagesOpt = customMailService.getMimeMessages();
             if (!mimeMessagesOpt.isPresent()) {
                 log.info("MimeMessages don't exist.");
                 assertTrue(true);
                 return;
             }
-            MimeMessage[] emails = mimeMessagesOpt.get();
+            final MimeMessage[] emails = mimeMessagesOpt.get();
             assertEquals(1, emails.length);
-            MimeMessage email = emails[0];
+            final MimeMessage email = emails[0];
             assertEquals(subject, email.getSubject());
             assertEquals(body, GreenMailUtil.getBody(email));
-            Address[] senders = email.getFrom();
+            final Address[] senders = email.getFrom();
             assertEquals(1, senders.length);
-            InternetAddress sender = (InternetAddress) senders[0];
+            final InternetAddress sender = (InternetAddress) senders[0];
             log.info(
                     "class.typeName: " + sender.getClass().getTypeName()
                     + "/ address: " + sender.getAddress()
@@ -71,9 +71,9 @@ class CustomMailServiceTest {
                     + "/ unicodeString: " + sender.toUnicodeString()
                     );
             assertEquals(fromAddress, sender.getAddress());
-            Address[] recipients = email.getAllRecipients();
+            final Address[] recipients = email.getAllRecipients();
             assertEquals(1, recipients.length);
-            InternetAddress recipient = (InternetAddress) recipients[0];
+            final InternetAddress recipient = (InternetAddress) recipients[0];
             assertEquals(toAddress, recipient.getAddress());
         } catch (Exception e) {
             fail(e);
