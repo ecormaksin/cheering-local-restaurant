@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import com.cheeringlocalrestaurant.TestDataUtils;
 import com.cheeringlocalrestaurant.domain.model.login_request.UserLoginRequestRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
@@ -36,12 +37,12 @@ class RestaurantNotifyLoginUrlUseCaseTest {
 
     @MockBean
     private UserLoginRequestRepository userLoginRequestRepository;
-
-    private final MailAddress mailAddress = new MailAddress("iroha@example.com");
-    private final RemoteIpAddress remoteIpAddr = new RemoteIpAddress("127.0.0.1");
+    
+    private static final MailAddress mailAddress = TestDataUtils.mailAddress;
+    private static final RemoteIpAddress remoteIpAddress = TestDataUtils.remoteIpAddress;
 
     @Test
-    void _メールアドレスが登録済みの場合はログイン用のアクセストークンが作成されること() {
+    void _メールアドレスが登録済の場合はログイン用のアクセストークンが作成されること() {
         try {
             UserId userId = new UserId(1L);
             RestaurantId restaurantId = new RestaurantId(1L);
@@ -56,7 +57,7 @@ class RestaurantNotifyLoginUrlUseCaseTest {
             // @formatter:on
             given(restaurantRepository.findAccountByMailAddress((MailAddress) any())).willReturn(Optional.ofNullable(restaurantAccount));
     
-            LoginRequestId loginRequestId = restaurantNotifyLoginUrlUseCase.execute(mailAddress, remoteIpAddr);
+            LoginRequestId loginRequestId = restaurantNotifyLoginUrlUseCase.execute(mailAddress, remoteIpAddress);
             assertNotNull(loginRequestId);
 
         } catch (Exception e) {
@@ -70,7 +71,7 @@ class RestaurantNotifyLoginUrlUseCaseTest {
         given(restaurantRepository.findAccountByMailAddress((MailAddress) any())).willReturn(Optional.ofNullable(null));
         
         assertThrows(RestaurantAccountNotRegisteredException.class, () -> {
-            restaurantNotifyLoginUrlUseCase.execute(mailAddress, remoteIpAddr);
+            restaurantNotifyLoginUrlUseCase.execute(mailAddress, remoteIpAddress);
         });
     }
 }
