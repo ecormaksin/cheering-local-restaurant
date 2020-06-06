@@ -142,8 +142,7 @@ class SendMailTest {
         assertEquals(1, emails.length);
 
         final MimeMessage email = emails[0];
-        
-        MimeMessageParser parser = new MimeMessageParser(email);
+        final MimeMessageParser parser = new MimeMessageParser(email);
 
         // 差出人
         assertEquals(from, parser.getFrom());
