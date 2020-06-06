@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cheeringlocalrestaurant.TestDataUtils;
 import com.cheeringlocalrestaurant.domain.model.login_request.UserLoginRequest;
@@ -23,8 +24,12 @@ import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirati
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenPublishedDateTime;
 import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
+import com.cheeringlocalrestaurant.infra.db.JavaTimeDateConverter;
+import com.cheeringlocalrestaurant.infra.db.jpa.entity.LoginRequest;
+import com.cheeringlocalrestaurant.infra.db.jpa.repository.LoginRequestRepository;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
+@Transactional
 class UserLoginRequestRepositoryTest {
 
     @Autowired
@@ -32,6 +37,9 @@ class UserLoginRequestRepositoryTest {
     
     @Autowired
     private UserLoginRequestRepository userLoginRequestRepository;
+    
+    @Autowired
+    private LoginRequestRepository loginRequestRepository;
     
     @Value("${restaurant.login.expiration.hours}")
     private int loginExpirationHours;
@@ -54,26 +62,29 @@ class UserLoginRequestRepositoryTest {
         final LoginRequestId loginRequestId = userLoginRequestRepository.registerAccessToken(
                 userId, accessToken, expirationDateTime, remoteIpAddress);
         // @formatter:on
-        assertNotNull(loginRequestId);
-        assertNotNull(loginRequestId.getValue());
+        final Long loginRequestIdLng = loginRequestId.getValue();
+        assertNotNull(loginRequestIdLng);
 
-        UserLoginRequest loginRequest = userLoginRequestRepository.getLoginRequest(loginRequestId);
-        assertNotNull(loginRequest);
+        UserLoginRequest userLoginRequest = userLoginRequestRepository.getLoginRequest(loginRequestId);
+        assertNotNull(userLoginRequest);
         
-        UserId userIdAct = loginRequest.getUserId();
-        assertNotNull(userIdAct);
+        UserId userIdAct = userLoginRequest.getUserId();
         assertEquals(userId.getValue(), userIdAct.getValue());
 
-        MailAddress mailAddressAct = loginRequest.getMailAddress();
-        assertNotNull(mailAddressAct);
+        MailAddress mailAddressAct = userLoginRequest.getMailAddress();
         assertEquals(mailAddressStr, mailAddressAct.getValue());
 
-        AccessToken accessTokenAct = loginRequest.getAccessToken();
-        assertNotNull(accessTokenAct);
+        AccessToken accessTokenAct = userLoginRequest.getAccessToken();
         assertEquals(accessToken.getValue(), accessTokenAct.getValue());
 
-        AccessTokenExpirationDateTime expirationDateTimeAct = loginRequest.getAccessTokenExpirationDateTime();
-        assertNotNull(expirationDateTimeAct);
+        AccessTokenExpirationDateTime expirationDateTimeAct = userLoginRequest.getAccessTokenExpirationDateTime();
         assertEquals(expirationDateTime.getValue(), expirationDateTimeAct.getValue());
+
+        // ** エンティティの確認
+        LoginRequest loginRequest = loginRequestRepository.getOne(loginRequestIdLng);
+        assertNotNull(loginRequest);
+        assertEquals(userId.getValue(), loginRequest.getUserId());
+        assertEquals(accessToken.getValue(), loginRequest.getAccessToken());
+        assertEquals(expirationDateTime.getValue(), JavaTimeDateConverter.toLocalDateTimeFromTimestamp(loginRequest.getTokenExpirationDatetime()));
     }
 }
