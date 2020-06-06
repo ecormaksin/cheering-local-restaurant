@@ -112,9 +112,7 @@ class RestaurantRepositoryTest {
             assertNotNull(restoHistory);
             final Long restaurantHistoryId = restoHistory.getRestaurantHistoryId();
             assertNotNull(restaurantHistoryId);
-            final Long restoHistRestoId = restoHistory.getRestaurantId();
-            assertNotNull(restoHistRestoId);
-            assertEquals(restoIdLng, restoHistRestoId);
+            assertEquals(restoIdLng, restoHistory.getRestaurantId());
             assertNotNull(restoHistory.getStartDate());
             assertNotNull(restoHistory.getEndDate());
             assertNotNull(restoHistory.getRemoteIpAddress());
