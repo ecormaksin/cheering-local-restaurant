@@ -4,11 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +15,7 @@ import javax.mail.Address;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.mail.util.MimeMessageParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,6 @@ import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.mail.CustomMailBody;
 import com.cheeringlocalrestaurant.domain.type.mail.CustomMailSender;
 import com.cheeringlocalrestaurant.domain.type.mail.CustomMailSubject;
-import com.icegreen.greenmail.util.GreenMailUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -118,11 +116,6 @@ class SendMailTest {
         model.put("mailSenderName", mailSenderName);
         
         CustomMailBody customMailBody = freeMarkerMailSender.getProcessedBody(templateName, model);
-        String body = customMailBody.getValue();
-        Charset charset = StandardCharsets.UTF_8;
-        byte[]encodedBytes = Base64.getEncoder()
-                .encode(body.getBytes(charset));
-        String encodedBody = new String(encodedBytes, charset);
 
         // @formatter:off
         freeMarkerMailSender.send(mailSender, 
@@ -130,7 +123,7 @@ class SendMailTest {
                 new CustomMailSubject(subject), 
                 templateName, model);
         checkResult(freeMarkerMailSender.getMimeMessages(),
-                mailSenderAddress, mailAddressTo, subject, encodedBody); 
+                mailSenderAddress, mailAddressTo, subject, customMailBody.getValue()); 
         // @formatter:on
     }
     
@@ -149,33 +142,28 @@ class SendMailTest {
         assertEquals(1, emails.length);
 
         final MimeMessage email = emails[0];
+        
+        MimeMessageParser parser = new MimeMessageParser(email);
 
         // 差出人
-        final Address[] senders = email.getFrom();
-        assertEquals(1, senders.length);
-        final InternetAddress sender = (InternetAddress) senders[0];
-        log.info(
-                "class.typeName: " + sender.getClass().getTypeName()
-                + "/ address: " + sender.getAddress()
-                + "/ personal: " + sender.getPersonal()
-                + "/ type: " + sender.getType()
-                + "/ string: " + sender.toString()
-                + "/ unicodeString: " + sender.toUnicodeString()
-                );
-        assertEquals(from, sender.getAddress());
+        assertEquals(from, parser.getFrom());
         
         // 宛先
-        final Address[] recipients = email.getAllRecipients();
-        assertEquals(1, recipients.length);
-        final InternetAddress recipient = (InternetAddress) recipients[0];
+        final List<Address> recipients = parser.getTo();
+        assertEquals(1, recipients.size());
+        final InternetAddress recipient = (InternetAddress) recipients.get(0);
         assertEquals(to, recipient.getAddress());
 
         // 件名
-        assertEquals(subject, email.getSubject());
+        assertEquals(subject, parser.getSubject());
         // 本文
-        String bodyAct = GreenMailUtil.getBody(email);
-        bodyAct = bodyAct.replaceAll("\r\n|\n", ""); // 返ってくる文字列が改行されており、比較時にエラーになってしまうので除去する
-        assertEquals(body, bodyAct);
+        String bodyAct = parser.parse().getPlainContent();
+     // 改行なしの本文でも、parser.parse().getPlainContent()で取得すると改行になっているので末尾の改行を除去する
+        assertEquals(removeLastLineBreak(body), removeLastLineBreak(bodyAct)); 
+    }
+
+    private String removeLastLineBreak(final String value) {
+        return value.replaceAll("(\r\n|\n)$", "");
     }
 
 }
