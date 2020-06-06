@@ -20,13 +20,18 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegiste
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
 import com.cheeringlocalrestaurant.domain.type.account.UserId;
+import com.cheeringlocalrestaurant.domain.type.account.UserRole;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QRestoHistory;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.Resto;
+import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoAccount;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoHistory;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.RestoName;
+import com.cheeringlocalrestaurant.infra.db.jpa.entity.User;
+import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoAccountRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestoNameRepository;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.RestroRepository;
+import com.cheeringlocalrestaurant.infra.db.jpa.repository.UserRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +51,10 @@ class RestaurantRepositoryTest {
     private RestroRepository restroRepository;
     @Autowired
     private RestoNameRepository restoNameRepository;
+    @Autowired
+    private RestoAccountRepository restoAccountRepository;
+    @Autowired
+    private UserRepository userRepository;
     
     private JPAQueryFactory queryFactory;
     
@@ -64,61 +73,70 @@ class RestaurantRepositoryTest {
 
         try {
 
-            RestaurantId restaurantId = restaurantRepository.save(restaurantTempRegister, remoteIpAddress);
+            final RestaurantId restaurantId = restaurantRepository.save(restaurantTempRegister, remoteIpAddress);
             assertNotNull(restaurantId);
             
-            Long restoIdLng = restaurantId.getValue();
+            final Long restoIdLng = restaurantId.getValue();
             assertNotNull(restoIdLng);
     
-            RestaurantAccount restaurantAccount = restaurantRepository.getAccountById(restaurantId);
+            final RestaurantAccount restaurantAccount = restaurantRepository.getAccountById(restaurantId);
 
             // エンティティ
             assertNotNull(restaurantAccount);
             // ユーザーID
-            UserId userId = restaurantAccount.getUserId();
-            assertNotNull(userId);
-            assertNotNull(userId.getValue());
+            final UserId userId = restaurantAccount.getUserId();
+            final Long userIdLng = userId.getValue();
+            assertNotNull(userIdLng);
             // レストランID
-            RestaurantId restaurantIdAct = restaurantAccount.getRestaurantId();
-            assertNotNull(restaurantIdAct);
-            assertEquals(restaurantId, restaurantIdAct);
+            final RestaurantId restaurantIdAct = restaurantAccount.getRestaurantId();
             assertEquals(restoIdLng, restaurantIdAct.getValue());
             // メールアドレス
-            MailAddress mailAddressAct = restaurantAccount.getMailAddress();
-            assertNotNull(mailAddressAct);
-            String mailAddrAct = mailAddressAct.getValue();
-            assertNotNull(mailAddrAct);
+            final MailAddress mailAddressAct = restaurantAccount.getMailAddress();
+            final String mailAddrAct = mailAddressAct.getValue();
             assertEquals(mailAddressStr, mailAddrAct);
             log.info(restaurantAccount.toString());
             
 
             // ** エンティティの確認
             // 飲食店
-            Resto resto = restroRepository.getOne(restoIdLng);
-            assertNotNull(resto.getRegisteredTimestamp());
+            final Resto resto = restroRepository.getOne(restoIdLng);
             assertNotNull(resto.getRemoteIpAddress());
+            assertNotNull(resto.getRegisteredTimestamp());
             // 飲食店履歴
-            QRestoHistory qRestoHistory = QRestoHistory.restoHistory;
+            final QRestoHistory qRestoHistory = QRestoHistory.restoHistory;
             // @formatter:off
-            RestoHistory restoHistory = queryFactory.selectFrom(qRestoHistory)
+            final RestoHistory restoHistory = queryFactory.selectFrom(qRestoHistory)
                     .where(qRestoHistory.restaurantId.eq(restoIdLng))
                     .fetchOne();
             // @formatter:on
             assertNotNull(restoHistory);
-            Long restaurantHistoryId = restoHistory.getRestaurantHistoryId();
+            final Long restaurantHistoryId = restoHistory.getRestaurantHistoryId();
             assertNotNull(restaurantHistoryId);
-            assertNotNull(restoHistory.getEndDate());
-            assertNotNull(restoHistory.getRegisteredTimestamp());
-            assertNotNull(restoHistory.getRemoteIpAddress());
-            Long restoHistRestoId = restoHistory.getRestaurantId();
+            final Long restoHistRestoId = restoHistory.getRestaurantId();
             assertNotNull(restoHistRestoId);
             assertEquals(restoIdLng, restoHistRestoId);
             assertNotNull(restoHistory.getStartDate());
+            assertNotNull(restoHistory.getEndDate());
+            assertNotNull(restoHistory.getRemoteIpAddress());
+            assertNotNull(restoHistory.getRegisteredTimestamp());
             // 飲食店名
-            RestoName restoName = restoNameRepository.getOne(restaurantHistoryId);
+            final RestoName restoName = restoNameRepository.getOne(restaurantHistoryId);
             assertNotNull(restoName);
-            String restoNameStrAct = restoName.getRestaurantName();
+            final String restoNameStrAct = restoName.getRestaurantName();
             assertEquals(restoNameStr, restoNameStrAct);
+            // 飲食店アカウント
+            final RestoAccount restoAccount = restoAccountRepository.getOne(restoIdLng);
+            assertNotNull(restoAccount);
+            assertEquals(userIdLng, restoAccount.getUserId());
+            assertNotNull(restoAccount.getRemoteIpAddress());
+            assertNotNull(restoAccount.getRegisteredTimestamp());
+            // ユーザー
+            final User user = userRepository.getOne(userIdLng);
+            assertNotNull(user);
+            assertEquals(mailAddressStr, user.getMailAddress());
+            assertEquals(UserRole.RESTAURANT_ADMIN.getValue(), user.getUserRole());
+            assertNotNull(user.getRemoteIpAddress());
+            assertNotNull(user.getRegisteredTimestamp());
 
         } catch (Exception e) {
             fail(e);
