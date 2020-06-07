@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.cheeringlocalrestaurant.CustomMailServiceTestConfig;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
@@ -35,14 +34,8 @@ import lombok.extern.slf4j.Slf4j;
 class SendMailTest {
 
     @Autowired
-    private MockHttpServletRequest request;
-
-    @Autowired
     private CustomMailService customMailService;
     
-    @Autowired
-    private FreeMarkerMailSender freeMarkerMailSender;
-
     @Value("${mail.sender.name}")
     private String mailSenderName;
 
@@ -129,7 +122,7 @@ class SendMailTest {
         assertEquals(subject, parser.getSubject());
         // 本文
         String bodyAct = parser.parse().getPlainContent();
-     // 改行なしの本文でも、parser.parse().getPlainContent()で取得すると改行になっているので末尾の改行を除去する
+        // 改行なしの本文でも、parser.parse().getPlainContent()で取得すると改行になっているので末尾の改行を除去する
         assertEquals(removeLastLineBreak(body), removeLastLineBreak(bodyAct)); 
     }
 
