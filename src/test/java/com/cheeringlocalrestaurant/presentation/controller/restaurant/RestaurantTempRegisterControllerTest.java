@@ -12,6 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -19,10 +21,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNotifyFailedException;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
+import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
+import com.cheeringlocalrestaurant.presentation.controller.BaseController;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccountAlreadyRegisteredException;
+import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantNotifyLoginUrlUseCase;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantTempRegisterUseCase;
 
 @WebMvcTest(RestaurantTempRegisterController.class)
@@ -33,6 +40,8 @@ public class RestaurantTempRegisterControllerTest {
 
     @MockBean
     private RestaurantTempRegisterUseCase restaurantTempRegisterUseCase;
+    @MockBean
+    private RestaurantNotifyLoginUrlUseCase restaurantNotifyLoginUrlUseCase;
     @MockBean
     private MessageSource messagesource;
 
@@ -46,6 +55,7 @@ public class RestaurantTempRegisterControllerTest {
     void _登録後は完了ページへ遷移する() throws Exception {
         given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (RemoteIpAddress) any()))
                 .willReturn(new RestaurantId(1L));
+        given(restaurantNotifyLoginUrlUseCase.execute((HttpServletRequest) any(), (MailAddress) any(), (RemoteIpAddress) any())).willReturn(new LoginRequestId(1L));
 
         final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
         this.mockMvc
@@ -90,4 +100,26 @@ public class RestaurantTempRegisterControllerTest {
                 .andExpect(model().attribute("errorMessage", errorMessage))
                 .andExpect(view().name(RestaurantTempRegisterController.VIEW_FORM));
     }
+
+    @Test
+    void _ログインURLの通知処理に失敗した場合は共通のエラーページへ遷移する() throws Exception {
+        final String errorMessage = "飲食店の仮登録に失敗しました。\n最初からやり直してください。";
+        doReturn(errorMessage).when(messagesource).getMessage("message.restaurant.tempRegisterFailed", null,
+                Locale.getDefault());
+
+        given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (RemoteIpAddress) any()))
+                .willReturn(new RestaurantId(1L));
+        given(restaurantNotifyLoginUrlUseCase.execute((HttpServletRequest) any(), (MailAddress) any(), (RemoteIpAddress) any())).willThrow(RestaurantLoginURLNotifyFailedException.class);
+
+        final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
+        this.mockMvc
+                .perform(post(RestaurantTempRegisterController.PATH_REGISTER).param("name", form.getName())
+                        .param("mailAddress", form.getMailAddress())
+                        .param("agreedTermOfUse", form.getAgreedTermOfUse()))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("errorMessage", errorMessage))
+                .andExpect(model().attribute("originalPageLink", RestaurantTempRegisterController.PATH_BASE))
+                .andExpect(view().name(BaseController.CUSTOM_ERROR_PAGE_PATH));
+    }
+
 }

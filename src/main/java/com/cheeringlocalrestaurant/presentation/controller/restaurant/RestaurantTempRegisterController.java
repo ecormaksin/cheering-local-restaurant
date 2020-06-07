@@ -18,6 +18,7 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNot
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
+import com.cheeringlocalrestaurant.presentation.controller.BaseController;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccountAlreadyRegisteredException;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantNotifyLoginUrlUseCase;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantTempRegisterUseCase;
@@ -70,8 +71,10 @@ public class RestaurantTempRegisterController {
             return VIEW_FORM;
         } catch (RestaurantLoginURLNotifyFailedException e) {
             log.error("", e);
-            // TODO 自動生成された catch ブロック
-            e.printStackTrace();
+            model.addAttribute("errorMessage", messagesource
+                    .getMessage("message.restaurant.tempRegisterFailed", null, Locale.getDefault()));
+            model.addAttribute("originalPageLink", PATH_BASE);
+            return BaseController.CUSTOM_ERROR_PAGE_PATH;
         }
 
         redirectAttributes.addFlashAttribute(form);
