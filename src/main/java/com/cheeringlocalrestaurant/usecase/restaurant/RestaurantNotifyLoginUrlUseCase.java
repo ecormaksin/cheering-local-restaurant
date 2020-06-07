@@ -1,6 +1,5 @@
 package com.cheeringlocalrestaurant.usecase.restaurant;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cheeringlocalrestaurant.domain.model.login_request.UserLoginRequestRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNotifier;
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNotifyFailedException;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
@@ -21,8 +21,6 @@ import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirati
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationHours;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenPublishedDateTime;
 import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
-
-import freemarker.template.TemplateException;
 
 @Service
 @Transactional
@@ -40,7 +38,7 @@ public class RestaurantNotifyLoginUrlUseCase {
     @Value("${restaurant.login.expiration.hours}")
     private int loginExpirationHours;
 
-    public LoginRequestId execute(final HttpServletRequest request, final MailAddress mailAddress, final RemoteIpAddress remoteIpAddress) throws IOException, TemplateException {
+    public LoginRequestId execute(final HttpServletRequest request, final MailAddress mailAddress, final RemoteIpAddress remoteIpAddress) throws RestaurantLoginURLNotifyFailedException {
         
         final Optional<RestaurantAccount> accountOpt = restaurantRepository.findAccountByMailAddress(mailAddress);
         accountOpt.orElseThrow(RestaurantAccountNotRegisteredException::new);

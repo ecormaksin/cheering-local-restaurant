@@ -15,6 +15,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNotifier;
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNotifyFailedException;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationHours;
@@ -43,23 +44,28 @@ public class RestaurantLoginURLNotifierImpl implements RestaurantLoginURLNotifie
     public void execute(HttpServletRequest request, 
             MailAddress mailaddress, 
             AccessToken accessToken,
-            AccessTokenExpirationHours expirationHours) throws IOException, TemplateException {
+            AccessTokenExpirationHours expirationHours) throws RestaurantLoginURLNotifyFailedException {
     // @formatter:on
 
-        Map<String, Object> model = new HashMap<>();
-        final int remotePort = request.getRemotePort();
-        final String remotePortString = (remotePort == 80 || remotePort == 443 ? "" : ":" + String.valueOf(remotePort));
-        model.put("appRoot", request.getRequestURL() + remotePortString);
-        model.put("token", accessToken.getValue());
-        model.put("loginExpirationHours", expirationHours.getValue());
-        model.put("mailSenderName", mailSenderName);
-        
-        final String subject = messagesource.getMessage("restaurant.notify.login.url.mail.subject", null, Locale.getDefault());
+        try {
+            Map<String, Object> model = new HashMap<>();
+            final int remotePort = request.getRemotePort();
+            final String remotePortString = (remotePort == 80 || remotePort == 443 ? "" : ":" + String.valueOf(remotePort));
+            model.put("appRoot", request.getRequestURL() + remotePortString);
+            model.put("token", accessToken.getValue());
+            model.put("loginExpirationHours", expirationHours.getValue());
+            model.put("mailSenderName", mailSenderName);
 
-        // @formatter:off
-        freeMarkerMailSender.send(mailaddress, 
-                new CustomMailSubject(subject), 
-                templateName, model);
+            final String subject = messagesource.getMessage("restaurant.notify.login.url.mail.subject", null, Locale.getDefault());
+
+            // @formatter:off
+            freeMarkerMailSender.send(mailaddress, 
+                    new CustomMailSubject(subject), 
+                    templateName, model);
+
+        } catch (IOException | TemplateException e) {
+            throw new RestaurantLoginURLNotifyFailedException(e);
+        }
     }
 
     @Override
