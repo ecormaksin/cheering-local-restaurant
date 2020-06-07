@@ -73,6 +73,7 @@ class RestaurantLoginURLNotifierTest {
             assertEquals("ログインURLのお知らせ", parser.getSubject());
             // 本文
             String bodyAct = parser.parse().getPlainContent();
+            log.info(bodyAct);
             assertTrue(bodyAct.contains("ログインするには、以下のURLからアクセスしてください。"));
             assertTrue(bodyAct.contains("/login?" + accessToken.getValue()));
             assertTrue(bodyAct.contains("URLの有効期間は" + loginExpirationHours + "時間です。"));

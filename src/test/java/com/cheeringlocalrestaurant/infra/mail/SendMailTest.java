@@ -5,11 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.mail.Address;
 import javax.mail.internet.InternetAddress;
@@ -102,31 +99,6 @@ class SendMailTest {
         }
     }
 
-    @Test
-    void _プロパティから読み込みFreeMarkerで送信するテスト() throws Exception {
-
-        final String subject = "ログインURLのお知らせ";
-        final String templateName = "notify_login_url.ftl";
-
-        Map<String, Object> model = new HashMap<>();
-        final int remotePort = request.getRemotePort();
-        final String remotePortString = (remotePort == 80 || remotePort == 443 ? "" : ":" + String.valueOf(remotePort));
-        model.put("appRoot", request.getRequestURL() + remotePortString);
-        model.put("token", UUID.randomUUID().toString());
-        model.put("mailSenderName", mailSenderName);
-        
-        CustomMailBody customMailBody = freeMarkerMailSender.getProcessedBody(templateName, model);
-
-        // @formatter:off
-        freeMarkerMailSender.send(mailSender, 
-                new MailAddress(mailAddressTo), 
-                new CustomMailSubject(subject), 
-                templateName, model);
-        checkResult(freeMarkerMailSender.getMimeMessages(),
-                mailSenderAddress, mailAddressTo, subject, customMailBody.getValue()); 
-        // @formatter:on
-    }
-    
     // @formatter:off
     private void checkResult(final Optional<MimeMessage[]> mimeMessagesOpt,
             String from, String to, String subject, String body) 

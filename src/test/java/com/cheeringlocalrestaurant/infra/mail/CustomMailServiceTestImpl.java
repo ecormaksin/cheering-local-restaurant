@@ -17,6 +17,21 @@ public class CustomMailServiceTestImpl implements CustomMailService {
 
     private MimeMessage[] mimeMessages;
 
+    private final CustomMailSender mailSender = new CustomMailSender("差出人テスト", "sender-test@example.com");
+    
+    @Override
+    public CustomMailSender getDefaultMailSender() {
+        return mailSender;
+    }
+
+    @Override
+    // @formatter:off
+    public void send(MailAddress mailAddress, 
+            CustomMailSubject customMailSubject,
+            CustomMailBody customMailBody) {
+        send(mailSender, mailAddress, customMailSubject, customMailBody);
+    }
+
     @Override
     // @formatter:off
     public void send(CustomMailSender mailSender, 

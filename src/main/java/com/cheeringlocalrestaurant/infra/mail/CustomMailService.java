@@ -11,6 +11,14 @@ import com.cheeringlocalrestaurant.domain.type.mail.CustomMailSubject;
 
 public interface CustomMailService {
 
+    CustomMailSender getDefaultMailSender();
+    
+    // @formatter:off
+    void send(MailAddress mailAddress, 
+            CustomMailSubject customMailSubject,
+            CustomMailBody customMailBody);
+    // @formatter:on
+
     // @formatter:off
     void send(CustomMailSender mailSender, 
             MailAddress mailAddress, 

@@ -38,12 +38,20 @@ public class FreeMarkerMailSender {
             throws IOException, TemplateException {
     // @formatter:on
 
-        Template template = freemarkerConfig.getTemplate(templateName);
+        Template template = freemarkerConfig.getTemplate(templateName + ".ftl");
         String body = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
         
         return new CustomMailBody(body);
     }
     
+    // @formatter:off
+    public void send(MailAddress mailAddress, 
+            CustomMailSubject customMailSubject,
+            String templateName,
+            Object model) throws IOException, TemplateException {
+    // @formatter:on
+        send(customMailService.getDefaultMailSender(), mailAddress, customMailSubject, templateName, model);
+    }
     // @formatter:off
     public void send(CustomMailSender mailSender, 
             MailAddress mailAddress, 
