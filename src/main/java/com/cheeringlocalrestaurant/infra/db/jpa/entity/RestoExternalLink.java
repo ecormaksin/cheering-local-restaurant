@@ -15,7 +15,8 @@ public class RestoExternalLink implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name="RESTO_EXTERNAL_LINKS_ID_GENERATOR", sequenceName="RESTO_EXTERNAL_LINKS_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_EXTERNAL_LINKS_ID_GENERATOR")
 	private Long id;
 
 	@Column(name="DISPLAY_ORDER")

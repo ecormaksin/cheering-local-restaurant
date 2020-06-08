@@ -15,7 +15,8 @@ public class RestoSearchKeyword implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name="RESTO_SEARCH_KEYWORDS_ID_GENERATOR", sequenceName="RESTO_SEARCH_KEYWORDS_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_SEARCH_KEYWORDS_ID_GENERATOR")
 	private Long id;
 
 	@Column(name="DISPLAY_ORDER")

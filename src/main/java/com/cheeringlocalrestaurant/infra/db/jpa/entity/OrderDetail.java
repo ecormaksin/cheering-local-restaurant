@@ -15,7 +15,8 @@ public class OrderDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name="ORDER_DETAILS_ORDERDETAILID_GENERATOR", sequenceName="ORDER_DETAILS_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ORDER_DETAILS_ORDERDETAILID_GENERATOR")
 	@Column(name="ORDER_DETAIL_ID")
 	private Long orderDetailId;
 

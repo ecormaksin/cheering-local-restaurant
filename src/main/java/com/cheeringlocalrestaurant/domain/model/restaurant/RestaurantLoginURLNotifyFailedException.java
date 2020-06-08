@@ -7,4 +7,8 @@ public class RestaurantLoginURLNotifyFailedException extends Exception {
     public RestaurantLoginURLNotifyFailedException(Exception e) {
         super(e);
     }
+
+    public RestaurantLoginURLNotifyFailedException() {
+        super();
+    }
 }

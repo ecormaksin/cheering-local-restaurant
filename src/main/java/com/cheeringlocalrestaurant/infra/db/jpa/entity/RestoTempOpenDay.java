@@ -16,7 +16,8 @@ public class RestoTempOpenDay implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name="RESTO_TEMP_OPEN_DAYS_ID_GENERATOR", sequenceName="RESTO_TEMP_OPEN_DAYS_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_TEMP_OPEN_DAYS_ID_GENERATOR")
 	private Long id;
 
 	@Temporal(TemporalType.DATE)

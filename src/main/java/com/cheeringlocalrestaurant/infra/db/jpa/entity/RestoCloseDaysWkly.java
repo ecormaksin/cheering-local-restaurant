@@ -15,7 +15,8 @@ public class RestoCloseDaysWkly implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name="RESTO_CLOSE_DAYS_WKLY_ID_GENERATOR", sequenceName="RESTO_CLOSE_DAYS_WKLY_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_CLOSE_DAYS_WKLY_ID_GENERATOR")
 	private Long id;
 
 	@Column(name="DAY_OF_WEEK")

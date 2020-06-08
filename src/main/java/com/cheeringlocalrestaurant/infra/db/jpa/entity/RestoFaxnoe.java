@@ -15,7 +15,8 @@ public class RestoFaxnoe implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name="RESTO_FAXNOES_ID_GENERATOR", sequenceName="RESTO_FAXNOES_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_FAXNOES_ID_GENERATOR")
 	private Long id;
 
 	@Column(name="DISPLAY_ORDER")

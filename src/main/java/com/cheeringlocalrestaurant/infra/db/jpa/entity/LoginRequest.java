@@ -1,8 +1,17 @@
 package com.cheeringlocalrestaurant.infra.db.jpa.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Version;
 
 
 /**
@@ -16,7 +25,8 @@ public class LoginRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name="LOGIN_REQUESTS_ID_GENERATOR", sequenceName="LOGIN_REQUESTS_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LOGIN_REQUESTS_ID_GENERATOR")
 	private Long id;
 
 	@Column(name="ACCESS_TOKEN")

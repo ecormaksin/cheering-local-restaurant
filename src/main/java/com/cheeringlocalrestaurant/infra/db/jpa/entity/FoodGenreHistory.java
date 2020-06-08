@@ -16,7 +16,6 @@ public class FoodGenreHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="FOOT_GENRE_HISTORY_ID")
 	private Long footGenreHistoryId;
 
