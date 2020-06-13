@@ -1,6 +1,2 @@
 spring.cloud.vault:
-  application-name: chloresto
-  scheme: http
-  token: ${VAULT_TOKEN}
-  kv:
-    enabled: true
+  enabled: false

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -54,6 +55,7 @@ public class RestaurantTempRegisterController {
     }
 
     @PostMapping(PATH_REL_REGISTER)
+    @Transactional
     String register(HttpServletRequest request, @Validated RestaurantTempRegisterForm form, BindingResult result,
             Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {

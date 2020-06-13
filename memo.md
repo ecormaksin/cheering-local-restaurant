@@ -366,3 +366,11 @@ systemctl start vault
 ```
 
 Vaultサーバーの初期化を再実行する。
+
+# GreenMail
+
+開発時の動作確認でテスト用のメールサーバーを起動する場合
+
+```
+java -Dgreenmail.setup.test.smtps -jar greenmail-standalone-1.5.13.jar
+```
