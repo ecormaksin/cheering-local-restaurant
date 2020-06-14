@@ -15,7 +15,7 @@ public class MenuPhoto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @SequenceGenerator(name="MENU_PHOTOS_ID_GENERATOR", sequenceName="MENU_PHOTOS_SEQ")
+    @SequenceGenerator(allocationSize=1, name="MENU_PHOTOS_ID_GENERATOR", sequenceName="MENU_PHOTOS_SEQ")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MENU_PHOTOS_ID_GENERATOR")
 	private Long id;
 

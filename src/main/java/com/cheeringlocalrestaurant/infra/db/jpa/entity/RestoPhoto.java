@@ -15,7 +15,7 @@ public class RestoPhoto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @SequenceGenerator(name="RESTO_PHOTOS_ID_GENERATOR", sequenceName="RESTO_PHOTOS_SEQ")
+    @SequenceGenerator(allocationSize=1, name="RESTO_PHOTOS_ID_GENERATOR", sequenceName="RESTO_PHOTOS_SEQ")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_PHOTOS_ID_GENERATOR")
 	private Long id;
 

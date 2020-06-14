@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
@@ -13,7 +12,6 @@ import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 
 @Service
-@Transactional
 public class RestaurantTempRegisterUseCase {
 
     @Autowired

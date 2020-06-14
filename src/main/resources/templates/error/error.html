@@ -7,7 +7,7 @@
 <h2  layout:fragment="header2" th:replace="fragments/header2 :: header2('エラー')"></h2>
 <div layout:fragment="content">
 	<div class="form-group form-row">
-       <div th:text="${errorMessage}" class="invalid-feedback"></div>
+       <div th:text="${errorMessage}" class="text-danger"></div>
 	</div>
     <div class="form-group form-row">
        <a href="#" th:href="@{/${originalPageLink}}">元のページへ戻る</a>

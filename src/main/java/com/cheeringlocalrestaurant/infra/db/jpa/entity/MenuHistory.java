@@ -17,7 +17,7 @@ public class MenuHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @SequenceGenerator(name="MENU_HISTORIES_MENUHISTORYID_GENERATOR", sequenceName="MENU_HISTORIES_SEQ")
+    @SequenceGenerator(allocationSize=1, name="MENU_HISTORIES_MENUHISTORYID_GENERATOR", sequenceName="MENU_HISTORIES_SEQ")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MENU_HISTORIES_MENUHISTORYID_GENERATOR")
 	@Column(name="MENU_HISTORY_ID")
 	private Long menuHistoryId;

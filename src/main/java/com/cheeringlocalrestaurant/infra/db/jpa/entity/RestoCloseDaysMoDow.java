@@ -15,7 +15,7 @@ public class RestoCloseDaysMoDow implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @SequenceGenerator(name="RESTO_CLOSE_DAYS_MO_DOW_ID_GENERATOR", sequenceName="RESTO_CLOSE_DAYS_MO_DOW_SEQ")
+    @SequenceGenerator(allocationSize=1, name="RESTO_CLOSE_DAYS_MO_DOW_ID_GENERATOR", sequenceName="RESTO_CLOSE_DAYS_MO_DOW_SEQ")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_CLOSE_DAYS_MO_DOW_ID_GENERATOR")
 	private Long id;
 

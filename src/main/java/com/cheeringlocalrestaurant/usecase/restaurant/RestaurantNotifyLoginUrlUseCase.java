@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cheeringlocalrestaurant.domain.model.login_request.UserLoginRequestRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
@@ -23,7 +22,6 @@ import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenPublishe
 import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
 
 @Service
-@Transactional
 public class RestaurantNotifyLoginUrlUseCase {
 
     @Autowired

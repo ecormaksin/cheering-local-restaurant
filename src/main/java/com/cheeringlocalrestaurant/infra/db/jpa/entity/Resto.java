@@ -16,7 +16,7 @@ public class Resto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @SequenceGenerator(name="RESTOS_RESTAURANTID_GENERATOR", sequenceName="RESTOS_SEQ")
+    @SequenceGenerator(allocationSize=1, name="RESTOS_RESTAURANTID_GENERATOR", sequenceName="RESTOS_SEQ")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTOS_RESTAURANTID_GENERATOR")
 	@Column(name="RESTAURANT_ID")
 	private Long restaurantId;

@@ -15,7 +15,7 @@ public class Menu implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @SequenceGenerator(name="MENU_MENUID_GENERATOR", sequenceName="MENU_SEQ")
+    @SequenceGenerator(allocationSize=1, name="MENU_MENUID_GENERATOR", sequenceName="MENU_SEQ")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MENU_MENUID_GENERATOR")
 	@Column(name="MENU_ID")
 	private Long menuId;

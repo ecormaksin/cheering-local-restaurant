@@ -15,7 +15,7 @@ public class RestoTelnoe implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @SequenceGenerator(name="RESTO_TELNOES_ID_GENERATOR", sequenceName="RESTO_TELNOES_SEQ")
+    @SequenceGenerator(allocationSize=1, name="RESTO_TELNOES_ID_GENERATOR", sequenceName="RESTO_TELNOES_SEQ")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_TELNOES_ID_GENERATOR")
 	private Long id;
 

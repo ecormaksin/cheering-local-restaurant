@@ -67,7 +67,7 @@ public class RestaurantTempRegisterController {
             RemoteIpAddress remoteIpAddress = new RemoteIpAddress(request.getRemoteAddr());
             restaurantTempRegisterUseCase.execute(tempRegister, remoteIpAddress);
             restaurantNotifyLoginUrlUseCase.execute(request, new MailAddress(email), remoteIpAddress);
-            if (true) throw new RestaurantLoginURLNotifyFailedException();
+//            if (true) throw new RestaurantLoginURLNotifyFailedException();
         } catch (RestaurantAccountAlreadyRegisteredException e) {
             model.addAttribute("errorMessage", messagesource
                     .getMessage("message.restaurant.mailAddressAlreadyRegistered", null, Locale.getDefault()));

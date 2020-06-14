@@ -25,7 +25,7 @@ public class LoginRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @SequenceGenerator(name="LOGIN_REQUESTS_ID_GENERATOR", sequenceName="LOGIN_REQUESTS_SEQ")
+    @SequenceGenerator(allocationSize=1, name="LOGIN_REQUESTS_ID_GENERATOR", sequenceName="LOGIN_REQUESTS_SEQ")
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LOGIN_REQUESTS_ID_GENERATOR")
 	private Long id;
 
