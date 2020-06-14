@@ -374,3 +374,12 @@ Vaultサーバーの初期化を再実行する。
 ```
 java -Dgreenmail.verbose -Dgreenmail.auth.disabled -Dgreenmail.smtp.port=3025 -jar greenmail-standalone-1.5.13.jar
 ```
+
+# JPA
+
+OracleのシーケンスによるID自動発番に対応するため自動生成したエンティティのコードを変更する。
+
+```
+cd ./src/main/java/com/cheeringlocalrestaurant/infra/db/jpa/entity
+sed -i -e "s/@SequenceGenerator(name=/@SequenceGenerator(allocationSize=1, name=/g" *.java
+```
