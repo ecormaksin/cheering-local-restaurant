@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<head th:replace="fragments/head :: htmlhead(#{label.restaurant.temp.registered})"></head>
+<body>
+<h2  layout:fragment="header2" th:replace="fragments/header2 :: header2(#{label.restaurant.temp.registered})"></h2>
+<div layout:fragment="content">
+	<div class="form-group form-row">
+		<div class="col-sm">ログイン後のトップ画面</div>
+	</div>
+</div>
+</body>
+</html>
