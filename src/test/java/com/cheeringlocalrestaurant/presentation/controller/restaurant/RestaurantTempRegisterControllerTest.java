@@ -47,7 +47,7 @@ public class RestaurantTempRegisterControllerTest {
 
     @Test
     void _店舗仮登録のルートへアクセスした時はフォームへ遷移する() throws Exception {
-        this.mockMvc.perform(get("/" + RestaurantTempRegisterController.PATH_BASE + "/")).andExpect(status().isOk())
+        this.mockMvc.perform(get(RestaurantTempRegisterController.PATH_BASE + "/")).andExpect(status().isOk())
                 .andExpect(view().name(RestaurantTempRegisterController.VIEW_FORM));
     }
 

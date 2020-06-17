@@ -33,15 +33,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RestaurantTempRegisterController {
 
-    static final String PATH_BASE = "restaurant/temp_register";
+    static final String VIEW_BASE = "restaurant/temp_register";
+    static final String PATH_BASE = "/" + VIEW_BASE;
 
-    static final String VIEW_FORM = PATH_BASE + "/form";
+    static final String VIEW_FORM = VIEW_BASE + "/form";
 
     static final String PATH_REL_REGISTER = "/register";
-    static final String PATH_REGISTER = "/" + PATH_BASE + PATH_REL_REGISTER;
+    static final String PATH_REGISTER = PATH_BASE + PATH_REL_REGISTER;
 
     static final String PATH_REL_COMPLETED = "/completed";
-    static final String VIEW_COMPLETED = PATH_BASE + PATH_REL_COMPLETED;
+    static final String VIEW_COMPLETED = VIEW_BASE + PATH_REL_COMPLETED;
     static final String PATH_COMPLETED = "/" + VIEW_COMPLETED;
 
     private final RestaurantTempRegisterUseCase restaurantTempRegisterUseCase;
