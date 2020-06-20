@@ -2,7 +2,6 @@ package com.cheeringlocalrestaurant.presentation.controller.restaurant;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -53,9 +52,12 @@ public class RestaurantTempRegisterControllerTest {
 
     @Test
     void _登録後は完了ページへ遷移する() throws Exception {
+        
+        // @formatter:off
         given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (RemoteIpAddress) any()))
                 .willReturn(new RestaurantId(1L));
-        given(restaurantNotifyLoginUrlUseCase.execute((HttpServletRequest) any(), (MailAddress) any(), (RemoteIpAddress) any())).willReturn(new LoginRequestId(1L));
+        given(restaurantNotifyLoginUrlUseCase.execute((HttpServletRequest) any(), (MailAddress) any(), (RemoteIpAddress) any()))
+                .willReturn(new LoginRequestId(1L));
 
         final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
         this.mockMvc
@@ -64,6 +66,7 @@ public class RestaurantTempRegisterControllerTest {
                         .param("agreedTermOfUse", form.getAgreedTermOfUse()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlPattern(RestaurantTempRegisterController.PATH_COMPLETED + "*"));
+        // @formatter:on
     }
 
     @Test
@@ -86,10 +89,12 @@ public class RestaurantTempRegisterControllerTest {
     void _メールアドレスがすでに登録されている場合はフォームへ戻る() throws Exception {
         final String errorMessage = "メールアドレスはすでに登録されています。ログイン認証ページからアクセスしてください。";
 
+        // @formatter:off
+
         given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (RemoteIpAddress) any()))
                 .willThrow(RestaurantAccountAlreadyRegisteredException.class);
-        doReturn(errorMessage).when(messagesource).getMessage("message.restaurant.mailAddressAlreadyRegistered", null,
-                Locale.getDefault());
+        given(messagesource.getMessage("message.restaurant.mailAddressAlreadyRegistered", null,
+                Locale.getDefault())).willReturn(errorMessage);
 
         RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
         this.mockMvc
@@ -99,17 +104,20 @@ public class RestaurantTempRegisterControllerTest {
                 .andExpect(status().isOk()).andExpect(model().hasNoErrors())
                 .andExpect(model().attribute("errorMessage", errorMessage))
                 .andExpect(view().name(RestaurantTempRegisterController.VIEW_FORM));
+        // @formatter:on
     }
 
     @Test
     void _ログインURLの通知処理に失敗した場合は共通のエラーページへ遷移する() throws Exception {
         final String errorMessage = "飲食店の仮登録に失敗しました。\n最初からやり直してください。";
-        doReturn(errorMessage).when(messagesource).getMessage("message.restaurant.tempRegisterFailed", null,
-                Locale.getDefault());
-
+        
+        // @formatter:off
+        given(messagesource.getMessage("message.restaurant.tempRegisterFailed", null,
+                Locale.getDefault())).willReturn(errorMessage);
         given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (RemoteIpAddress) any()))
                 .willReturn(new RestaurantId(1L));
-        given(restaurantNotifyLoginUrlUseCase.execute((HttpServletRequest) any(), (MailAddress) any(), (RemoteIpAddress) any())).willThrow(RestaurantLoginURLNotifyFailedException.class);
+        given(restaurantNotifyLoginUrlUseCase.execute((HttpServletRequest) any(), (MailAddress) any(), (RemoteIpAddress) any()))
+                .willThrow(RestaurantLoginURLNotifyFailedException.class);
 
         final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
         this.mockMvc
@@ -120,6 +128,7 @@ public class RestaurantTempRegisterControllerTest {
                 .andExpect(model().attribute("errorMessage", errorMessage))
                 .andExpect(model().attribute("originalPageLink", RestaurantTempRegisterController.PATH_BASE))
                 .andExpect(view().name(BaseController.CUSTOM_ERROR_PAGE_PATH));
+        // @formatter:on
     }
 
 }

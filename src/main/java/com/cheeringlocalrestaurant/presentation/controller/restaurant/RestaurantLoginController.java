@@ -2,6 +2,7 @@ package com.cheeringlocalrestaurant.presentation.controller.restaurant;
 
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
 import com.cheeringlocalrestaurant.presentation.controller.BaseController;
+import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccessTokenExpiredException;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccessTokenNotFoundException;
+import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccessTokenUpdatedException;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantLoginUseCase;
 
 import lombok.RequiredArgsConstructor;
@@ -28,32 +31,49 @@ public class RestaurantLoginController {
     private final RestaurantLoginUseCase restaurantLoginUseCase;
     private final MessageSource messagesource;
 
+    @Value("${mail.sender.address}")
+    private String mailSenderAddress;
+
     @GetMapping(PATH_BASE)
     String login(Model model, @RequestParam(value = "accesstoken") String accessToken) {
+
         try {
+
             restaurantLoginUseCase.execute(new AccessToken(accessToken));
             model.addAttribute("restrantTopForm", new RestaurantTopForm());
             return RestaurantRegisteredController.VIEW_TOP;
         } catch (RestaurantAccessTokenNotFoundException e) {
-            return moveToLoginRequestGuidancePage(e, model);
+
+            return moveToLoginRequestPageWhenValidTokenNotIncluded(e, model);
+        } catch (RestaurantAccessTokenExpiredException | RestaurantAccessTokenUpdatedException e) {
+
+            String errorMessage = null;
+            if(e instanceof RestaurantAccessTokenExpiredException) {
+                errorMessage = messagesource.getMessage("message.login.tokenExpired", null, Locale.getDefault());
+            }
+            if (e instanceof RestaurantAccessTokenUpdatedException) {
+                errorMessage = messagesource.getMessage("message.login.tokenUpdated", new Object[]{mailSenderAddress}, Locale.getDefault());
+            }
+            return moveToLoginRequestPage(e, errorMessage, model);
         }
     }
     
     @ExceptionHandler
     String moveToErrorPage(ServletRequestBindingException e, Model model) {
-        return moveToLoginRequestGuidancePage(e, model);
+        return moveToLoginRequestPageWhenValidTokenNotIncluded(e, model);
     }
     
-    private String moveToLoginRequestGuidancePage(Throwable e, Model model) {
-        log.error("", e);
+    private String moveToLoginRequestPageWhenValidTokenNotIncluded(Throwable e, Model model) {
+        final String errorMessage = messagesource.getMessage("message.login.validTokenNotIncluded", null, Locale.getDefault());
+        return moveToLoginRequestPage(e, errorMessage, model);
+    }
+    
+    private String moveToLoginRequestPage(final Throwable e, final String errorMessage, Model model) {
 
-        // @formatter:off
-        model.addAttribute("errorMessage", messagesource
-                .getMessage("message.login.validTokenNotIncluded", null, Locale.getDefault()));
+        log.error("", e);
+        model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("originalPageLink", RestaurantLoginRequestController.PATH_BASE);
-        model.addAttribute("linkCaption", messagesource
-                .getMessage("label.login.request", null, Locale.getDefault()));
-        // @formatter:on
+        model.addAttribute("linkCaption", messagesource.getMessage("label.login.request", null, Locale.getDefault()));
 
         return BaseController.CUSTOM_ERROR_PAGE_PATH;
     }
