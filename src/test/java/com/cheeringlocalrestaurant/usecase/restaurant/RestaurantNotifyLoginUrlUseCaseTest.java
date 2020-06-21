@@ -9,14 +9,11 @@ import static org.mockito.Mockito.doNothing;
 
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.cheeringlocalrestaurant.CustomMailServiceTestConfig;
 import com.cheeringlocalrestaurant.TestDataUtils;
@@ -26,6 +23,7 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNot
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
+import com.cheeringlocalrestaurant.domain.type.SystemBaseURL;
 import com.cheeringlocalrestaurant.domain.type.account.UserId;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationDateTime;
@@ -40,9 +38,6 @@ class RestaurantNotifyLoginUrlUseCaseTest {
     @Autowired
     RestaurantNotifyLoginUrlUseCase restaurantNotifyLoginUrlUseCase;
 
-    @Autowired
-    private MockHttpServletRequest request;
-
     @MockBean
     private RestaurantRepository restaurantRepository;
 
@@ -52,6 +47,7 @@ class RestaurantNotifyLoginUrlUseCaseTest {
     @MockBean
     private RestaurantLoginURLNotifier restaurantLoginURLNotifier;
 
+    private static final SystemBaseURL systemBaseURL = TestDataUtils.systemBaseURL;
     private static final MailAddress mailAddress = TestDataUtils.mailAddress;
     private static final RemoteIpAddress remoteIpAddress = TestDataUtils.remoteIpAddress;
 
@@ -71,13 +67,13 @@ class RestaurantNotifyLoginUrlUseCaseTest {
             // @formatter:on
             given(restaurantRepository.findAccountByMailAddress((MailAddress) any())).willReturn(Optional.ofNullable(restaurantAccount));
             // @formatter:off
-            doNothing().when(restaurantLoginURLNotifier).execute((HttpServletRequest) any(), 
+            doNothing().when(restaurantLoginURLNotifier).execute((SystemBaseURL) any(), 
                                                     (MailAddress) any(), 
                                                     (AccessToken) any(), 
                                                     (AccessTokenExpirationHours) any());
             // @formatter:on
     
-            LoginRequestId loginRequestId = restaurantNotifyLoginUrlUseCase.execute(request, mailAddress, remoteIpAddress);
+            LoginRequestId loginRequestId = restaurantNotifyLoginUrlUseCase.execute(systemBaseURL, mailAddress, remoteIpAddress);
             assertNotNull(loginRequestId);
 
         } catch (Exception e) {
@@ -91,7 +87,7 @@ class RestaurantNotifyLoginUrlUseCaseTest {
         given(restaurantRepository.findAccountByMailAddress((MailAddress) any())).willReturn(Optional.ofNullable(null));
         
         assertThrows(RestaurantAccountNotRegisteredException.class, () -> {
-            restaurantNotifyLoginUrlUseCase.execute(request, mailAddress, remoteIpAddress);
+            restaurantNotifyLoginUrlUseCase.execute(systemBaseURL, mailAddress, remoteIpAddress);
         });
     }
 }

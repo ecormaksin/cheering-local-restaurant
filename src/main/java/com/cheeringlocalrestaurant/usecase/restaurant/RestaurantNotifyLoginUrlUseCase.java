@@ -2,8 +2,6 @@ package com.cheeringlocalrestaurant.usecase.restaurant;
 
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,6 +13,7 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNot
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
+import com.cheeringlocalrestaurant.domain.type.SystemBaseURL;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationDateTime;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationHours;
@@ -36,7 +35,7 @@ public class RestaurantNotifyLoginUrlUseCase {
     @Value("${restaurant.login.expiration.hours}")
     private int loginExpirationHours;
 
-    public LoginRequestId execute(final HttpServletRequest request, final MailAddress mailAddress, final RemoteIpAddress remoteIpAddress) throws RestaurantLoginURLNotifyFailedException {
+    public LoginRequestId execute(final SystemBaseURL systemBaseURL, final MailAddress mailAddress, final RemoteIpAddress remoteIpAddress) throws RestaurantLoginURLNotifyFailedException {
         
         final Optional<RestaurantAccount> accountOpt = restaurantRepository.findAccountByMailAddress(mailAddress);
         accountOpt.orElseThrow(RestaurantAccountNotRegisteredException::new);
@@ -50,7 +49,7 @@ public class RestaurantNotifyLoginUrlUseCase {
                                                 restaurantAccount.getUserId(), 
                                                 accessToken, expirationDateTime, remoteIpAddress);
         // @formatter:on
-        restaurantLoginURLNotifier.execute(request, mailAddress, accessToken, new AccessTokenExpirationHours(loginExpirationHours));
+        restaurantLoginURLNotifier.execute(systemBaseURL, mailAddress, accessToken, new AccessTokenExpirationHours(loginExpirationHours));
 
         return loginRequestId;
     }

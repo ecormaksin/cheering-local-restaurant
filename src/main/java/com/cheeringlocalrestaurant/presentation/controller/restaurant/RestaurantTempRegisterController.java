@@ -19,7 +19,9 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNot
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
+import com.cheeringlocalrestaurant.domain.type.SystemBaseURL;
 import com.cheeringlocalrestaurant.presentation.controller.BaseController;
+import com.cheeringlocalrestaurant.presentation.controller.SystemBaseURLCreator;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccountAlreadyRegisteredException;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantNotifyLoginUrlUseCase;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantTempRegisterUseCase;
@@ -64,10 +66,12 @@ public class RestaurantTempRegisterController {
         }
         try {
             final String email = form.getMailAddress();
-            RestaurantTempRegister tempRegister = new RestaurantTempRegister(form.getName(), email);
-            RemoteIpAddress remoteIpAddress = new RemoteIpAddress(request.getRemoteAddr());
+            final RestaurantTempRegister tempRegister = new RestaurantTempRegister(form.getName(), email);
+            final RemoteIpAddress remoteIpAddress = new RemoteIpAddress(request.getRemoteAddr());
             restaurantTempRegisterUseCase.execute(tempRegister, remoteIpAddress);
-            restaurantNotifyLoginUrlUseCase.execute(request, new MailAddress(email), remoteIpAddress);
+            
+            final SystemBaseURL systemBaseURL = SystemBaseURLCreator.execute(request);
+            restaurantNotifyLoginUrlUseCase.execute(systemBaseURL, new MailAddress(email), remoteIpAddress);
 //            if (true) throw new RestaurantLoginURLNotifyFailedException();
         } catch (RestaurantAccountAlreadyRegisteredException e) {
             model.addAttribute("errorMessage", messagesource

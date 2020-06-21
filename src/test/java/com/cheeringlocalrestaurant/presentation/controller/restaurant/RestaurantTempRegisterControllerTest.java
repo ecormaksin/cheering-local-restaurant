@@ -11,8 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,6 +22,7 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNot
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
+import com.cheeringlocalrestaurant.domain.type.SystemBaseURL;
 import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.presentation.controller.BaseController;
@@ -56,7 +55,7 @@ public class RestaurantTempRegisterControllerTest {
         // @formatter:off
         given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (RemoteIpAddress) any()))
                 .willReturn(new RestaurantId(1L));
-        given(restaurantNotifyLoginUrlUseCase.execute((HttpServletRequest) any(), (MailAddress) any(), (RemoteIpAddress) any()))
+        given(restaurantNotifyLoginUrlUseCase.execute((SystemBaseURL) any(), (MailAddress) any(), (RemoteIpAddress) any()))
                 .willReturn(new LoginRequestId(1L));
 
         final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();
@@ -116,7 +115,7 @@ public class RestaurantTempRegisterControllerTest {
                 Locale.getDefault())).willReturn(errorMessage);
         given(restaurantTempRegisterUseCase.execute((RestaurantTempRegister) any(), (RemoteIpAddress) any()))
                 .willReturn(new RestaurantId(1L));
-        given(restaurantNotifyLoginUrlUseCase.execute((HttpServletRequest) any(), (MailAddress) any(), (RemoteIpAddress) any()))
+        given(restaurantNotifyLoginUrlUseCase.execute((SystemBaseURL) any(), (MailAddress) any(), (RemoteIpAddress) any()))
                 .willThrow(RestaurantLoginURLNotifyFailedException.class);
 
         final RestaurantTempRegisterForm form = RestaurantTempRegisterFormCreator.getOkPattern();

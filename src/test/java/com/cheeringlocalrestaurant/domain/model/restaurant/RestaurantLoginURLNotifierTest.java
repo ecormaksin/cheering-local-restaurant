@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.cheeringlocalrestaurant.TestDataUtils;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.SystemBaseURL;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationHours;
 import com.cheeringlocalrestaurant.domain.type.mail.CustomMailSubject;
@@ -23,9 +23,6 @@ import com.cheeringlocalrestaurant.infra.mail.FreeMarkerMailSender;
 
 @SpringBootTest
 class RestaurantLoginURLNotifierTest {
-
-    @Autowired
-    private MockHttpServletRequest request;
 
     @Autowired
     private RestaurantLoginURLNotifier restaurantLoginURLNotifier;
@@ -36,6 +33,7 @@ class RestaurantLoginURLNotifierTest {
     @Value("${restaurant.login.expiration.hours}")
     private int loginExpirationHours;
 
+    private static final SystemBaseURL systemBaseURL = TestDataUtils.systemBaseURL;
     private static final MailAddress mailAddress = TestDataUtils.mailAddress;
 
     @Test
@@ -43,7 +41,7 @@ class RestaurantLoginURLNotifierTest {
         try {
             final AccessToken accessToken = new AccessToken();
             final AccessTokenExpirationHours expirationHours = new AccessTokenExpirationHours(loginExpirationHours);
-            restaurantLoginURLNotifier.execute(request, mailAddress, accessToken, expirationHours);
+            restaurantLoginURLNotifier.execute(systemBaseURL, mailAddress, accessToken, expirationHours);
         } catch (Exception e) {
             fail(e);
         }
@@ -57,7 +55,7 @@ class RestaurantLoginURLNotifierTest {
         assertThrows(RestaurantLoginURLNotifyFailedException.class, () -> {
             final AccessToken accessToken = new AccessToken();
             final AccessTokenExpirationHours expirationHours = new AccessTokenExpirationHours(loginExpirationHours);
-            restaurantLoginURLNotifier.execute(request, mailAddress, accessToken, expirationHours);
+            restaurantLoginURLNotifier.execute(systemBaseURL, mailAddress, accessToken, expirationHours);
         });
     }
 

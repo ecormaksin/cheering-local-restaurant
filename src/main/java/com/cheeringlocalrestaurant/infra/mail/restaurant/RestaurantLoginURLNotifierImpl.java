@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNotifier;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantLoginURLNotifyFailedException;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
+import com.cheeringlocalrestaurant.domain.type.SystemBaseURL;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirationHours;
 import com.cheeringlocalrestaurant.domain.type.mail.CustomMailSubject;
@@ -41,17 +41,15 @@ public class RestaurantLoginURLNotifierImpl implements RestaurantLoginURLNotifie
 
     @Override
     // @formatter:off
-    public void execute(HttpServletRequest request, 
-            MailAddress mailaddress, 
-            AccessToken accessToken,
-            AccessTokenExpirationHours expirationHours) throws RestaurantLoginURLNotifyFailedException {
+    public void execute(final SystemBaseURL systemBaseURL, 
+            final MailAddress mailaddress, 
+            final AccessToken accessToken,
+            final AccessTokenExpirationHours expirationHours) throws RestaurantLoginURLNotifyFailedException {
     // @formatter:on
 
         try {
             Map<String, Object> model = new HashMap<>();
-            final int remotePort = request.getRemotePort();
-            final String remotePortString = (remotePort == 80 || remotePort == 443 ? "" : ":" + String.valueOf(remotePort));
-            model.put("appRoot", request.getRequestURL() + remotePortString);
+            model.put("appRoot", systemBaseURL.getValue());
             model.put("token", accessToken.getValue());
             model.put("loginExpirationHours", expirationHours.getValue());
             model.put("mailSenderName", mailSenderName);
