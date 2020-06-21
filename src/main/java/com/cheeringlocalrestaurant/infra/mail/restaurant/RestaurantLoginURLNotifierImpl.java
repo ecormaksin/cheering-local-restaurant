@@ -62,6 +62,7 @@ public class RestaurantLoginURLNotifierImpl implements RestaurantLoginURLNotifie
             freeMarkerMailSender.send(mailaddress, 
                     new CustomMailSubject(subject), 
                     templateName, model);
+            // @formatter:on
 
         } catch (IOException | TemplateException e) {
             throw new RestaurantLoginURLNotifyFailedException(e);

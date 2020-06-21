@@ -2,6 +2,7 @@ package com.cheeringlocalrestaurant;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
 import com.cheeringlocalrestaurant.infra.mail.CustomMailService;
 import com.cheeringlocalrestaurant.infra.mail.CustomMailServiceTestImpl;
@@ -10,7 +11,8 @@ import com.cheeringlocalrestaurant.infra.mail.CustomMailServiceTestImpl;
 public class CustomMailServiceTestConfig {
 
     @Bean
-    CustomMailService customMailService() {
+    @Primary
+    CustomMailService customMailServiceTest() {
         return new CustomMailServiceTestImpl();
     }
 }
