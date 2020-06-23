@@ -1,20 +1,20 @@
-package com.cheeringlocalrestaurant.domain.type.time;
+package com.cheeringlocalrestaurant.domain.type.date;
 
 import java.io.Serializable;
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 import lombok.Getter;
 
-public abstract class Time implements Serializable, Comparable<Time> {
+public abstract class AbstractDate implements Serializable, Comparable<AbstractDate> {
 
     private static final long serialVersionUID = 1L;
 
     @Getter
-    protected LocalTime value;
-
-    public Time(final String timeString) {
+    protected LocalDate value;
+    
+    public AbstractDate(final String dateString) {
         try {
-            this.value = LocalTime.parse(timeString);
+            this.value = LocalDate.parse(dateString);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
@@ -25,7 +25,7 @@ public abstract class Time implements Serializable, Comparable<Time> {
         return this.value.toString();
     }
 
-    public boolean equals(Time other) {
+    public boolean equals(AbstractDate other) {
         return this.toString().equals(other.toString());
     }
 
@@ -35,7 +35,7 @@ public abstract class Time implements Serializable, Comparable<Time> {
     }
 
     @Override
-    public int compareTo(Time other) {
+    public int compareTo(AbstractDate other) {
         return this.toString().compareTo(other.toString());
     }
 }

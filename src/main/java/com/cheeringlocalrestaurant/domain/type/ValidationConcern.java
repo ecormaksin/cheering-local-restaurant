@@ -22,8 +22,7 @@ public abstract class ValidationConcern implements Serializable {
         StringBuilder sb = new StringBuilder();
         boolean firstLine = true;
         for (ConstraintViolation<T> violation : violations) {
-            if (!firstLine)
-                sb.append(System.lineSeparator());
+            if (!firstLine) sb.append(System.lineSeparator());
             sb.append(violation.getMessage());
             firstLine = false;
         }

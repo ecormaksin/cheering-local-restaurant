@@ -36,7 +36,7 @@ import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 class RestaurantNotifyLoginUrlUseCaseTest {
 
     @Autowired
-    RestaurantNotifyLoginUrlUseCase restaurantNotifyLoginUrlUseCase;
+    private RestaurantNotifyLoginUrlUseCase restaurantNotifyLoginUrlUseCase;
 
     @MockBean
     private RestaurantRepository restaurantRepository;
