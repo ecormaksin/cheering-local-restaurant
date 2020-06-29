@@ -2,6 +2,10 @@ package com.cheeringlocalrestaurant.domain.type.datetime;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import com.cheeringlocalrestaurant.domain.type.date.AbstractDate;
+import com.cheeringlocalrestaurant.domain.type.time.AbstractTime;
 
 import lombok.Getter;
 
@@ -12,12 +16,17 @@ public abstract class AbstractDateTime implements Serializable, Comparable<Abstr
     @Getter
     protected LocalDateTime value;
     
-    public AbstractDateTime(final String dateString) {
-        try {
-            this.value = LocalDateTime.parse(dateString);
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
+    public AbstractDateTime(final String dateTimeString) {
+        Throwable cause = null;
+        for (String format : AbstractDate.formats()) {
+            try {
+                this.value = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(format + " " + AbstractTime.FORMAT_STRING));
+                return;
+            } catch (Exception e) {
+                cause = e;
+            }
         }
+        throw new IllegalArgumentException(cause);
     }
 
     @Override

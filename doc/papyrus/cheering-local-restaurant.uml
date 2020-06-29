@@ -180,4 +180,40 @@
     <ownedEnd xmi:type="uml:Property" xmi:id="_EsTxoYd9EeqIIbs0U0wLQg" name="臨時営業日を登録する" type="_k4MfwId8EeqIIbs0U0wLQg" association="_EsTKkId9EeqIIbs0U0wLQg"/>
     <ownedEnd xmi:type="uml:Property" xmi:id="_EsTxood9EeqIIbs0U0wLQg" name="システム管理者" type="_yx7JwIb6EeqIIbs0U0wLQg" association="_EsTKkId9EeqIIbs0U0wLQg"/>
   </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="__er1ALg2EeqfScpY9IrofQ" name="飲食店">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_JNW5wLg3EeqfScpY9IrofQ" name="メニュー" type="_CedY0Lg3EeqfScpY9IrofQ" aggregation="composite" association="_JNT2cLg3EeqfScpY9IrofQ">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JNXg0bg3EeqfScpY9IrofQ" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_bGTRQbg3EeqfScpY9IrofQ" name="注文" type="_Soae8Lg3EeqfScpY9IrofQ" aggregation="composite" association="_bGQ1ALg3EeqfScpY9IrofQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gW4aELg3EeqfScpY9IrofQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bGT4Ubg3EeqfScpY9IrofQ" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_CedY0Lg3EeqfScpY9IrofQ" name="メニュー"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_JNT2cLg3EeqfScpY9IrofQ" visibility="public" memberEnd="_JNW5wLg3EeqfScpY9IrofQ _JNYH4Lg3EeqfScpY9IrofQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_JNVroLg3EeqfScpY9IrofQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_JNWSsLg3EeqfScpY9IrofQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_JNYH4Lg3EeqfScpY9IrofQ" name="飲食店" type="__er1ALg2EeqfScpY9IrofQ" association="_JNT2cLg3EeqfScpY9IrofQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Soae8Lg3EeqfScpY9IrofQ" name="注文" visibility="public"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_bGQ1ALg3EeqfScpY9IrofQ" memberEnd="_bGTRQbg3EeqfScpY9IrofQ _bGT4Urg3EeqfScpY9IrofQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bGSqMLg3EeqfScpY9IrofQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bGTRQLg3EeqfScpY9IrofQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_bGT4Urg3EeqfScpY9IrofQ" name="飲食店" type="__er1ALg2EeqfScpY9IrofQ" association="_bGQ1ALg3EeqfScpY9IrofQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_QGHE0Lg4EeqfScpY9IrofQ" memberEnd="_QGJhELg4EeqfScpY9IrofQ _QGKIILg4EeqfScpY9IrofQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_QGI6ALg4EeqfScpY9IrofQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_QGI6Abg4EeqfScpY9IrofQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_QGJhELg4EeqfScpY9IrofQ" name="注文" type="_Soae8Lg3EeqfScpY9IrofQ" association="_QGHE0Lg4EeqfScpY9IrofQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_SEFNYLg4EeqfScpY9IrofQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_SEMiILg4EeqfScpY9IrofQ" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_QGKIILg4EeqfScpY9IrofQ" name="メニュー" type="_CedY0Lg3EeqfScpY9IrofQ" association="_QGHE0Lg4EeqfScpY9IrofQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UXurALg4EeqfScpY9IrofQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_UVgdcLg4EeqfScpY9IrofQ" value="*"/>
+    </ownedEnd>
+  </packagedElement>
 </uml:Model>

@@ -1,5 +1,5 @@
 -- Project Name : 地元の飲食店 テイクアウト注文支援サービス
--- Date/Time    : 2020/06/04 16:57:13
+-- Date/Time    : 2020/06/28 11:54:16
 -- Author       : vagrant
 -- RDBMS Type   : Oracle Database
 -- Application  : A5:SQL Mk-2
@@ -333,23 +333,19 @@ create index RESTO_TEMP_CLOSE_DAYS_IX2
 create table RESTO_TEMP_OPEN_DAYS (
   ID NUMBER(11,0) not null
   , RESTAURANT_ID NUMBER(7,0) not null
-  , OPEN_DAY DATE not null
-  , START_TIME DATE not null
-  , END_TIME DATE not null
+  , START_DATE_TIME DATE not null
+  , END_DATE_TIME DATE not null
   , constraint RESTO_TEMP_OPEN_DAYS_PKC primary key (ID)
 ) ;
 
 alter table RESTO_TEMP_OPEN_DAYS add constraint RESTO_TEMP_OPEN_DAYS_IX1
-  unique (RESTAURANT_ID,OPEN_DAY,START_TIME) ;
+  unique (RESTAURANT_ID,START_DATE_TIME) ;
 
 create index RESTO_TEMP_OPEN_DAYS_IX2
   on RESTO_TEMP_OPEN_DAYS(RESTAURANT_ID);
 
 create index RESTO_TEMP_OPEN_DAYS_IX3
-  on RESTO_TEMP_OPEN_DAYS(OPEN_DAY);
-
-create index RESTO_TEMP_OPEN_DAYS_IX4
-  on RESTO_TEMP_OPEN_DAYS(START_TIME,END_TIME);
+  on RESTO_TEMP_OPEN_DAYS(START_DATE_TIME);
 
 -- ユーザー
 create table USERS (
@@ -727,9 +723,8 @@ comment on column RESTO_TEMP_CLOSE_DAYS.CLOSE_DAY is '休業日';
 comment on table RESTO_TEMP_OPEN_DAYS is '飲食店臨時営業日	 飲食店の臨時営業日を保持する';
 comment on column RESTO_TEMP_OPEN_DAYS.ID is 'ID';
 comment on column RESTO_TEMP_OPEN_DAYS.RESTAURANT_ID is '飲食店ID';
-comment on column RESTO_TEMP_OPEN_DAYS.OPEN_DAY is '営業日';
-comment on column RESTO_TEMP_OPEN_DAYS.START_TIME is '開始時刻';
-comment on column RESTO_TEMP_OPEN_DAYS.END_TIME is '終了時刻';
+comment on column RESTO_TEMP_OPEN_DAYS.START_DATE_TIME is '開始日時';
+comment on column RESTO_TEMP_OPEN_DAYS.END_DATE_TIME is '終了日時';
 
 comment on table USERS is 'ユーザー	 システム上のユーザーを管理するエンティティ';
 comment on column USERS.USER_ID is 'ユーザーID';

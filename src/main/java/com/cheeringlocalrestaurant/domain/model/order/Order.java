@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import javax.validation.Valid;
 
 import com.cheeringlocalrestaurant.domain.model.Customer;
-import com.cheeringlocalrestaurant.domain.type.CustomGenericCollection;
+import com.cheeringlocalrestaurant.domain.type.CustomListCollection;
 import com.cheeringlocalrestaurant.domain.type.datetime.DesiredReceiptDateTime;
 import com.cheeringlocalrestaurant.domain.type.order.AmountOfMoney;
 import com.cheeringlocalrestaurant.domain.type.order.OrderId;
@@ -40,14 +40,14 @@ public class Order {
     
     @NonNull
     @Valid
-    private CustomGenericCollection<OrderDetail> orderDetails;
+    private CustomListCollection<OrderDetail> orderDetails;
     
     private AmountOfMoney totalAmount;
 
     // @formatter:off
     public Order(@NonNull @Valid RestaurantId restaurantId, @NonNull @Valid OrderId orderId, @NonNull @Valid OrderStatus orderStatus,
             @NonNull @Valid Customer customer, @NonNull @Valid DesiredReceiptDateTime desiredReceiptDateTime,
-            @NonNull @Valid CustomGenericCollection<OrderDetail> orderDetails) {
+            @NonNull @Valid CustomListCollection<OrderDetail> orderDetails) {
         this.restaurantId = restaurantId;
         this.orderId = orderId;
         this.orderStatus = orderStatus;

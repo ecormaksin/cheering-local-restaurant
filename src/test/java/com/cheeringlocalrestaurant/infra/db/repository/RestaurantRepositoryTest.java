@@ -63,6 +63,12 @@ class RestaurantRepositoryTest {
     private static final RemoteIpAddress remoteIpAddress = TestDataUtils.remoteIpAddress;
     private static final RestaurantTempRegister restaurantTempRegister = TestDataUtils.restaurantTempRegister;
     
+    private com.cheeringlocalrestaurant.infra.db.jpa.entity.User user;
+    private RestoAccount restoAccount;
+    private Resto resto;
+    private RestoHistory restoHistory;
+    private RestoName restoName;
+    
     @BeforeEach
     void setup() {
         queryFactory = new JPAQueryFactory(entityManager.getEntityManager());
@@ -139,5 +145,10 @@ class RestaurantRepositoryTest {
         } catch (Exception e) {
             fail(e);
         }
+    }
+    
+    @Test
+    void _トップページの情報取得_正常系() throws Exception {
+        
     }
 }

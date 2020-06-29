@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cheeringlocalrestaurant.domain.model.login_request.LoginAccessTokenExpiredException;
+import com.cheeringlocalrestaurant.domain.model.login_request.LoginAccessTokenNotFoundException;
+import com.cheeringlocalrestaurant.domain.model.login_request.LoginAccessTokenUpdatedException;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
 import com.cheeringlocalrestaurant.presentation.controller.BaseController;
-import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccessTokenExpiredException;
-import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccessTokenNotFoundException;
-import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccessTokenUpdatedException;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantLoginUseCase;
 
 import lombok.RequiredArgsConstructor;
@@ -42,16 +42,16 @@ public class RestaurantLoginController {
             restaurantLoginUseCase.execute(new AccessToken(accessToken));
             model.addAttribute("restrantTopForm", new RestaurantTopForm());
             return RestaurantRegisteredController.VIEW_TOP;
-        } catch (RestaurantAccessTokenNotFoundException e) {
+        } catch (LoginAccessTokenNotFoundException e) {
 
             return moveToLoginRequestPageWhenValidTokenNotIncluded(e, model);
-        } catch (RestaurantAccessTokenExpiredException | RestaurantAccessTokenUpdatedException e) {
+        } catch (LoginAccessTokenExpiredException | LoginAccessTokenUpdatedException e) {
 
             String errorMessage = null;
-            if(e instanceof RestaurantAccessTokenExpiredException) {
+            if(e instanceof LoginAccessTokenExpiredException) {
                 errorMessage = messagesource.getMessage("message.login.tokenExpired", null, Locale.getDefault());
             }
-            if (e instanceof RestaurantAccessTokenUpdatedException) {
+            if (e instanceof LoginAccessTokenUpdatedException) {
                 errorMessage = messagesource.getMessage("message.login.tokenUpdated", new Object[]{mailSenderAddress}, Locale.getDefault());
             }
             return moveToLoginRequestPage(e, errorMessage, model);

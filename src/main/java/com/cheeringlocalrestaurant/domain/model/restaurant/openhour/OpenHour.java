@@ -12,8 +12,7 @@ public class OpenHour {
     private EndTime endTime;
 
     public OpenHour(final StartTime startTime, final EndTime endTime) {
-        if (startTime.equals(endTime))
-            throw new IllegalArgumentException("StarTime is the same as EndTime.");
+        if (startTime.equals(endTime)) throw new IllegalArgumentException("StarTime is the same as EndTime.");
 
         if (startTime.toString().compareTo(endTime.toString()) > 0) {
             this.startTime = new StartTime(endTime.toString());
@@ -28,6 +27,7 @@ public class OpenHour {
         this(new StartTime(startTimeString), new EndTime(endTimeString));
     }
 
+    @Override
     public String toString() {
         return String.format("%s〜%s", this.startTime.toString(), this.endTime.toString());
     }
@@ -36,6 +36,7 @@ public class OpenHour {
         return this.toString().equals(other.toString());
     }
 
+    @Override
     public int hashCode() {
         return this.startTime.hashCode() + this.endTime.hashCode();
     }

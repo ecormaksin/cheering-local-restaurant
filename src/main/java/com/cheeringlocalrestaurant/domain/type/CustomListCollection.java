@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CustomGenericCollection<E> {
+public class CustomListCollection<E> {
 
     private List<E> elementList;
     
-    public CustomGenericCollection(final List<E> dayList) {
+    public CustomListCollection(final List<E> dayList) {
         this.elementList = dayList;
     }
     
-    public CustomGenericCollection<E> add(E e) {
+    public CustomListCollection<E> add(E e) {
         List<E> dayList = new ArrayList<>(this.elementList);
         dayList.add(e);
-        return new CustomGenericCollection<>(dayList);
+        return new CustomListCollection<>(dayList);
     }
     
     public List<E> asList() {

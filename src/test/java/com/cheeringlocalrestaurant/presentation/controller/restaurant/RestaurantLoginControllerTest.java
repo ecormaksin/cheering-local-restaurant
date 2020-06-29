@@ -19,12 +19,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTopPageInfo;
+import com.cheeringlocalrestaurant.domain.model.login_request.LoginAccessTokenExpiredException;
+import com.cheeringlocalrestaurant.domain.model.login_request.LoginAccessTokenNotFoundException;
+import com.cheeringlocalrestaurant.domain.model.login_request.LoginAccessTokenUpdatedException;
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTopPageInfoCreator;
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessToken;
 import com.cheeringlocalrestaurant.presentation.controller.BaseController;
-import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccessTokenExpiredException;
-import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccessTokenNotFoundException;
-import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantAccessTokenUpdatedException;
 import com.cheeringlocalrestaurant.usecase.restaurant.RestaurantLoginUseCase;
 
 @WebMvcTest(RestaurantLoginController.class)
@@ -88,7 +88,7 @@ class RestaurantLoginControllerTest {
     @Test
     void _システムから発行されたトークンでアクセスした場合は飲食店のトップページへ遷移する() throws Exception {
 
-        given(restaurantLoginUseCase.execute((AccessToken) any())).willReturn(new RestaurantTopPageInfo());
+        given(restaurantLoginUseCase.execute((AccessToken) any())).willReturn(RestaurantTopPageInfoCreator.dummySimpleNoOrders());
         
         final String accessToken = UUID.randomUUID().toString();
         // @formatter:off
@@ -107,7 +107,7 @@ class RestaurantLoginControllerTest {
     @Test
     void _システムで発行されていないトークンでアクセスした場合はエラーページへ遷移する() throws Exception {
 
-        given(restaurantLoginUseCase.execute((AccessToken) any())).willThrow(new RestaurantAccessTokenNotFoundException());
+        given(restaurantLoginUseCase.execute((AccessToken) any())).willThrow(new LoginAccessTokenNotFoundException());
 
         testWhenValidTokenNotIncluded(SetAccessToken.TRUE);
     }
@@ -118,7 +118,7 @@ class RestaurantLoginControllerTest {
         final String errorMessage = "ログインURLの有効期限が切れています。\nログインリクエストを行ってください。";
         given(messagesource.getMessage("message.login.tokenExpired", null, Locale.getDefault())).willReturn(errorMessage);
 
-        given(restaurantLoginUseCase.execute((AccessToken) any())).willThrow(new RestaurantAccessTokenExpiredException());
+        given(restaurantLoginUseCase.execute((AccessToken) any())).willThrow(new LoginAccessTokenExpiredException());
 
         testWhenInvalidToken(errorMessage);
     }
@@ -129,7 +129,7 @@ class RestaurantLoginControllerTest {
         final String errorMessage = "新しいログインリクエストが行われています。メールを確認してください。\n身に覚えがない場合は速やかにログインリクエストを行い、" + mailSenderAddress + "までお問い合わせください。";
         given(messagesource.getMessage("message.login.tokenUpdated", new Object[] {mailSenderAddress}, Locale.getDefault())).willReturn(errorMessage);
 
-        given(restaurantLoginUseCase.execute((AccessToken) any())).willThrow(new RestaurantAccessTokenUpdatedException());
+        given(restaurantLoginUseCase.execute((AccessToken) any())).willThrow(new LoginAccessTokenUpdatedException());
 
         testWhenInvalidToken(errorMessage);
     }

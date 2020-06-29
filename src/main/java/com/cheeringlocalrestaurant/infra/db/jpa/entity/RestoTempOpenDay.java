@@ -16,24 +16,20 @@ public class RestoTempOpenDay implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @SequenceGenerator(allocationSize=1, name="RESTO_TEMP_OPEN_DAYS_ID_GENERATOR", sequenceName="RESTO_TEMP_OPEN_DAYS_SEQ")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_TEMP_OPEN_DAYS_ID_GENERATOR")
+	@SequenceGenerator(allocationSize=1, name="RESTO_TEMP_OPEN_DAYS_ID_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESTO_TEMP_OPEN_DAYS_ID_GENERATOR")
 	private Long id;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="END_TIME")
-	private Date endTime;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="OPEN_DAY")
-	private Date openDay;
+	@Column(name="END_DATE_TIME")
+	private Date endDateTime;
 
 	@Column(name="RESTAURANT_ID")
 	private Long restaurantId;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="START_TIME")
-	private Date startTime;
+	@Column(name="START_DATE_TIME")
+	private Date startDateTime;
 
 	public RestoTempOpenDay() {
 	}
@@ -46,20 +42,12 @@ public class RestoTempOpenDay implements Serializable {
 		this.id = id;
 	}
 
-	public Date getEndTime() {
-		return this.endTime;
+	public Date getEndDateTime() {
+		return this.endDateTime;
 	}
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public Date getOpenDay() {
-		return this.openDay;
-	}
-
-	public void setOpenDay(Date openDay) {
-		this.openDay = openDay;
+	public void setEndDateTime(Date endDateTime) {
+		this.endDateTime = endDateTime;
 	}
 
 	public Long getRestaurantId() {
@@ -70,12 +58,12 @@ public class RestoTempOpenDay implements Serializable {
 		this.restaurantId = restaurantId;
 	}
 
-	public Date getStartTime() {
-		return this.startTime;
+	public Date getStartDateTime() {
+		return this.startDateTime;
 	}
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+	public void setStartDateTime(Date startDateTime) {
+		this.startDateTime = startDateTime;
 	}
 
 }

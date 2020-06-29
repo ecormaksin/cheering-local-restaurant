@@ -16,4 +16,6 @@ public interface UserLoginRequestRepository {
     // @formatter:on
 
     UserLoginRequest getLoginRequest(LoginRequestId loginTokenId) throws UserLoginRequestNotFoundException;
+
+    UserId findByAccessToken(AccessToken accessToken);
 }

@@ -49,6 +49,8 @@ Domain=飲食店名=VARCHAR2(50 CHAR)
 DomainInfo="飲食店名","VARCHAR2(50 CHAR)",""
 Domain=飲食店メッセージ=VARCHAR2(200 CHAR)
 DomainInfo="飲食店メッセージ","VARCHAR2(200 CHAR)",""
+Domain=日時=DATE
+DomainInfo="日時","DATE",""
 Domain=日付=DATE
 DomainInfo="日付","DATE","時刻部分は無視する（00:00:00)"
 Domain=月の週番号=NUMBER(1,0)
@@ -605,18 +607,16 @@ Left=1750
 Top=600
 Field="ID","ID","*ID","NOT NULL",0,"","",$FFFFFFFF,""
 Field="飲食店ID","RESTAURANT_ID","*飲食店ID","NOT NULL",,"","",$FFFFFFFF,""
-Field="営業日","OPEN_DAY","*日付","NOT NULL",,"","",$FFFFFFFF,""
-Field="開始時刻","START_TIME","*時刻","NOT NULL",,"","",$FFFFFFFF,""
-Field="終了時刻","END_TIME","*時刻","NOT NULL",,"","",$FFFFFFFF,""
-Index==2,RESTAURANT_ID ,OPEN_DAY ,START_TIME 
-Index==0,RESTAURANT_ID 
-Index==0,OPEN_DAY 
-Index==0,START_TIME ,END_TIME 
+Field="開始日時","START_DATE_TIME","*日時","NOT NULL",,"","",$FFFFFFFF,""
+Field="終了日時","END_DATE_TIME","*時刻","NOT NULL",,"","",$FFFFFFFF,""
+Index==2,RESTAURANT_ID ,START_DATE_TIME 
+Index==0,RESTAURANT_ID
+Index==0,START_DATE_TIME 
 EffectMode=None
 Tag=飲食店
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200524085633
+ModifiedDateTime=20200628115404
 Position="MAIN",1750,600
 ZOrder=28
 

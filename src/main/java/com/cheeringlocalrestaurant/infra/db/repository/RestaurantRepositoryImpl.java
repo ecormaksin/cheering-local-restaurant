@@ -12,8 +12,10 @@ import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccountNotFoundException;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTempRegister;
+import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantTopPageInfo;
 import com.cheeringlocalrestaurant.domain.type.MailAddress;
 import com.cheeringlocalrestaurant.domain.type.RemoteIpAddress;
+import com.cheeringlocalrestaurant.domain.type.account.UserId;
 import com.cheeringlocalrestaurant.domain.type.account.UserRole;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.QResto;
@@ -137,5 +139,11 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
         JpaRepositoryProxy.save(restoAccountRepository, restoAccount, remoteIpAddress);
 
         return new RestaurantId(restoId);
+    }
+
+    @Override
+    public RestaurantTopPageInfo getTopPageInfo(UserId userId) {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
     }
 }

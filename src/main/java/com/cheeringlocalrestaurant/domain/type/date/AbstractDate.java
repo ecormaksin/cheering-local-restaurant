@@ -12,6 +12,12 @@ public abstract class AbstractDate implements Serializable, Comparable<AbstractD
     @Getter
     protected LocalDate value;
     
+    private static String[] formats = {"uuuu-MM-dd", "uuuu/MM/dd"};
+    
+    public static String[] formats() {
+        return formats;
+    }
+    
     public AbstractDate(final String dateString) {
         try {
             this.value = LocalDate.parse(dateString);

@@ -2,7 +2,13 @@ package com.cheeringlocalrestaurant.infra.db.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cheeringlocalrestaurant.TestDataUtils;
+import com.cheeringlocalrestaurant.domain.model.login_request.LoginAccessTokenExpiredException;
+import com.cheeringlocalrestaurant.domain.model.login_request.LoginAccessTokenNotFoundException;
+import com.cheeringlocalrestaurant.domain.model.login_request.LoginAccessTokenUpdatedException;
 import com.cheeringlocalrestaurant.domain.model.login_request.UserLoginRequest;
 import com.cheeringlocalrestaurant.domain.model.login_request.UserLoginRequestRepository;
 import com.cheeringlocalrestaurant.domain.model.restaurant.RestaurantAccount;
@@ -24,7 +33,6 @@ import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenExpirati
 import com.cheeringlocalrestaurant.domain.type.account.login.AccessTokenPublishedDateTime;
 import com.cheeringlocalrestaurant.domain.type.account.login.LoginRequestId;
 import com.cheeringlocalrestaurant.domain.type.restaurant.RestaurantId;
-import com.cheeringlocalrestaurant.infra.db.JavaTimeDateConverter;
 import com.cheeringlocalrestaurant.infra.db.jpa.entity.LoginRequest;
 import com.cheeringlocalrestaurant.infra.db.jpa.repository.LoginRequestRepository;
 
@@ -46,7 +54,26 @@ class UserLoginRequestRepositoryTest {
     
     private static final String mailAddressStr = TestDataUtils.MAIL_ADDRESS;
     private static final RestaurantTempRegister restaurantTempRegister = TestDataUtils.restaurantTempRegister;
+    private static final String remoteIpAddressStr = TestDataUtils.REMOTE_IP_ADDRESS;
     private static final RemoteIpAddress remoteIpAddress = TestDataUtils.remoteIpAddress;
+    
+    private AccessToken accessToken;
+    private Timestamp timestamp;
+    private LoginRequest loginRequest;
+    
+    @BeforeEach
+    void setup() {
+        accessToken = new AccessToken();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        timestamp = Timestamp.valueOf(localDateTime.plusDays(1L));
+        
+        loginRequest = new LoginRequest();
+        loginRequest.setUserId(1L);
+        loginRequest.setAccessToken(accessToken.getValue());
+        loginRequest.setTokenExpirationDatetime(timestamp);
+        loginRequest.setRemoteIpAddress(remoteIpAddressStr);
+        loginRequest.setRegisteredTimestamp(timestamp);
+    }
 
     @Test
     void _飲食店ユーザーログイントークンの登録() throws Exception {
@@ -85,6 +112,58 @@ class UserLoginRequestRepositoryTest {
         assertNotNull(loginRequest);
         assertEquals(userId.getValue(), loginRequest.getUserId());
         assertEquals(accessToken.getValue(), loginRequest.getAccessToken());
-        assertEquals(expirationDateTime.getValue(), JavaTimeDateConverter.toLocalDateTimeFromTimestamp(loginRequest.getTokenExpirationDatetime()));
+        assertEquals(expirationDateTime.getValue(), loginRequest.getTokenExpirationDatetime().toLocalDateTime());
+    }
+    
+    @Test
+    void _存在するアクセストークンで検索した場合は対象のユーザーIDが返ってくる() throws Exception {
+        
+        try {
+            loginRequestRepository.save(loginRequest);
+            UserId userId = userLoginRequestRepository.findByAccessToken(accessToken);
+            assertNotNull(userId);
+        } catch (Exception e) {
+            fail(e);
+        }
+    }
+    
+    @Test
+    void _存在しないアクセストークンの場合は例外が発生する() {
+        
+        loginRequestRepository.deleteAll();
+        assertThrows(LoginAccessTokenNotFoundException.class, () -> userLoginRequestRepository.findByAccessToken(new AccessToken()));
+    }
+    
+    @Test
+    void _有効期限の切れたアクセストークンの場合は例外が発生する() {
+        
+        LocalDateTime localDateTime = LocalDateTime.now();
+        localDateTime = localDateTime.minusMinutes(1L);
+        
+        loginRequest.setTokenExpirationDatetime(Timestamp.valueOf(localDateTime));
+        loginRequestRepository.save(loginRequest);
+
+        assertThrows(LoginAccessTokenExpiredException.class, () -> userLoginRequestRepository.findByAccessToken(accessToken));
+    }
+    
+    @Test
+    void _登録日時のより新しいアクセストークンが存在する場合は例外が発生する() {
+        
+        loginRequestRepository.save(loginRequest);
+
+        LocalDateTime newLocalDateTime = timestamp.toLocalDateTime();
+        newLocalDateTime = newLocalDateTime.plusMinutes(1L);
+        Timestamp newTimestamp = Timestamp.valueOf(newLocalDateTime);
+        
+        AccessToken newAccessToken = new AccessToken();
+        LoginRequest newLoginRequest = new LoginRequest();
+        newLoginRequest.setUserId(1L);
+        newLoginRequest.setAccessToken(newAccessToken.getValue());
+        newLoginRequest.setTokenExpirationDatetime(newTimestamp);
+        newLoginRequest.setRemoteIpAddress(remoteIpAddressStr);
+        newLoginRequest.setRegisteredTimestamp(newTimestamp);
+        loginRequestRepository.save(newLoginRequest);
+
+        assertThrows(LoginAccessTokenUpdatedException.class, () -> userLoginRequestRepository.findByAccessToken(accessToken));
     }
 }

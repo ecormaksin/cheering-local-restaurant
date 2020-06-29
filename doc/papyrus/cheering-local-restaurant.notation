@@ -698,4 +698,171 @@
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Gb8aIYb3EeqIIbs0U0wLQg" id="(1.0,0.5)"/>
     </edges>
   </notation:Diagram>
+  <notation:Diagram xmi:id="_9YjO8Lg2EeqfScpY9IrofQ" type="PapyrusUMLClassDiagram" name="スケッチレベル" measurementUnit="Pixel">
+    <children xmi:type="notation:Shape" xmi:id="__fGEsLg2EeqfScpY9IrofQ" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="__fMLULg2EeqfScpY9IrofQ" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="__fPOoLg2EeqfScpY9IrofQ" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="__fPOobg2EeqfScpY9IrofQ" y="15"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="__fPOorg2EeqfScpY9IrofQ" type="Class_AttributeCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="__fPOo7g2EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="__fPOpLg2EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="__fPOpbg2EeqfScpY9IrofQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="__fPOprg2EeqfScpY9IrofQ"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="__fP1sLg2EeqfScpY9IrofQ" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="__fP1sbg2EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="__fP1srg2EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="__fP1s7g2EeqfScpY9IrofQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="__fP1tLg2EeqfScpY9IrofQ"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="__fP1tbg2EeqfScpY9IrofQ" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="__fP1trg2EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="__fP1t7g2EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="__fP1uLg2EeqfScpY9IrofQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="__fP1ubg2EeqfScpY9IrofQ"/>
+      </children>
+      <element xmi:type="uml:Class" href="cheering-local-restaurant.uml#__er1ALg2EeqfScpY9IrofQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="__fGEsbg2EeqfScpY9IrofQ" x="240" y="120"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_CekGgLg3EeqfScpY9IrofQ" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_CektkLg3EeqfScpY9IrofQ" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_Cektkbg3EeqfScpY9IrofQ" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Cektkrg3EeqfScpY9IrofQ" y="15"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Cektk7g3EeqfScpY9IrofQ" type="Class_AttributeCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_CektlLg3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Cektlbg3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Cektlrg3EeqfScpY9IrofQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Cektl7g3EeqfScpY9IrofQ"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_CektmLg3EeqfScpY9IrofQ" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Cektmbg3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Cektmrg3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Cektm7g3EeqfScpY9IrofQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CektnLg3EeqfScpY9IrofQ"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Cektnbg3EeqfScpY9IrofQ" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Cektnrg3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Cektn7g3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_CektoLg3EeqfScpY9IrofQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Cektobg3EeqfScpY9IrofQ"/>
+      </children>
+      <element xmi:type="uml:Class" href="cheering-local-restaurant.uml#_CedY0Lg3EeqfScpY9IrofQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CekGgbg3EeqfScpY9IrofQ" x="460" y="120"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_SoewYLg3EeqfScpY9IrofQ" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_SofXcLg3EeqfScpY9IrofQ" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_SofXcbg3EeqfScpY9IrofQ" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_SofXcrg3EeqfScpY9IrofQ" y="15"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Sof-gLg3EeqfScpY9IrofQ" type="Class_AttributeCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Sof-gbg3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Sof-grg3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Sof-g7g3EeqfScpY9IrofQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Sof-hLg3EeqfScpY9IrofQ"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Sof-hbg3EeqfScpY9IrofQ" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Sof-hrg3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Sof-h7g3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Sof-iLg3EeqfScpY9IrofQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Sof-ibg3EeqfScpY9IrofQ"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Sof-irg3EeqfScpY9IrofQ" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Sof-i7g3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Sof-jLg3EeqfScpY9IrofQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Sof-jbg3EeqfScpY9IrofQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Sof-jrg3EeqfScpY9IrofQ"/>
+      </children>
+      <element xmi:type="uml:Class" href="cheering-local-restaurant.uml#_Soae8Lg3EeqfScpY9IrofQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SoewYbg3EeqfScpY9IrofQ" x="480" y="300"/>
+    </children>
+    <styles xmi:type="notation:StringValueStyle" xmi:id="_9YjO8bg2EeqfScpY9IrofQ" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_9YjO8rg2EeqfScpY9IrofQ"/>
+    <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_9YjO87g2EeqfScpY9IrofQ" diagramKindId="org.eclipse.papyrus.uml.diagram.class">
+      <owner xmi:type="uml:Model" href="cheering-local-restaurant.uml#_J72akIW6Eeq6L_J7rHhq9g"/>
+    </styles>
+    <element xmi:type="uml:Model" href="cheering-local-restaurant.uml#_J72akIW6Eeq6L_J7rHhq9g"/>
+    <edges xmi:type="notation:Connector" xmi:id="_JNdncLg3EeqfScpY9IrofQ" type="Association_Edge" source="__fGEsLg2EeqfScpY9IrofQ" target="_CekGgLg3EeqfScpY9IrofQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_JNeOgLg3EeqfScpY9IrofQ" type="Association_StereotypeLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JNeOgbg3EeqfScpY9IrofQ" y="-20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_JNeOgrg3EeqfScpY9IrofQ" type="Association_NameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JNeOg7g3EeqfScpY9IrofQ" y="20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_JNeOhLg3EeqfScpY9IrofQ" type="Association_TargetRoleLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JNeOhbg3EeqfScpY9IrofQ" y="-20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_JNeOhrg3EeqfScpY9IrofQ" type="Association_SourceRoleLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JNeOh7g3EeqfScpY9IrofQ" y="20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_JNeOiLg3EeqfScpY9IrofQ" type="Association_SourceMultiplicityLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JNeOibg3EeqfScpY9IrofQ" y="20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_JNeOirg3EeqfScpY9IrofQ" type="Association_TargetMultiplicityLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JNeOi7g3EeqfScpY9IrofQ" y="-20"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_JNdncbg3EeqfScpY9IrofQ"/>
+      <element xmi:type="uml:Association" href="cheering-local-restaurant.uml#_JNT2cLg3EeqfScpY9IrofQ"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_JNdncrg3EeqfScpY9IrofQ" points="[340, 160, -643984, -643984]$[460, 160, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_JOjMkLg3EeqfScpY9IrofQ" id="(1.0,0.4)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_JOjMkbg3EeqfScpY9IrofQ" id="(0.0,0.4)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_bGhTsLg3EeqfScpY9IrofQ" type="Association_Edge" source="__fGEsLg2EeqfScpY9IrofQ" target="_SoewYLg3EeqfScpY9IrofQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_bGh6wLg3EeqfScpY9IrofQ" type="Association_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_cIYZULg3EeqfScpY9IrofQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_bGh6wbg3EeqfScpY9IrofQ" x="1" y="-19"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_bGh6wrg3EeqfScpY9IrofQ" type="Association_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_cIpfELg3EeqfScpY9IrofQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_bGh6w7g3EeqfScpY9IrofQ" x="-1" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_bGh6xLg3EeqfScpY9IrofQ" type="Association_TargetRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_cI2TYLg3EeqfScpY9IrofQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_bGh6xbg3EeqfScpY9IrofQ" x="23" y="-19"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_bGh6xrg3EeqfScpY9IrofQ" type="Association_SourceRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_cJJ1YLg3EeqfScpY9IrofQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_bGh6x7g3EeqfScpY9IrofQ" x="-23" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_bGh6yLg3EeqfScpY9IrofQ" type="Association_SourceMultiplicityLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_cJQjELg3EeqfScpY9IrofQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_bGh6ybg3EeqfScpY9IrofQ" x="22" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_bGh6yrg3EeqfScpY9IrofQ" type="Association_TargetMultiplicityLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_cJa7ILg3EeqfScpY9IrofQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_bGh6y7g3EeqfScpY9IrofQ" x="-21" y="-19"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_bGhTsbg3EeqfScpY9IrofQ"/>
+      <element xmi:type="uml:Association" href="cheering-local-restaurant.uml#_bGQ1ALg3EeqfScpY9IrofQ"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bGhTsrg3EeqfScpY9IrofQ" points="[300, 220, -643984, -643984]$[360, 360, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_bG1cwLg3EeqfScpY9IrofQ" id="(0.6,1.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_bG1cwbg3EeqfScpY9IrofQ" id="(0.0,0.6)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_QGb08Lg4EeqfScpY9IrofQ" type="Association_Edge" source="_CekGgLg3EeqfScpY9IrofQ" target="_SoewYLg3EeqfScpY9IrofQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_QGb087g4EeqfScpY9IrofQ" type="Association_StereotypeLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_QGccALg4EeqfScpY9IrofQ" y="-20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_QGccAbg4EeqfScpY9IrofQ" type="Association_NameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_QGccArg4EeqfScpY9IrofQ" y="20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_QGccA7g4EeqfScpY9IrofQ" type="Association_TargetRoleLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_QGccBLg4EeqfScpY9IrofQ" y="-20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_QGccBbg4EeqfScpY9IrofQ" type="Association_SourceRoleLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_QGccBrg4EeqfScpY9IrofQ" y="20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_QGccB7g4EeqfScpY9IrofQ" type="Association_SourceMultiplicityLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_QGccCLg4EeqfScpY9IrofQ" y="20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_QGccCbg4EeqfScpY9IrofQ" type="Association_TargetMultiplicityLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_QGccCrg4EeqfScpY9IrofQ" y="-20"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_QGb08bg4EeqfScpY9IrofQ"/>
+      <element xmi:type="uml:Association" href="cheering-local-restaurant.uml#_QGHE0Lg4EeqfScpY9IrofQ"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_QGb08rg4EeqfScpY9IrofQ" points="[520, 220, -643984, -643984]$[520, 300, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_QGwlELg4EeqfScpY9IrofQ" id="(0.6,1.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_QGxMILg4EeqfScpY9IrofQ" id="(0.4,0.0)"/>
+    </edges>
+  </notation:Diagram>
 </xmi:XMI>
