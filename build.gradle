@@ -56,11 +56,11 @@ dependencies {
         "org.projectlombok:lombok"
     )
     annotationProcessor(
-            platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"),
-            "javax.persistence:javax.persistence-api",
-            "javax.annotation:javax.annotation-api",
-            "org.projectlombok:lombok",
-            "com.querydsl:querydsl-apt:$queryDslVersion:jpa"
+        platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"),
+        "javax.persistence:javax.persistence-api",
+        "javax.annotation:javax.annotation-api",
+        "org.projectlombok:lombok",
+        "com.querydsl:querydsl-apt:$queryDslVersion:jpa"
     )
     runtimeOnly (
         "org.springframework.boot:spring-boot-devtools",
