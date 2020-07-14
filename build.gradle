@@ -8,18 +8,21 @@ buildscript {
         springDependencyManagementVersion = "1.0.9.RELEASE"
         springCloudStarterVaultConfigVersion = "2.1.2.RELEASE"
         oracleJdbc6Version = "11.2.0.4"
-        log4jdbcLog4j2 = "1.16"
+        log4jdbcLog4j2Version = "1.16"
         freeFairLombokVersion = "5.1.0"
         queryDslVersion = "4.2.1"
+        webjarsBootstrapVersion = "4.4.1"
+        apacheCommonsEmailVersion = "1.5"
+        greenmailVersion = "1.5.13"
     }
 }
 
 plugins {
     id "java"
     id "java-library"
-    id "org.springframework.boot" version "${springBootVersion}"
-    id "io.spring.dependency-management" version "${springDependencyManagementVersion}"
-    id "io.freefair.lombok" version "${freeFairLombokVersion}"
+    id "org.springframework.boot" version "$springBootVersion"
+    id "io.spring.dependency-management" version "$springDependencyManagementVersion"
+    id "io.freefair.lombok" version "$freeFairLombokVersion"
 }
 
 repositories {
@@ -28,36 +31,36 @@ repositories {
 
 dependencies {
     api (
-        "com.querydsl:querydsl-jpa:${queryDslVersion}"
+        "com.querydsl:querydsl-jpa:$queryDslVersion"
     )
     implementation (
-        platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"),
+        platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"),
         "org.springframework.boot:spring-boot-starter-data-jpa",
         "org.springframework.boot:spring-boot-starter-thymeleaf",
         "org.springframework.boot:spring-boot-starter-web",
         "org.springframework.boot:spring-boot-starter-mail",
-        "org.springframework.cloud:spring-cloud-starter-vault-config:${springCloudStarterVaultConfigVersion}",
+        "org.springframework.cloud:spring-cloud-starter-vault-config:$springCloudStarterVaultConfigVersion",
         "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
         "org.flywaydb:flyway-core",
-        "com.oracle.database.jdbc:ojdbc6:${oracleJdbc6Version}",
-        "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:${log4jdbcLog4j2}",
-        "org.webjars:bootstrap:4.4.1",
+        "com.oracle.database.jdbc:ojdbc6:$oracleJdbc6Version",
+        "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:$log4jdbcLog4j2Version",
+        "org.webjars:bootstrap:$webjarsBootstrapVersion",
         "org.apache.commons:commons-lang3",
-        "org.apache.commons:commons-email:1.5",
+        "org.apache.commons:commons-email:$apacheCommonsEmailVersion",
         "org.freemarker:freemarker",
         "com.querydsl:querydsl-apt",
         "com.querydsl:querydsl-jpa",
-        "com.querydsl:querydsl-sql:${queryDslVersion}"
+        "com.querydsl:querydsl-sql:$queryDslVersion"
     )
     compileOnly (
         "org.projectlombok:lombok"
     )
     annotationProcessor(
-            platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"),
+            platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"),
             "javax.persistence:javax.persistence-api",
             "javax.annotation:javax.annotation-api",
             "org.projectlombok:lombok",
-            "com.querydsl:querydsl-apt:${queryDslVersion}:jpa"
+            "com.querydsl:querydsl-apt:$queryDslVersion:jpa"
     )
     runtimeOnly (
         "org.springframework.boot:spring-boot-devtools",
@@ -67,7 +70,7 @@ dependencies {
         "org.springframework.boot:spring-boot-starter-test",
         "org.junit.jupiter:junit-jupiter-api",
         "org.junit.jupiter:junit-jupiter-params",
-        "com.icegreen:greenmail:1.5.13"
+        "com.icegreen:greenmail:$greenmailVersion"
     )
     testRuntimeOnly (
         "org.junit.jupiter:junit-jupiter-engine"
