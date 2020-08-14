@@ -16,7 +16,7 @@ BEGIN
 
     IF (vSeqObjCount = 0) THEN
         DBMS_OUTPUT.PUT_LINE('シーケンス「' || P_SEQUENCE_NAME || '」を作成');
-        vSql := 'CREATE SEQUENCE ' || P_SEQUENCE_NAME;
+        vSql := 'CREATE SEQUENCE ' || P_SEQUENCE_NAME || ' INCREMENT BY 50';
         EXECUTE IMMEDIATE vSql;
         RETURN;
     END IF;
